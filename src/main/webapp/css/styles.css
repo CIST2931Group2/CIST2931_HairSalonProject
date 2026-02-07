@@ -1,0 +1,108 @@
+/* ===== Reset & Base ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ===== Header ===== */
+header.site-header {
+    background-color: #4a90e2;
+    color: white;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* ===== Main container for login or dashboards ===== */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.login-container,
+.dashboard-container {
+    background: white;
+    padding: 2rem 3rem; /* slightly more for login */
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px; /* dashboards can override if needed */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-container h2,
+.dashboard-container h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* ===== Form elements ===== */
+label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+    padding: 0.3rem 0;
+}
+
+input {
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #357ABD;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 480px) {
+    .login-container,
+    .dashboard-container {
+        padding: 2rem 1.5rem;
+    }
+
+    header.site-header {
+        font-size: 1.5rem;
+        padding: 1rem;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+}
