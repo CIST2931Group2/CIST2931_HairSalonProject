@@ -13,7 +13,7 @@ body {
     min-height: 100vh;
 }
 
-/* ===== Header ===== */
+/***** Header *****/
 header.site-header {
     background-color: #4a90e2;
     color: white;
@@ -32,10 +32,33 @@ main {
     padding: 2rem;
 }
 
+/***** STYLES FOR INDEX.JSP *****/
+
+/* ===== Landing page container (reuses login-container styles) ===== */
+.landing-container {
+    max-width: 500px; /* a little wider than login */
+    text-align: center;
+    gap: 1rem; /* slightly tighter spacing */
+}
+
+.landing-container p {
+    color: #555;
+    font-size: 1rem;
+}
+
+.btn-login {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+}
+
+/***** STYLES FOR LOGIN.JSP *****/
+
 .login-container,
 .dashboard-container {
     background: white;
-    padding: 2rem 3rem; /* slightly more for login */
+    padding: 2rem 3rem;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     width: 100%;
@@ -52,7 +75,7 @@ main {
     color: #333;
 }
 
-/* ===== Form elements ===== */
+/***** Form elements *****/
 label {
     font-weight: bold;
     margin-bottom: 0.5rem;
@@ -90,7 +113,7 @@ button:hover {
     font-size: 0.9rem;
 }
 
-/* ===== Responsive adjustments ===== */
+/***** Responsive adjustments  *****/
 @media (max-width: 480px) {
     .login-container,
     .dashboard-container {
