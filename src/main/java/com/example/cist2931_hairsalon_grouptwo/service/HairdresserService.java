@@ -1,4 +1,4 @@
-package com.chattech.hairsalon.hair_salon.service;
+package com.example.cist2931_hairsalon_grouptwo.service;
 
 /* HairdresserService
  *  Service-layer class responsible for HAIRDRESSER business logic:
@@ -16,14 +16,14 @@ package com.chattech.hairsalon.hair_salon.service;
  * Author: Maria Ravid
  */
 
-import com.chattech.hairsalon.hair_salon.dao.AppointmentDAO;
-import com.chattech.hairsalon.hair_salon.dao.CustomerDAO;
-import com.chattech.hairsalon.hair_salon.dao.HairdresserDAO;
-import com.chattech.hairsalon.hair_salon.dao.UserDAO;
-import com.chattech.hairsalon.hair_salon.model.Appointment;
-import com.chattech.hairsalon.hair_salon.model.Customer;
-import com.chattech.hairsalon.hair_salon.model.Hairdresser;
-import com.chattech.hairsalon.hair_salon.model.User;
+import com.example.cist2931_hairsalon_grouptwo.dao.AppointmentDAO;
+import com.example.cist2931_hairsalon_grouptwo.dao.CustomerDAO;
+import com.example.cist2931_hairsalon_grouptwo.dao.HairdresserDAO;
+import com.example.cist2931_hairsalon_grouptwo.dao.UserDAO;
+import com.example.cist2931_hairsalon_grouptwo.model.Appointment;
+import com.example.cist2931_hairsalon_grouptwo.model.Customer;
+import com.example.cist2931_hairsalon_grouptwo.model.Hairdresser;
+import com.example.cist2931_hairsalon_grouptwo.model.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -182,3 +182,4 @@ public class HairdresserService {
         public ServiceException(String message) { super(message); }
     }
 }
+
