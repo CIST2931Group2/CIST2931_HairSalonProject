@@ -1,4 +1,4 @@
-package com.chattech.hairsalon.hair_salon.service;
+package com.example.cist2931_hairsalon_grouptwo.service;
 
 /* AdminService
  * Service-layer class implementing ADMIN business logic for managing:
@@ -15,14 +15,14 @@ package com.chattech.hairsalon.hair_salon.service;
  * Author: Maria Ravid
  */
 
-import com.chattech.hairsalon.hair_salon.dao.HairdresserDAO;
-import com.chattech.hairsalon.hair_salon.dao.ScheduleBlockDAO;
-import com.chattech.hairsalon.hair_salon.dao.ScheduleDAO;
-import com.chattech.hairsalon.hair_salon.dao.UserDAO;
-import com.chattech.hairsalon.hair_salon.model.Hairdresser;
-import com.chattech.hairsalon.hair_salon.model.Schedule;
-import com.chattech.hairsalon.hair_salon.model.ScheduleBlock;
-import com.chattech.hairsalon.hair_salon.model.User;
+import com.example.cist2931_hairsalon_grouptwo.dao.HairdresserDAO;
+import com.example.cist2931_hairsalon_grouptwo.dao.ScheduleBlockDAO;
+import com.example.cist2931_hairsalon_grouptwo.dao.ScheduleDAO;
+import com.example.cist2931_hairsalon_grouptwo.dao.UserDAO;
+import com.example.cist2931_hairsalon_grouptwo.model.Hairdresser;
+import com.example.cist2931_hairsalon_grouptwo.model.Schedule;
+import com.example.cist2931_hairsalon_grouptwo.model.ScheduleBlock;
+import com.example.cist2931_hairsalon_grouptwo.model.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -233,3 +233,4 @@ public class AdminService {
         public ServiceException(String message) { super(message); }
     }
 }
+
