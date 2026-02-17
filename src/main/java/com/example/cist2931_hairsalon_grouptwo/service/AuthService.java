@@ -1,4 +1,4 @@
-package com.chattech.hairsalon.hair_salon.service;
+package com.example.cist2931_hairsalon_grouptwo.service;
 
 /* AuthService
  * Service-layer class responsible for authentication and account-related business logic.
@@ -15,10 +15,10 @@ package com.chattech.hairsalon.hair_salon.service;
  * Author: Maria Ravid
  */
 
-import com.chattech.hairsalon.hair_salon.dao.CustomerDAO;
-import com.chattech.hairsalon.hair_salon.dao.UserDAO;
-import com.chattech.hairsalon.hair_salon.model.Customer;
-import com.chattech.hairsalon.hair_salon.model.User;
+import com.example.cist2931_hairsalon_grouptwo.dao.CustomerDAO;
+import com.example.cist2931_hairsalon_grouptwo.dao.UserDAO;
+import com.example.cist2931_hairsalon_grouptwo.model.Customer;
+import com.example.cist2931_hairsalon_grouptwo.model.User;
 
 import java.time.LocalDateTime;
 
@@ -112,3 +112,4 @@ public class AuthService {
         userDAO.setActive(userId, false);
     }
 }
+
