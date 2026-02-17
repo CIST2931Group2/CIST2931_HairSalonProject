@@ -1,4 +1,4 @@
-package com.chattech.hairsalon.hair_salon.service;
+package com.example.cist2931_hairsalon_grouptwo.service;
 
 /* AppointmentService
  * Service-layer class responsible for appointment-related business logic.
@@ -14,8 +14,8 @@ package com.chattech.hairsalon.hair_salon.service;
  * Author: Maria Ravid
  */
 
-import com.chattech.hairsalon.hair_salon.dao.*;
-import com.chattech.hairsalon.hair_salon.model.*;
+import com.example.cist2931_hairsalon_grouptwo.dao.*;
+import com.example.cist2931_hairsalon_grouptwo.model.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -179,3 +179,4 @@ public class AppointmentService {
     }
     // END CUSTOMER VIEWS APPOINTMENTS
 }
+
