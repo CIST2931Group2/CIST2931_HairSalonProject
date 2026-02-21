@@ -47,7 +47,7 @@ public class Appointment {
 
     //Setters
     public void setAppointmentId(int appointmentId) { this.appointmentId = appointmentId; }           //May change
-    public void setCustomerId(int customerId) { this customerId = customerId; }
+    public void setCustomerId(int customerId) { this.customerId = customerId; }
     public void setHairdresserId(int hairdresserId) { this.hairdresserId = hairdresserId; }
     public void setStartDateTime(LocalDateTime startDateTime) { this.startDateTime = startDateTime; }
     public void setEndDateTime(LocalDateTime endDateTime) { this.endDateTime = endDateTime; }
@@ -55,4 +55,5 @@ public class Appointment {
     public void setStatus(String status) { this.status = status; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
+
 
