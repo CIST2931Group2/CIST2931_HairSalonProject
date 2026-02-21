@@ -7,18 +7,19 @@ import java.time.LocalDateTime;
  * Immutable after creation.
  * Version 1, made to be edited ro reflect any future changes. -Jake Key
  * Version 2 - full constructor added, no setters, labels added. -Jake Key
+ * Version 3 - added setters. - Jake Key (have to double check with DAO for customerId, setter placed until I can confirm with DAO)
  */
 public class Appointment {
 
     // Attributes
-    private int appointmentId;
-    private int customerId;
-    private int hairdresserId;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
-    private String serviceType;
-    private String status;
-    private LocalDateTime createdAt;
+    private int appointmentId;            //AutoNumber
+    private int customerId;               //Required
+    private int hairdresserId;            //Required
+    private LocalDateTime startDateTime;  //Required
+    private LocalDateTime endDateTime;    //Required
+    private String serviceType;           //Required
+    private String status;                //Required
+    private LocalDateTime createdAt;      //Required
 
     // Constructors
     public Appointment() { }
@@ -43,4 +44,15 @@ public class Appointment {
     public String getServiceType() { return serviceType; }
     public String getStatus() { return status; }
     public LocalDateTime getCreatedAt() { return createdAt; }
+
+    //Setters
+    public void setAppointmentId(int appointmentId) { this.appointmentId = appointmentId; }           //May change
+    public void setCustomerId(int customerId) { this customerId = customerId; }
+    public void setHairdresserId(int hairdresserId) { this.hairdresserId = hairdresserId; }
+    public void setStartDateTime(LocalDateTime startDateTime) { this.startDateTime = startDateTime; }
+    public void setEndDateTime(LocalDateTime endDateTime) { this.endDateTime = endDateTime; }
+    public void setServiceType(String serviceType) { this.serviceType = serviceType; }
+    public void setStatus(String status) { this.status = status; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
+
