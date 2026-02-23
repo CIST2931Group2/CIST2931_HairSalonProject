@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <%@ include file="/includes/logo.jsp" %>
+    <span class="site-title">Salon Appointment System</span>
     <title>Customer Dashboard</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>

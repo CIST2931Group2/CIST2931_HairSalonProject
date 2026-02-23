@@ -17,7 +17,8 @@
 <body>
 
 <header class="site-header">
-    Salon Appointment System
+    <%@ include file="/includes/logo.jsp" %>
+    <span class="site-title">Salon Appointment System</span>
 </header>
 
 <main>
