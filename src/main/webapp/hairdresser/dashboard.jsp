@@ -20,9 +20,10 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/hairdresser-nav.jsp" />
 
+<div class="dashboard-container">
 <h2>Hairdresser Dashboard</h2>
 
 <p>View your schedule and assigned appointments.</p>
-
+</div>
 </body>
 </html>

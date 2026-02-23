@@ -20,6 +20,7 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/customer-nav.jsp" />
 
+<div class="dashboard-container">
 <h2>My Appointments</h2>
 
 <h3>Upcoming Appointments</h3>
@@ -53,6 +54,7 @@
         <td>COMPLETED</td>
     </tr>
 </table>
+</div>
 
 </body>
 </html>

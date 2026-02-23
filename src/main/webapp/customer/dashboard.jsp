@@ -20,9 +20,11 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/customer-nav.jsp" />
 
-<h2>Customer Dashboard</h2>
+<div class="dashboard-container">
+    <h2>Customer Dashboard</h2>
 
-<p>Welcome! Use the navigation above to manage your appointments.</p>
+    <p>Welcome! Use the navigation above to manage your appointments.</p>
+</div>
 
 </body>
 </html>

@@ -20,6 +20,7 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/hairdresser-nav.jsp" />
 
+<div class="dashboard-container">
 <h2>My Schedule</h2>
 
 <table>
@@ -36,6 +37,7 @@
         <td>SCHEDULED</td>
     </tr>
 </table>
+</div>
 
 </body>
 </html>
