@@ -1,4 +1,4 @@
-package com.chattech.hairsalon.hair_salon.dao;
+package com.example.cist2931_hairsalon_grouptwo.dao;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,3 +24,4 @@ public class DBConnection {
             return DriverManager.getConnection(url);
         }
 }
+
