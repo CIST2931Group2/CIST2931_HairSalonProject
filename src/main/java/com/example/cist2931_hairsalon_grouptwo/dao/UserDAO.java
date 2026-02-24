@@ -1,6 +1,6 @@
-package com.chattech.hairsalon.hair_salon.dao;
+package com.example.cist2931_hairsalon_grouptwo.dao;
 
-import com.chattech.hairsalon.hair_salon.model.User;
+import com.example.cist2931_hairsalon_grouptwo.model.User;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -91,3 +91,4 @@ public class UserDAO {
         return u;
     }
 }
+
