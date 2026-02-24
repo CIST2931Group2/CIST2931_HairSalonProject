@@ -1,6 +1,6 @@
-package com.chattech.hairsalon.hair_salon.dao;
+package com.example.cist2931_hairsalon_grouptwo.dao;
 
-import com.chattech.hairsalon.hair_salon.model.Hairdresser;
+import com.example.cist2931_hairsalon_grouptwo.model.Hairdresser;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -107,3 +107,4 @@ public class HairdresserDAO {
         return h;
     }
 }
+
