@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static final String MDB_PATH = "C:\\Users\\Ravid\\Desktop\\School\\Spring 2026\\Systems Project\\Hair_Salon\\HairSalonDB_seed.accdb";
+    private static final String MDB_PATH = "HairSalonDB_seed.accdb";
 
     private DBConnection() {}
 
@@ -24,4 +24,5 @@ public class DBConnection {
             return DriverManager.getConnection(url);
         }
 }
+
 
