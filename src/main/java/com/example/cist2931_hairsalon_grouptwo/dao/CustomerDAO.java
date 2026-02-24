@@ -1,6 +1,6 @@
-package com.chattech.hairsalon.hair_salon.dao;
+package com.example.cist2931_hairsalon_grouptwo.dao;
 
-import com.chattech.hairsalon.hair_salon.model.Customer;
+import com.example.cist2931_hairsalon_grouptwo.model.Customer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -87,3 +87,4 @@ public class CustomerDAO {
         return c;
     }
 }
+
