@@ -1,4 +1,4 @@
-package com.hairsalon.model;
+package com.example.cist2931_hairsalon_grouptwo.model;
 
 /**
  * Represents a salon customer.
@@ -40,3 +40,4 @@ public class Customer {
     public void setLastName(String lastName) { this.lastName = lastName; }
     public void setPhone(String phone) { this.phone = phone; }
 }
+
