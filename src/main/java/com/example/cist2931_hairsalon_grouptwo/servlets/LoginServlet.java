@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
             User user = authService.login(email, password);
 
             HttpSession session = request.getSession(true);
-            session.setAttribute("userId", user.getId());
+            session.setAttribute("userId", user.getUserId());
             session.setAttribute("role", user.getRole());
             session.setAttribute("email", user.getEmail());
 
@@ -57,4 +57,5 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("login.jsp?error=authFailed");
         }
     }
+
 }
