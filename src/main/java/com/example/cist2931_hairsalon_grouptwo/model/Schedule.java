@@ -1,4 +1,4 @@
-package com.hairsalon.model;
+package com.example.cist2931_hairsalon_grouptwo.model;
 
 import java.time.LocalDate;
 
@@ -36,3 +36,4 @@ public class Schedule {
     public void setWeekStartDate(LocalDate weekStartDate) { this.weekStartDate = weekStartDate; }
     public void setActive(boolean active) { isActive = active; }
 }
+
