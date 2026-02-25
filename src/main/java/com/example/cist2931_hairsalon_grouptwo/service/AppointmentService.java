@@ -48,6 +48,7 @@ public class AppointmentService {
     private final HairdresserDAO hairdresserDAO;
     private final UserDAO userDAO;
 
+
     // Constructor
     public AppointmentService(AppointmentDAO appointmentDAO,
                               ScheduleDAO scheduleDAO,

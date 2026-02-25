@@ -8,6 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <header class="site-header">
-  <h1>Salon Appointment System</h1>
+  <div class="header-container">
+    <!-- <img src="images/logo.png" alt="Salon Logo" class="header-logo"> -->
+    <div class="header-text">
+      <h1>Salon Appointment System</h1>
+      <p class="tagline">Book appointments, manage schedules, and connect with your stylist</p>
+    </div>
+  </div>
 </header>
-

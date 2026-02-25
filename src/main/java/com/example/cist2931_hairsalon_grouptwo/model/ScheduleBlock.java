@@ -1,4 +1,4 @@
-package com.example.cist2931_hairsalon_grouptwo.model;
+package com.hairsalon.model;
 
 import java.time.LocalTime;
 
@@ -40,4 +40,3 @@ public class ScheduleBlock {
     public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
     public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
 }
-

@@ -1,5 +1,6 @@
 package com.example.cist2931_hairsalon_grouptwo.servlets;
 
+import com.example.cist2931_hairsalon_grouptwo.dao.*;
 import com.example.cist2931_hairsalon_grouptwo.service.AppointmentService;
 
 import jakarta.servlet.*;
@@ -15,7 +16,13 @@ public class CustomerDashboardServlet extends HttpServlet {
 
     @Override
     public void init() {
-        appointmentService = new AppointmentService();
+        appointmentService = new AppointmentService(
+                new AppointmentDAO(),
+                new ScheduleDAO(),
+                new ScheduleBlockDAO(),
+                new HairdresserDAO(),
+                new UserDAO()
+        );
     }
 
     @Override
@@ -26,7 +33,7 @@ public class CustomerDashboardServlet extends HttpServlet {
         Integer userId = (Integer) request.getSession().getAttribute("userId");
 
         request.setAttribute("appointments",
-                appointmentService.getAppointmentsForCustomer(userId));
+                appointmentService.getCustomerAppointments(userId));
 
         request.getRequestDispatcher("/customer/dashboard.jsp")
                 .forward(request, response);

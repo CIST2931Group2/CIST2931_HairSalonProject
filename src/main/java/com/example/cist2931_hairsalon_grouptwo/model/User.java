@@ -1,4 +1,4 @@
-package com.example.cist2931_hairsalon_grouptwo.model;
+package com.hairsalon.model;
 
 import java.time.LocalDateTime;
 
@@ -45,5 +45,4 @@ public class User {
     public void setRole(String role) { this.role = role; }
     public void setActive(boolean active) { isActive = active; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
 }

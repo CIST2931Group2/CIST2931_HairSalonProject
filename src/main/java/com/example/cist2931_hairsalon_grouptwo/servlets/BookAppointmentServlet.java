@@ -1,5 +1,6 @@
 package com.example.cist2931_hairsalon_grouptwo.servlets;
 
+import com.example.cist2931_hairsalon_grouptwo.dao.*;
 import com.example.cist2931_hairsalon_grouptwo.service.AppointmentService;
 
 import jakarta.servlet.*;
@@ -15,7 +16,13 @@ public class BookAppointmentServlet extends HttpServlet {
 
     @Override
     public void init() {
-        appointmentService = new AppointmentService();
+        appointmentService = new AppointmentService(
+                new AppointmentDAO(),
+                new ScheduleDAO(),
+                new ScheduleBlockDAO(),
+                new HairdresserDAO(),
+                new UserDAO()
+        );
     }
 
     @Override
