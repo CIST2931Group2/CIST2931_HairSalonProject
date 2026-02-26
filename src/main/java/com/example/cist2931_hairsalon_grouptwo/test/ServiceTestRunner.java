@@ -1,4 +1,4 @@
-package com.chattech.hairsalon.hair_salon.test;
+package com.example.cist2931_hairsalon_grouptwo.test;
 
 /* ServiceTestRunner
  * Service Tested
@@ -270,3 +270,4 @@ public class ServiceTestRunner {
         }
     }
 }
+
