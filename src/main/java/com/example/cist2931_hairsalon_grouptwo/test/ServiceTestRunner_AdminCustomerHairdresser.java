@@ -1,4 +1,4 @@
-package com.chattech.hairsalon.hair_salon.test;
+package com.example.cist2931_hairsalon_grouptwo.test;
 
 /* ServiceTestRunner_AdminCustomer_Hairdresser
  * Service Tested
@@ -12,9 +12,9 @@ package com.chattech.hairsalon.hair_salon.test;
  * Author: Maria Ravid
  */
 
-import com.chattech.hairsalon.hair_salon.dao.*;
-import com.chattech.hairsalon.hair_salon.model.*;
-import com.chattech.hairsalon.hair_salon.service.*;
+import com.example.cist2931_hairsalon_grouptwo.dao.*;
+import com.example.cist2931_hairsalon_grouptwo.model.*;
+import com.example.cist2931_hairsalon_grouptwo.service.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -231,3 +231,4 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
     }
 
 } // END Tester
+
