@@ -12,13 +12,13 @@ package com.example.cist2931_hairsalon_grouptwo.test;
  * Author: Maria Ravid
  */
 
-import com.chattech.hairsalon.hair_salon.dao.*;
-import com.chattech.hairsalon.hair_salon.model.Appointment;
-import com.chattech.hairsalon.hair_salon.model.Schedule;
-import com.chattech.hairsalon.hair_salon.model.User;
-import com.chattech.hairsalon.hair_salon.service.AppointmentService;
-import com.chattech.hairsalon.hair_salon.service.AuthService;
-import com.chattech.hairsalon.hair_salon.service.ScheduleService;
+import com.example.cist2931_hairsalon_grouptwo.dao.*;
+import com.example.cist2931_hairsalon_grouptwo.model.Appointment;
+import com.example.cist2931_hairsalon_grouptwo.model.Schedule;
+import com.example.cist2931_hairsalon_grouptwo.model.User;
+import com.example.cist2931_hairsalon_grouptwo.service.AppointmentService;
+import com.example.cist2931_hairsalon_grouptwo.service.AuthService;
+import com.example.cist2931_hairsalon_grouptwo.service.ScheduleService;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -270,4 +270,5 @@ public class ServiceTestRunner {
         }
     }
 }
+
 
