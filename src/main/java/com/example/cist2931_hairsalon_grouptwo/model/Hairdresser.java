@@ -1,4 +1,4 @@
-package com.hairsalon.model;
+package com.example.cist2931_hairsalon_grouptwo.model;
 
 /**
  * Represents a professional hairdresser.
@@ -48,3 +48,4 @@ public class Hairdresser {
     public void setSpecialties(String specialties) { this.specialties = specialties; }
     public void setBio(String bio) { this.bio = bio; }
 }
+
