@@ -13,6 +13,8 @@ package com.example.cist2931_hairsalon_grouptwo.service;
  *   but full enforcement is done later once Servlets exist.
  *
  * Author: Maria Ravid
+* * Version 2 ****
+ * createWeeklySchedule(), addScheduleBlock(), and listScheduleBlocks() updated as exist in ScheduleService
  */
 
 import com.example.cist2931_hairsalon_grouptwo.dao.HairdresserDAO;
@@ -57,15 +59,19 @@ public class AdminService {
      */
     private final ScheduleBlockDAO scheduleBlockDAO;
 
+    private final ScheduleService scheduleService;
+
     // Constructor
     public AdminService(UserDAO userDAO,
                         HairdresserDAO hairdresserDAO,
                         ScheduleDAO scheduleDAO,
-                        ScheduleBlockDAO scheduleBlockDAO) {
+                        ScheduleBlockDAO scheduleBlockDAO,
+                       ScheduleService scheduleService) {
         this.userDAO = Objects.requireNonNull(userDAO);
         this.hairdresserDAO = Objects.requireNonNull(hairdresserDAO);
         this.scheduleDAO = Objects.requireNonNull(scheduleDAO);
         this.scheduleBlockDAO = Objects.requireNonNull(scheduleBlockDAO);
+        this.scheduleService = Objects.requireNonNull(scheduleService);
     }
 
     /* ADD HAIRDRESSER ACCOUNT (Admin Use Case)
@@ -119,53 +125,24 @@ public class AdminService {
     /* CREATE WEEKLY SCHEDULE (Schedule Container)
      * - FR-A-02 Admin Create/Edit/Delete Hair-Dresser schedule
      * - WF-A1 Admin Creates Weekly Schedule
+     *
+     * Version 2: createWeeklySchedule() updated as exist in ScheduleService
      */
     public int createWeeklySchedule(int hairdresserId, LocalDate weekStartDate) {
-        if (hairdresserId <= 0) throw new ServiceException("Invalid hairdresserId.");
-        Objects.requireNonNull(weekStartDate, "weekStartDate");
 
-        Schedule existing = scheduleDAO.getScheduleByWeek(hairdresserId, weekStartDate);
-        if (existing != null) throw new ServiceException("Schedule already exists for that week.");
-
-        Schedule s = new Schedule();
-        s.setHairdresserId(hairdresserId);
-        s.setWeekStartDate(weekStartDate);
-        s.setActive(true);
-
-        return scheduleDAO.createWeeklySchedule(s);
+        return scheduleService.createWeeklySchedule(hairdresserId, weekStartDate);
     }
     // END CREATE WEEKLY SCHEDULE
 
     /* ADD SCHEDULE BLOCK (Working hours segment)
      * - FR-A-02 Admin Create/Edit/Delete Hair-Dresser schedule
      * - WF-A1 Admin Creates Weekly Schedule (adds blocks for each day)
+     *
+     * Version 2: addScheduleBlock() updated as exist in ScheduleService
      */
     public int addScheduleBlock(int scheduleId, String dayOfWeek, LocalTime start, LocalTime end) {
-        // basic validation
-        if (scheduleId <= 0)
-            throw new ServiceException("Invalid scheduleId.");
-        if (isBlank(dayOfWeek))
-            throw new ServiceException("dayOfWeek required.");
 
-        // Ensure time values are provided
-        Objects.requireNonNull(start, "start");
-        Objects.requireNonNull(end, "end");
-
-        // Business rule: start must be before end (no zero-length or reversed blocks)
-        if (!start.isBefore(end))
-            throw new ServiceException("Start must be before end.");
-        // Validate DB day-of-week format (MON/TUE/.../SUN)
-        if (!isValidDay(dayOfWeek))
-            throw new ServiceException("Invalid dayOfWeek. Use MON..SUN.");
-
-        // Create ScheduleBlock entity
-        ScheduleBlock block = new ScheduleBlock();
-        block.setScheduleId(scheduleId);
-        block.setDayOfWeek(dayOfWeek.toUpperCase());
-        block.setStartTime(start);
-        block.setEndTime(end);
-
-        return scheduleBlockDAO.addBlock(block);
+        return scheduleService.addScheduleBlock(scheduleId, dayOfWeek, start, end);
     }
     // END ADD SCHEDULE BLOCK
 
@@ -174,12 +151,11 @@ public class AdminService {
      * - WF-A3 Admin Manage Employees (view schedule status)
      * Returns: list of blocks for a given scheduleId
      *
+     * Version 2: listScheduleBlocks() updated as exist in ScheduleService as getBlocks()
     */
     public List<ScheduleBlock> listScheduleBlocks(int scheduleId) {
-        if (scheduleId <= 0)
-            throw new ServiceException("Invalid scheduleId.");
 
-        return scheduleBlockDAO.listBlocksBySchedule(scheduleId);
+        return scheduleService.getBlocks(scheduleId);
     }
 
     /* AUTHORIZATION GUARD (Admin-only)
@@ -233,4 +209,5 @@ public class AdminService {
         public ServiceException(String message) { super(message); }
     }
 }
+
 
