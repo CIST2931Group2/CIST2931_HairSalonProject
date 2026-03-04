@@ -1,5 +1,7 @@
 package com.example.cist2931_hairsalon_grouptwo.servlets;
 
+import com.example.cist2931_hairsalon_grouptwo.dao.CustomerDAO;
+import com.example.cist2931_hairsalon_grouptwo.dao.UserDAO;
 import com.example.cist2931_hairsalon_grouptwo.model.Customer;
 import com.example.cist2931_hairsalon_grouptwo.service.CustomerService;
 
@@ -16,7 +18,12 @@ public class CustomerProfileServlet extends HttpServlet {
 
     @Override
     public void init() {
-        customerService = new CustomerService();
+        // Create DAO objects
+        CustomerDAO customerDAO = new CustomerDAO();
+        UserDAO userDAO = new UserDAO();
+
+        // Inject DAOs into CustomerService
+        customerService = new CustomerService(customerDAO, userDAO);
     }
 
     @Override
@@ -25,6 +32,11 @@ public class CustomerProfileServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Integer userId = (Integer) request.getSession().getAttribute("userId");
+
+        if (userId == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
 
         Customer customer = customerService.getCustomerByUserId(userId);
 
@@ -38,8 +50,13 @@ public class CustomerProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws IOException {
-		// Get userId from session
+
         Integer userId = (Integer) request.getSession().getAttribute("userId");
+
+        if (userId == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
 
         // Load existing customer
         Customer customer = customerService.getCustomerByUserId(userId);
@@ -57,6 +74,7 @@ public class CustomerProfileServlet extends HttpServlet {
         // Call service
         customerService.updateCustomerProfile(customer);
 
+        // Redirect to dashboard after update
         response.sendRedirect(request.getContextPath() + "/customerDashboard");
     }
 }

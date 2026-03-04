@@ -1,7 +1,8 @@
 package com.example.cist2931_hairsalon_grouptwo.servlets;
 
-import com.example.cist2931_hairsalon_grouptwo.model.Customer;
+import com.example.cist2931_hairsalon_grouptwo.dao.*;
 import com.example.cist2931_hairsalon_grouptwo.model.Appointment;
+import com.example.cist2931_hairsalon_grouptwo.model.Customer;
 import com.example.cist2931_hairsalon_grouptwo.service.AppointmentService;
 import com.example.cist2931_hairsalon_grouptwo.service.CustomerService;
 
@@ -12,23 +13,6 @@ import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
 
-/*
- * Responsibilities:
- * - Retrieve logged-in user from session
- * - Convert userId (User table) → customerId (Customer table)
- * - Retrieve customer appointments
- * - Forward results to JSP for rendering
- *
- * MVC Design:
- * - Servlet = Controller (handles HTTP request/response)
- * - Service = Business Logic layer
- * - JSP = View layer
- *
- * IMPORTANT:
- * Login is based on the User entity.
- * Appointments are linked to Customer.
- * Therefore, we must convert userId → customerId before retrieving appointments.
- */
 @WebServlet("/customerDashboard")
 public class CustomerDashboardServlet extends HttpServlet {
 
@@ -37,45 +21,59 @@ public class CustomerDashboardServlet extends HttpServlet {
 
     @Override
     public void init() {
-        // Initialize service layer dependencies
-        appointmentService = new AppointmentService();
-        customerService = new CustomerService();
+        // ----- DAOs for AppointmentService -----
+        AppointmentDAO appointmentDAO = new AppointmentDAO();
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        ScheduleBlockDAO scheduleBlockDAO = new ScheduleBlockDAO();
+        HairdresserDAO hairdresserDAO = new HairdresserDAO();
+        UserDAO userDAO = new UserDAO();
+
+        appointmentService = new AppointmentService(
+                appointmentDAO,
+                scheduleDAO,
+                scheduleBlockDAO,
+                hairdresserDAO,
+                userDAO
+        );
+
+        // ----- DAOs for CustomerService -----
+        CustomerDAO customerDAO = new CustomerDAO();
+        customerService = new CustomerService(customerDAO, userDAO);
     }
 
-    /*
-     * Handles loading the customer dashboard.
-     * Retrieves appointment data and forwards to JSP.
-     */
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Retrieve logged-in userId from session
+        // ----- Retrieve logged-in user -----
         Integer userId = (Integer) request.getSession().getAttribute("userId");
 
-        /*
-         * Convert userId (authentication layer)
-         * to Customer domain object (business layer).
-         */
+        if (userId == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        // ----- Optional: enforce active customer -----
+        try {
+            customerService.assertActiveCustomerUser(userId);
+        } catch (CustomerService.ServiceException e) {
+            request.setAttribute("loginError", e.getMessage());
+            request.getRequestDispatcher("/LoginError.jsp")
+                    .forward(request, response);
+            return;
+        }
+
+        // ----- Convert userId → Customer -----
         Customer customer = customerService.getCustomerByUserId(userId);
 
-        /*
-         * Retrieve all appointments associated with this customer.
-         * We pass customerId, NOT userId.
-         */
+        // ----- Retrieve customer appointments -----
         List<Appointment> appointments =
-                appointmentService.getCustomerAppointments(
-                        customer.getCustomerId()
-                );
+                appointmentService.getCustomerAppointments(customer.getCustomerId());
 
-        // Make appointments available to JSP
         request.setAttribute("appointments", appointments);
 
-        /*
-         * Forward to dashboard view.
-         * Forward keeps request attributes intact.
-         */
+        // ----- Forward to JSP -----
         request.getRequestDispatcher("/customer/dashboard.jsp")
                 .forward(request, response);
     }

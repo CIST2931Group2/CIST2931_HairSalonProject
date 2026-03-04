@@ -30,15 +30,28 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
     private final ScheduleBlockDAO scheduleBlockDAO = new ScheduleBlockDAO();
 
     // --- Services under test ---
-    private final CustomerService customerService =
-            new CustomerService(customerDAO, userDAO);
 
+    // CustomerService
+    private final CustomerService customerService = new CustomerService(customerDAO, userDAO);
+
+    // HairdresserService
     private final HairdresserService hairdresserService =
             new HairdresserService(hairdresserDAO, appointmentDAO, customerDAO, userDAO);
 
-    private final AdminService adminService =
-            new AdminService(userDAO, hairdresserDAO, scheduleDAO, scheduleBlockDAO);
+    // ScheduleService (needed for AdminService)
+    private final ScheduleService scheduleService = new ScheduleService(
+            scheduleDAO,
+            scheduleBlockDAO
+    );
 
+    // AdminService
+    private final AdminService adminService = new AdminService(
+            userDAO,
+            hairdresserDAO,
+            scheduleDAO,
+            scheduleBlockDAO,
+            scheduleService
+    );
 
     public static void main(String[] args) {
         new ServiceTestRunner_AdminCustomerHairdresser().runAll();
@@ -63,13 +76,12 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
         testListAllHairdressers();
         testGetHairdresserByUserId(seededHairdresserUserId);
         testGetDailyAppointments(
-                1,
+                seededHairdresserId,
                 LocalDate.of(2026, 2, 12)  // <-- use real date from your DB
         );
 
         // ADMIN
         testDeactivateHairdresser(seededHairdresserId);
-
 
         System.out.println("==================================================");
         System.out.println("DONE");
@@ -79,12 +91,10 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
     // -------------------------
     // CUSTOMER SERVICE TESTS
     // -------------------------
-
     private void testGetCustomerByUserId(int userId) {
         runTest("CustomerService.getCustomerByUserId userId=" + userId, () -> {
             Customer c = customerService.getCustomerByUserId(userId);
-            if (c == null) throw
-                    new RuntimeException("Expected Customer, got null.");
+            if (c == null) throw new RuntimeException("Expected Customer, got null.");
             System.out.println("   customerId=" + c.getCustomerId() + ", name=" + c.getFirstName() + " " + c.getLastName());
         });
     }
@@ -92,61 +102,50 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
     private void testUpdateCustomerProfile(int userId) {
         runTest("CustomerService.updateCustomerProfile userId=" + userId, () -> {
             Customer c = customerService.getCustomerByUserId(userId);
-            if (c == null) throw
-                    new RuntimeException("Customer not found for userId=" + userId);
+            if (c == null) throw new RuntimeException("Customer not found for userId=" + userId);
 
             String originalPhone = c.getPhone();
 
             // Modify one field (basic testing)
             String newPhone = "999-999-9999";
-            if (newPhone.equals(originalPhone)) {
-                newPhone = "888-888-8888";
-            }
+            if (newPhone.equals(originalPhone)) newPhone = "888-888-8888";
 
-            //      WRITE (insert/update/delete)
+            // WRITE
             c.setPhone(newPhone);
             customerService.updateCustomerProfile(c);
 
             // Read-back verification using DAO
             Customer c2 = customerDAO.getCustomerById(c.getCustomerId());
-            if (c2 == null)
-                throw new RuntimeException("Read-back failed.");
+            if (c2 == null) throw new RuntimeException("Read-back failed.");
             if (!newPhone.equals(c2.getPhone()))
                 throw new RuntimeException("Phone not updated. Expected=" + newPhone + ", got=" + c2.getPhone());
 
             System.out.println("   Original phone: " + originalPhone);
             System.out.println("   Updated phone verified: " + c2.getPhone());
         });
-    } // END CUSTOMER SERVICE TESTS
+    }
 
     // -------------------------
     // HAIRDRESSER SERVICE TESTS
     // -------------------------
-
     private void testListAllHairdressers() {
         runTest("HairdresserService.listAllHairdressers  (ACTIVE only)", () -> {
 
             List<Hairdresser> list = hairdresserService.listAllHairdressers();
-            if (list == null || list.isEmpty())
-                throw new RuntimeException("Expected non-empty list.");
+            if (list == null || list.isEmpty()) throw new RuntimeException("Expected non-empty list.");
 
             int activeCount = 0;
-
             System.out.println("   Active Hairdressers:");
 
             for (Hairdresser h : list) {
                 User u = userDAO.findById(h.getUserId());
-                if (u == null)
-                    throw new RuntimeException("User not found for hairdresserId=" + h.getHairdresserId());
-
+                if (u == null) throw new RuntimeException("User not found for hairdresserId=" + h.getHairdresserId());
                 if (u.isActive()) {
                     activeCount++;
                     System.out.println("      - " + h.getFirstName() + " " + h.getLastName());
                 }
             }
-            if (activeCount == 0)
-                throw new RuntimeException("No active hairdressers found.");
-
+            if (activeCount == 0) throw new RuntimeException("No active hairdressers found.");
             System.out.println("   Active count=" + activeCount);
         });
     }
@@ -154,8 +153,7 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
     private void testGetHairdresserByUserId(int userId) {
         runTest("HairdresserService.getHairdresserByUserId userId=" + userId, () -> {
             Hairdresser h = hairdresserService.getHairdresserByUserId(userId);
-            if (h == null) throw
-                    new RuntimeException("Expected Hairdresser, got null.");
+            if (h == null) throw new RuntimeException("Expected Hairdresser, got null.");
             System.out.println("   hairdresserId=" + h.getHairdresserId() + ", name=" + h.getFirstName() + " " + h.getLastName());
         });
     }
@@ -164,19 +162,11 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
         runTest("HairdresserService.getDailyAppointments hairdresserId=" + hairdresserId + " date=" + date, () -> {
 
             List<Appointment> list = hairdresserService.getDailyAppointments(hairdresserId, date);
-
-            if (list == null)
-                throw new RuntimeException("Expected list, got null.");
-
-            // EXPECT seeded data to contain appointments for this date
+            if (list == null) throw new RuntimeException("Expected list, got null.");
             if (list.isEmpty())
-                throw new RuntimeException(
-                        "Expected appointments for seeded date " + date + " but found none."
-                );
+                throw new RuntimeException("Expected appointments for seeded date " + date + " but found none.");
 
             System.out.println("   Appointments found=" + list.size());
-
-            // Print details for verification
             for (Appointment a : list) {
                 System.out.println("      - ApptId=" + a.getAppointmentId()
                         + ", CustomerId=" + a.getCustomerId()
@@ -184,41 +174,32 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
                         + ", Status=" + a.getStatus());
             }
         });
-    } // END HAIRDRESSER SERVICE TESTS
+    }
 
     // -------------------------
     // ADMIN SERVICE TESTS
     // -------------------------
-
     private void testDeactivateHairdresser(int hairdresserId) {
         runTest("AdminService.deactivateHairdresser hairdresserId=" + hairdresserId, () -> {
             Hairdresser h = hairdresserDAO.getHairdresserById(hairdresserId);
-            if (h == null) throw
-                    new RuntimeException("Hairdresser not found.");
+            if (h == null) throw new RuntimeException("Hairdresser not found.");
 
-            // Pre-check
             User uBefore = userDAO.findById(h.getUserId());
-            if (uBefore == null) throw
-                    new RuntimeException("User not found for hairdresser.");
+            if (uBefore == null) throw new RuntimeException("User not found for hairdresser.");
             System.out.println("   Before isActive=" + uBefore.isActive());
 
             adminService.deactivateHairdresser(hairdresserId);
 
-            // Read-back verification
             User uAfter = userDAO.findById(h.getUserId());
-            if (uAfter == null) throw
-                    new RuntimeException("User not found after deactivate.");
-            if (uAfter.isActive()) throw
-                    new RuntimeException("Expected inactive user after deactivation.");
-
+            if (uAfter == null) throw new RuntimeException("User not found after deactivate.");
+            if (uAfter.isActive()) throw new RuntimeException("Expected inactive user after deactivation.");
             System.out.println("   After isActive=" + uAfter.isActive());
         });
-    } // END ADMIN SERVICE TESTS
+    }
 
     // -------------------------
-    // Test helper format - runTest("Test name", () -> { ... });
+    // Test helper
     // -------------------------
-
     private void runTest(String name, Runnable test) {
         System.out.println("\nTEST: " + name);
         try {
@@ -231,4 +212,3 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
     }
 
 } // END Tester
-

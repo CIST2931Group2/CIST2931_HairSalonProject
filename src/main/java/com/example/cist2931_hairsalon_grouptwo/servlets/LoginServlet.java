@@ -2,6 +2,8 @@ package com.example.cist2931_hairsalon_grouptwo.servlets;
 
 import com.example.cist2931_hairsalon_grouptwo.model.User;
 import com.example.cist2931_hairsalon_grouptwo.service.AuthService;
+import com.example.cist2931_hairsalon_grouptwo.dao.UserDAO;
+import com.example.cist2931_hairsalon_grouptwo.dao.CustomerDAO;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -16,7 +18,12 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() {
-        authService = new AuthService();
+        // Create DAO objects
+        UserDAO userDAO = new UserDAO();
+        CustomerDAO customerDAO = new CustomerDAO();
+
+        // Inject DAOs into AuthService
+        authService = new AuthService(userDAO, customerDAO);
     }
 
     @Override
@@ -35,27 +42,23 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("role", user.getRole());
             session.setAttribute("email", user.getEmail());
 
-            switch (user.getRole()) {
-
+            // Redirect based on role
+            switch (user.getRole().toUpperCase()) {
                 case "CUSTOMER":
                     response.sendRedirect(request.getContextPath() + "/customerDashboard");
                     break;
-
                 case "HAIRDRESSER":
                     response.sendRedirect(request.getContextPath() + "/hairdresserDashboard");
                     break;
-
                 case "ADMIN":
                     response.sendRedirect(request.getContextPath() + "/adminSchedule");
                     break;
-
                 default:
-                    response.sendRedirect("login.jsp?error=invalidRole");
+                    response.sendRedirect(request.getContextPath() + "/login.jsp?error=invalidRole");
             }
 
         } catch (Exception e) {
-            response.sendRedirect("login.jsp?error=authFailed");
+            response.sendRedirect(request.getContextPath() + "/login.jsp?error=authFailed");
         }
     }
-
 }

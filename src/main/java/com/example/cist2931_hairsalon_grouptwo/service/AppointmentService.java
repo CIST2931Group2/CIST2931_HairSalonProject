@@ -180,4 +180,3 @@ public class AppointmentService {
     }
     // END CUSTOMER VIEWS APPOINTMENTS
 }
-
