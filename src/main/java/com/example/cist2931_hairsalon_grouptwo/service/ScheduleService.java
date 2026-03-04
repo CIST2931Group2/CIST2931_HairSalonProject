@@ -45,14 +45,14 @@ public class ScheduleService {
      * WF-A1 Admin Creates Weekly Schedule
      * UPDATED to V2: used original AdminService version and same method was updated there
      */
-    public int createWeeklySchedule(int hairdresserId, LocalDate weekStart) {
+    public int createWeeklySchedule(int hairdresserId, LocalDate weekStartDate) {
         if (hairdresserId <= 0)
-            throw new AdminService.ServiceException("Invalid hairdresserId.");
+            throw new ServiceException("Invalid hairdresserId.");
         Objects.requireNonNull(weekStartDate, "weekStartDate");
 
         Schedule existing = scheduleDAO.getScheduleByWeek(hairdresserId, weekStartDate);
         if (existing != null)
-            throw new AdminService.ServiceException("Schedule already exists for that week.");
+            throw new ServiceException("Schedule already exists for that week.");
 
         Schedule s = new Schedule();
         s.setHairdresserId(hairdresserId);
@@ -78,9 +78,9 @@ public class ScheduleService {
 
         // basic validation
         if (scheduleId <= 0)
-            throw new AdminService.ServiceException("Invalid scheduleId.");
+            throw new ServiceException("Invalid scheduleId.");
         if (isBlank(dayOfWeek))
-            throw new AdminService.ServiceException("dayOfWeek required.");
+            throw new ServiceException("dayOfWeek required.");
 
         // Ensure time values are provided
         Objects.requireNonNull(start, "start");
@@ -88,10 +88,10 @@ public class ScheduleService {
 
         // Business rule: start must be before end (no zero-length or reversed blocks)
         if (!start.isBefore(end))
-            throw new AdminService.ServiceException("Start must be before end.");
+            throw new ServiceException("Start must be before end.");
         // Validate DB day-of-week format (MON/TUE/.../SUN)
         if (!isValidDay(dayOfWeek))
-            throw new AdminService.ServiceException("Invalid dayOfWeek. Use MON..SUN.");
+            throw new ServiceException("Invalid dayOfWeek. Use MON..SUN.");
 
         // Create ScheduleBlock entity
         ScheduleBlock block = new ScheduleBlock();
@@ -160,6 +160,14 @@ public class ScheduleService {
                 d.equals("SUN");
     }
 
+    /*
+     * ServiceException
+     * runtime exception used to represent business-rule failures in service layer.
+     * Version 3 - added ServiceException
+     */
+    public static class ServiceException extends RuntimeException {
+        public ServiceException(String message) { super(message); }
+    }
 }
 
 
