@@ -10,6 +10,9 @@ package com.example.cist2931_hairsalon_grouptwo.service;
  * No SQL statements should exist here.
  *
  * Author: Maria Ravid
+ * **** Version 2 ****
+ * createWeeklySchedule(), addScheduleBlock(), and getBlocks() updated
+ * added new method getScheduleByWeek()
  */
 
 import com.example.cist2931_hairsalon_grouptwo.dao.ScheduleBlockDAO;
@@ -20,6 +23,7 @@ import com.example.cist2931_hairsalon_grouptwo.model.ScheduleBlock;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 public class ScheduleService {
 
@@ -39,22 +43,24 @@ public class ScheduleService {
     /* CREATE WEEKLY SCHEDULE
      * FR-A-02 Admin Create/Edit/Delete Hair-Dresser schedule
      * WF-A1 Admin Creates Weekly Schedule
+     * UPDATED to V2: used original AdminService version and same method was updated there
      */
     public int createWeeklySchedule(int hairdresserId, LocalDate weekStart) {
+        if (hairdresserId <= 0)
+            throw new AdminService.ServiceException("Invalid hairdresserId.");
+        Objects.requireNonNull(weekStartDate, "weekStartDate");
 
-        if (weekStart == null)
-            throw new RuntimeException("Week start date required");
+        Schedule existing = scheduleDAO.getScheduleByWeek(hairdresserId, weekStartDate);
+        if (existing != null)
+            throw new AdminService.ServiceException("Schedule already exists for that week.");
 
-        // Prevent duplicate weekly schedules
-        if (scheduleDAO.getScheduleByWeek(hairdresserId, weekStart) != null)
-            throw new RuntimeException("Schedule already exists");
+        Schedule s = new Schedule();
+        s.setHairdresserId(hairdresserId);
+        s.setWeekStartDate(weekStartDate);
+        s.setActive(true);
 
-        Schedule schedule = new Schedule();
-        schedule.setHairdresserId(hairdresserId);
-        schedule.setWeekStartDate(weekStart);
-        schedule.setActive(true); // default new schedule is active
+        return scheduleDAO.createWeeklySchedule(s);
 
-        return scheduleDAO.createWeeklySchedule(schedule);
     }
     // END CREATE WEEKLY SCHEDULE
 
@@ -62,6 +68,8 @@ public class ScheduleService {
      * FR-A-02 Admin Create/Edit/Delete Hair-Dresser schedule
      * WF-A1 Admin Creates Weekly Schedule (add time blocks)
      * Supports WF-C2 (Customer searches availability)
+     *
+     ** UPDATED to V2: used original AdminService version and same method was updated there
      */
     public int addScheduleBlock(int scheduleId,
                                 String dayOfWeek,
@@ -70,23 +78,25 @@ public class ScheduleService {
 
         // basic validation
         if (scheduleId <= 0)
-            throw new RuntimeException("Invalid schedule ID");
+            throw new AdminService.ServiceException("Invalid scheduleId.");
+        if (isBlank(dayOfWeek))
+            throw new AdminService.ServiceException("dayOfWeek required.");
 
-        if (start == null || end == null)
-            throw new RuntimeException("Start and end times required");
+        // Ensure time values are provided
+        Objects.requireNonNull(start, "start");
+        Objects.requireNonNull(end, "end");
 
+        // Business rule: start must be before end (no zero-length or reversed blocks)
         if (!start.isBefore(end))
-            throw new RuntimeException("Invalid time block : start must be before end");
-
+            throw new AdminService.ServiceException("Start must be before end.");
+        // Validate DB day-of-week format (MON/TUE/.../SUN)
         if (!isValidDay(dayOfWeek))
-            throw new RuntimeException("Invalid day of week");
+            throw new AdminService.ServiceException("Invalid dayOfWeek. Use MON..SUN.");
 
+        // Create ScheduleBlock entity
         ScheduleBlock block = new ScheduleBlock();
         block.setScheduleId(scheduleId);
-
-        // Store day in DB-required format (uppercase 3-letter)
         block.setDayOfWeek(dayOfWeek.toUpperCase());
-
         block.setStartTime(start);
         block.setEndTime(end);
 
@@ -99,12 +109,39 @@ public class ScheduleService {
      * WF-C2 Customer Searches Availability (reads blocks)
      *
      * Returns all working hour blocks for a weekly schedule.
+     *
+     *UPDATED to V2: used original AdminService version and same method was updated there
      */
     public List<ScheduleBlock> getBlocks(int scheduleId) {
+        if (scheduleId <= 0)
+            throw new RuntimeException("Invalid scheduleId.");
+
         return scheduleBlockDAO.listBlocksBySchedule(scheduleId);
     }
     // END GET ALL BLOCKS FOR A SCHEDULE
 
+    /* GET WEEKLY SCHEDULE
+     *
+     * UPDATED to V2: new method as used in the AdminScheduleServlet
+     */
+    public Schedule getScheduleByWeek(int hairdresserId, LocalDate weekStart) {
+        if (hairdresserId <= 0)
+            throw new RuntimeException("Invalid hairdresserId");
+        if (weekStart == null)
+            throw new RuntimeException("weekStart required");
+
+        return scheduleDAO.getScheduleByWeek(hairdresserId, weekStart);
+    }
+    // END GET WEEKLY SCHEDULE
+
+
+    // ----------------------------
+    // Helpers (input validation)
+    // ----------------------------
+    private static boolean isBlank(String s) {
+        return s == null || s.trim().isEmpty();
+    }
+    
     /*
      * Validates that the day string matches DB format:
      * MON/TUE/WED/THU/FRI/SAT/SUN
@@ -124,4 +161,5 @@ public class ScheduleService {
     }
 
 }
+
 
