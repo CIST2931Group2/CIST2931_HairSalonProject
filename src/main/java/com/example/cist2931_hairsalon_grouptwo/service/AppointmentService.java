@@ -12,6 +12,8 @@ package com.example.cist2931_hairsalon_grouptwo.service;
  *  This service assumes the user is already authenticated (WF-S1 is a precondition for business workflows).
  *
  * Author: Maria Ravid
+ *
+ * Version 2: added method - getAvailableSlots(...) for FR-C-04
  */
 
 import com.example.cist2931_hairsalon_grouptwo.dao.*;
@@ -67,6 +69,93 @@ public class AppointmentService {
         return dt.getDayOfWeek().name().substring(0, 3);
     }
 
+    /* SEARCH AVAILABLE SLOTS - added on V2
+     * FR-C-04 Search available appointments
+     * Returns available slot start times for one hairdresser on one date.
+     */
+    public List<LocalDateTime> getAvailableSlots(int hairdresserId,
+                                                 LocalDate date,
+                                                 int slotMinutes) {
+
+        if (hairdresserId <= 0)
+            throw new RuntimeException("Invalid hairdresserId");
+
+        if (date == null)
+            throw new RuntimeException("Date is required");
+
+        if (slotMinutes <= 0)
+            throw new RuntimeException("slotMinutes must be positive");
+
+        // ---------------------------------------------------
+        // Verify hairdresser exists and is active
+        // ---------------------------------------------------
+        Hairdresser hairdresser = hairdresserDAO.getHairdresserById(hairdresserId);
+
+        if (hairdresser == null)
+            throw new RuntimeException("Hairdresser not found");
+
+        User hairdresserUser = userDAO.findById(hairdresser.getUserId());
+
+        if (hairdresserUser == null || !hairdresserUser.isActive())
+            throw new RuntimeException("Hairdresser account is inactive");
+
+        // ---------------------------------------------------
+        // Find weekly schedule for the selected date
+        // ---------------------------------------------------
+        LocalDate weekStart = date.with(DayOfWeek.MONDAY);
+        Schedule schedule = scheduleDAO.getScheduleByWeek(hairdresserId, weekStart);
+
+        if (schedule == null || !schedule.isActive())
+            return List.of();   // no schedule = no available slots
+
+        // ---------------------------------------------------
+        // Get blocks for the selected day
+        // ---------------------------------------------------
+        List<ScheduleBlock> blocks =
+                scheduleBlockDAO.listBlocksBySchedule(schedule.getScheduleId());
+
+        // DB stores day as MON/TUE/... so convert Java enum (MONDAY) --> MON
+        String dayCode = date.getDayOfWeek().name().substring(0, 3);
+
+        List<ScheduleBlock> dayBlocks = blocks.stream()
+                .filter(b -> b.getDayOfWeek().equalsIgnoreCase(dayCode))
+                .toList();
+
+        if (dayBlocks.isEmpty())
+            return List.of();
+
+        // ---------------------------------------------------
+        // Get already-booked appointments for that day
+        // ---------------------------------------------------
+        List<Appointment> existing =
+                appointmentDAO.listByHairdresserAndDate(hairdresserId, date);
+
+        List<LocalDateTime> available = new java.util.ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+
+        // ---------------------------------------------------
+        // Generate candidate slots inside each block
+        // ---------------------------------------------------
+        for (ScheduleBlock block : dayBlocks) {
+
+            LocalDateTime slotStart = LocalDateTime.of(date, block.getStartTime());
+            LocalDateTime blockEnd  = LocalDateTime.of(date, block.getEndTime());
+
+            while (!slotStart.plusMinutes(slotMinutes).isAfter(blockEnd)) {
+                LocalDateTime slotEnd = slotStart.plusMinutes(slotMinutes);
+
+                if (!hasOverlap(existing, slotStart, slotEnd)
+                        && !slotStart.isBefore(now)) { // future slots, exactly now - allowed, past - blocked
+                    available.add(slotStart);
+                }
+
+                slotStart = slotStart.plusMinutes(slotMinutes);
+            }
+        }
+
+        return available;
+    } // END getAvailableSlots
+    
     /* BOOK APPOINTMENT (Business Rule Enforcement)
      * FR-C-05 Schedule appointment
      * WF-C3 Customer Schedules Appointment
@@ -179,4 +268,18 @@ public class AppointmentService {
         return appointmentDAO.listByCustomer(customerId);
     }
     // END CUSTOMER VIEWS APPOINTMENTS
+
+    /* HELPER method - added on V2
+     * checks if a candidate slot overlaps with any existing appointment for the hairdresser.
+     * Returns true if the candidate slot overlaps with any existing appointment.
+     */
+    private boolean hasOverlap(List<Appointment> existing,
+                               LocalDateTime slotStart,
+                               LocalDateTime slotEnd) {
+
+        return existing.stream().anyMatch(a ->
+                slotStart.isBefore(a.getEndDateTime()) &&
+                        slotEnd.isAfter(a.getStartDateTime())
+        );
+    }
 }
