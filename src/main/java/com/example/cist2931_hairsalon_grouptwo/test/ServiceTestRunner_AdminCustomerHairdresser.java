@@ -13,6 +13,7 @@ package com.example.cist2931_hairsalon_grouptwo.test;
  */
 
 import com.example.cist2931_hairsalon_grouptwo.dao.*;
+import com.example.cist2931_hairsalon_grouptwo.dto.DailyAppointmentView;
 import com.example.cist2931_hairsalon_grouptwo.model.*;
 import com.example.cist2931_hairsalon_grouptwo.service.*;
 
@@ -161,13 +162,13 @@ public class ServiceTestRunner_AdminCustomerHairdresser {
     private void testGetDailyAppointments(int hairdresserId, LocalDate date) {
         runTest("HairdresserService.getDailyAppointments hairdresserId=" + hairdresserId + " date=" + date, () -> {
 
-            List<Appointment> list = hairdresserService.getDailyAppointments(hairdresserId, date);
+            List<DailyAppointmentView> list = hairdresserService.getDailyAppointments(hairdresserId, date);
             if (list == null) throw new RuntimeException("Expected list, got null.");
             if (list.isEmpty())
                 throw new RuntimeException("Expected appointments for seeded date " + date + " but found none.");
 
             System.out.println("   Appointments found=" + list.size());
-            for (Appointment a : list) {
+            for (DailyAppointmentView a : list) {
                 System.out.println("      - ApptId=" + a.getAppointmentId()
                         + ", CustomerId=" + a.getCustomerId()
                         + ", Start=" + a.getStartDateTime()

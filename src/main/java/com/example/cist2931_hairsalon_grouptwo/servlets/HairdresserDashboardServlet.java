@@ -1,5 +1,6 @@
 package com.example.cist2931_hairsalon_grouptwo.servlets;
 
+import com.example.cist2931_hairsalon_grouptwo.dto.DailyAppointmentView;
 import com.example.cist2931_hairsalon_grouptwo.model.Hairdresser;
 import com.example.cist2931_hairsalon_grouptwo.model.Appointment;
 import com.example.cist2931_hairsalon_grouptwo.service.HairdresserService;
@@ -21,6 +22,8 @@ import java.util.List;
  * - Defaults to today's date if no date is selected
  * - Sends typed domain objects to JSP for rendering
  * - Follows strict MVC separation (Servlet = Controller only)
+ *
+ * * Version 2 - updated method getDailyAppointments() in HairdresserService
  */
 @WebServlet("/hairdresserDashboard")
 public class HairdresserDashboardServlet extends HttpServlet {
@@ -77,8 +80,10 @@ public class HairdresserDashboardServlet extends HttpServlet {
             selectedDate = LocalDate.parse(dateStr);
         }
 
-        // Retrieve appointments for this hairdresser on selected date
-        List<Appointment> appointments =
+        /* Retrieve appointments for this hairdresser on selected date
+         * V2 - updated to change the type of the list
+         */
+        List<DailyAppointmentView> appointments =
                 hairdresserService.getDailyAppointments(
                         hairdresser.getHairdresserId(),
                         selectedDate

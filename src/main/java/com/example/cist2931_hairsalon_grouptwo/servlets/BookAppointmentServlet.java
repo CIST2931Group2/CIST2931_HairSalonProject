@@ -16,6 +16,16 @@ import java.time.LocalTime;
 
 /*
  * Handles booking a new appointment.
+ *
+ * Version 2 - UPDATED DESIGN:
+ * The customer first searches availability and then selects one returned slot.
+ * So this servlet now expects:
+ *   - hairdresserId
+ *   - serviceType
+ *   - slotStart   (selected available slot as LocalDateTime string)
+ *
+ * The servlet calculates the appointment end time based on service duration.
+ *
  * The servlet extracts parameters and passes clean domain objects to the service layer.
  */
 @WebServlet("/bookAppointment")
@@ -68,16 +78,26 @@ public class BookAppointmentServlet extends HttpServlet {
 
             int customerId = customer.getCustomerId();
 
-            // ----- Parse form parameters -----
+            // ----- Parse form parameters ------ REVISED for V2 (slotStartParam added)
             int hairdresserId = Integer.parseInt(request.getParameter("hairdresserId"));
             String serviceType = request.getParameter("serviceType");
+            String slotStartParam = request.getParameter("slotStart");
 
-            LocalDate date = LocalDate.parse(request.getParameter("date"));
-            LocalTime startTime = LocalTime.parse(request.getParameter("startTime"));
-            LocalTime endTime = LocalTime.parse(request.getParameter("endTime"));
+            // logic added for V2
+            if (serviceType == null || serviceType.isBlank()) {
+                throw new RuntimeException("Service type is required.");
+            }
 
-            LocalDateTime start = LocalDateTime.of(date, startTime);
-            LocalDateTime end = LocalDateTime.of(date, endTime);
+            if (slotStartParam == null || slotStartParam.isBlank()) {
+                throw new RuntimeException("Please select an available slot.");
+            }
+
+            // Parse selected slot start time
+            LocalDateTime start = LocalDateTime.parse(slotStartParam);
+
+            // Calculate end time based on service duration
+            int durationMinutes = getSlotMinutes(serviceType);
+            LocalDateTime end = start.plusMinutes(durationMinutes);
 
             // ----- Book appointment via service -----
             appointmentService.bookAppointment(
@@ -96,6 +116,26 @@ public class BookAppointmentServlet extends HttpServlet {
             request.setAttribute("error", ex.getMessage());
             request.getRequestDispatcher("/errorPage.jsp")
                     .forward(request, response);
+        }
+    }
+
+    /* Helper method added at V2
+     * Converts service type to appointment duration in minutes.
+     */
+    private int getSlotMinutes(String serviceType) {
+        switch (serviceType) {
+            case "Haircut":
+                return 30;
+            case "Hair Styling":
+                return 60;
+            case "Hair Dying":
+                return 60;
+            case "Spa Service":
+                return 60;
+            case "Nail Coloring":
+                return 30;
+            default:
+                throw new RuntimeException("Unknown service type.");
         }
     }
 }

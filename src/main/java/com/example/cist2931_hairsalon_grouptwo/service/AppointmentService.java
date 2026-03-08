@@ -155,7 +155,8 @@ public class AppointmentService {
 
         return available;
     } // END getAvailableSlots
-    
+
+
     /* BOOK APPOINTMENT (Business Rule Enforcement)
      * FR-C-05 Schedule appointment
      * WF-C3 Customer Schedules Appointment
@@ -282,4 +283,5 @@ public class AppointmentService {
                         slotEnd.isAfter(a.getStartDateTime())
         );
     }
+
 }

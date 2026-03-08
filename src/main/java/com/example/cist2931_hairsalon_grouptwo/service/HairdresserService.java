@@ -14,18 +14,21 @@ package com.example.cist2931_hairsalon_grouptwo.service;
  * while session handling belongs to Servlets later.
  *
  * Author: Maria Ravid
+ * Version 2 - updated method getDailyAppointments()
  */
 
 import com.example.cist2931_hairsalon_grouptwo.dao.AppointmentDAO;
 import com.example.cist2931_hairsalon_grouptwo.dao.CustomerDAO;
 import com.example.cist2931_hairsalon_grouptwo.dao.HairdresserDAO;
 import com.example.cist2931_hairsalon_grouptwo.dao.UserDAO;
+import com.example.cist2931_hairsalon_grouptwo.dto.DailyAppointmentView;
 import com.example.cist2931_hairsalon_grouptwo.model.Appointment;
 import com.example.cist2931_hairsalon_grouptwo.model.Customer;
 import com.example.cist2931_hairsalon_grouptwo.model.Hairdresser;
 import com.example.cist2931_hairsalon_grouptwo.model.User;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -129,14 +132,40 @@ public class HairdresserService {
      * - WF-H2 Hairdresser Views Schedule
      * - WF-H1 Hairdresser Dashboard (today’s appointments summary)
      *
+     * ****V2 - updated to include DTO DailyAppointmentView
      */
-    public List<Appointment> getDailyAppointments(int hairdresserId, LocalDate date) {
+    public List<DailyAppointmentView> getDailyAppointments(int hairdresserId, LocalDate date) {
         if (hairdresserId <= 0)
             throw new ServiceException("Invalid hairdresserId.");
 
         Objects.requireNonNull(date, "date");
 
-        return appointmentDAO.listByHairdresserAndDate(hairdresserId, date);
+        List<Appointment> appointments =
+                appointmentDAO.listByHairdresserAndDate(hairdresserId, date);
+
+        List<DailyAppointmentView> result = new ArrayList<>();
+
+        for (Appointment appt : appointments) {
+
+            Customer customer = customerDAO.getCustomerById(appt.getCustomerId());
+
+            DailyAppointmentView view = new DailyAppointmentView();
+
+            view.setAppointmentId(appt.getAppointmentId());
+            view.setCustomerId(appt.getCustomerId());
+            view.setStartDateTime(appt.getStartDateTime());
+            view.setServiceType(appt.getServiceType());
+            view.setStatus(appt.getStatus());
+
+            if (customer != null) {
+                view.setCustomerFirstName(customer.getFirstName());
+                view.setCustomerLastName(customer.getLastName());
+            }
+
+            result.add(view);
+        }
+
+        return result;
     }
 
     /* GET CUSTOMER PROFILE (Hairdresser view)
