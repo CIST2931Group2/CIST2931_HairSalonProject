@@ -11,7 +11,7 @@
 
 <jsp:include page="/includes/admin-nav.jsp" />
 <jsp:include page="/includes/header.jsp" />
-<jsp:include page="/includes/hairdressers-nav,jsp" />
+<jsp:include page="/includes/hairdressers-nav.jsp" />
 
 <h2>Manage Hairdressers</h2>
 <br>
@@ -44,3 +44,4 @@
 
 
 </html>
+
