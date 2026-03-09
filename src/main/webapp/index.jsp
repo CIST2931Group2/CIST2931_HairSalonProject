@@ -27,7 +27,7 @@
             <div class="login-container landing-container">
                 <h2>Welcome to Our Salon</h2>
                 <p>Book appointments, manage schedules, and connect with your stylist easily.</p>
-                <a class="btn-login" href="login.jsp">Login</a>
+                <a class="btn btn-full" href="login.jsp">Login</a>
             </div>
         </div>
     </section>

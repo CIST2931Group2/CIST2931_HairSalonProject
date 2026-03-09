@@ -24,11 +24,60 @@ main {
 }
 
 /***** HEADER *****/
+
+/* Header container layout */
+header.site-header .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap; /* allows wrapping on small screens */
+    padding: 20px 50px;
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+/* Logo styling */
+header.site-header .header-logo {
+    max-height: 80px;
+    width: auto;
+}
+
+/* Header text */
+header.site-header .header-text h1 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+header.site-header .header-text .tagline {
+    font-size: 1rem;
+    margin-top: 0.2rem;
+    color: #e0e0e0;
+}
+
+/* Navigation links */
+header.site-header .main-nav {
+    display: flex;
+    gap: 25px;
+}
+
+header.site-header .main-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+header.site-header .main-nav a:hover {
+    color: #ff6f61;
+}
+
+/* Header container fallback */
 header .header-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;  /* space between logo and text */
+    gap: 20px; /* space between logo and text */
     flex-wrap: wrap; /* responsive wrap on small screens */
 }
 
@@ -45,7 +94,7 @@ header.site-header {
     gap: 25px;
 }
 
-/* styles for logo inside header */
+/* Styles for logo inside header */
 header.site-header img {
     max-height: 100px;
     width: auto;
@@ -69,7 +118,7 @@ header .header-text .tagline {
 
 /***** STYLES FOR INDEX.JSP *****/
 
-/* ===== Landing page container (reuses login-container styles) ===== */
+/* Landing page container (reuses login-container styles) */
 .landing-container {
     max-width: 500px; /* a little wider than login */
     text-align: center;
@@ -85,7 +134,7 @@ header .header-text .tagline {
 
 /* Hero Section */
 .hero {
-    /* background-image: url('../images/salon-hero.jpg'); /* Put hero image in the images folder */
+    /* background-image: url('../images/salon-hero.jpg'); */
     background-size: cover;
     background-position: center;
     height: 80vh; /* Tall hero section */
@@ -99,35 +148,54 @@ header .header-text .tagline {
 
 .hero-overlay {
     background-color: rgba(0, 0, 0, 0.5); /* dark overlay for readability */
-    padding: 50px;
+    padding: 50px 30px;
     border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
 
 .hero h2 {
     font-size: 3rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
     margin-bottom: 20px;
 }
 
 .hero p {
     font-size: 1.2rem;
     margin-bottom: 30px;
+    line-height: 1.5;
 }
 
-
-.btn-login {
+/* ===== Unified Button Styles ===== */
+.btn {
     display: inline-block;
-    background-color: #4a90e2;
+    background-color: #357ABD;       /* Default color (blue) */
     color: white;
     font-weight: bold;
-    transition: background 0.3s ease;
     text-decoration: none;
     text-align: center;
-    width: 100%;
-    padding: 0.8rem 0;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
-.btn-login:hover {
-    background-color: #357ABD;
+/* Hover / active states */
+.btn:hover {
+    background-color: #ff6f61;       /* Hover accent color */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Full-width buttons (login forms) */
+.btn-full {
+    width: 100%;
+}
+
+/* Optional small variation for dashboard cards */
+.btn-small {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
 }
 
 /* Dashboard container */
@@ -196,6 +264,52 @@ header .header-text .tagline {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
+/* ===== Adjusted Login Container ===== */
+.login-container {
+    background: white;
+    padding: 3rem 3rem;      /* increased top/bottom padding for balance */
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;             /* slightly larger gap between inputs and buttons */
+}
+
+/* Centering form headings */
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;      /* more space above inputs for balance */
+    color: #333;
+}
+
+/* Form elements spacing */
+.login-container label {
+    margin-bottom: 0.5rem;
+}
+
+.login-container input {
+    padding: 0.75rem;         /* slightly taller input fields */
+    font-size: 1rem;
+}
+
+/* Adjust login button spacing */
+.login-container button,
+.btn-full {
+    margin-top: 1.5rem;       /* more breathing room above button */
+    padding: 0.9rem;          /* slightly taller for balanced look */
+    font-size: 1.1rem;
+    border-radius: 6px;
+}
+
+/* Optional: reduce error message spacing */
+.login-container .error {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Login and dashboard containers */
 .login-container,
 .dashboard-container {
     background: white;
@@ -290,7 +404,26 @@ th {
     color: white;
 }
 
-/***** Responsive adjustments  *****/
+/***** Responsive adjustments *****/
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    header.site-header .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header.site-header .main-nav {
+        margin-top: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    header.site-header .header-logo {
+        max-height: 60px;
+    }
+}
+
 @media (max-width: 480px) {
     .login-container,
     .dashboard-container {
@@ -300,19 +433,14 @@ th {
     header.site-header {
         font-size: 1.5rem;
         padding: 1rem;
+        flex-direction: column;
+    }
+
+    header.site-header img {
+        max-height: 60px;
     }
 
     button {
         font-size: 1rem;
     }
-
-    header.site-header{
-        flex-direction: column;
-        font-size: 1.5rem;
-    }
-
-    header.site-header img{
-        max-height: 60px;
-    }
-
 }

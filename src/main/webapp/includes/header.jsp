@@ -9,10 +9,16 @@
 
 <header class="site-header">
   <div class="header-container">
-    <!-- <img src="images/logo.png" alt="Salon Logo" class="header-logo"> -->
+    <img src="images/logo.png" alt="Salon Logo" class="header-logo">
     <div class="header-text">
       <h1>Salon Appointment System</h1>
       <p class="tagline">Book appointments, manage schedules, and connect with your stylist</p>
     </div>
+    <nav class="main-nav">
+      <a href="index.jsp">Home</a>
+      <a href="login.jsp">Login</a>
+      <a href="customer/book-appointments.jsp">Book Appointment</a>
+      <a href="customer/customer-profile.jsp">Profile</a>
+    </nav>
   </div>
 </header>

@@ -18,11 +18,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() {
-        // Create DAO objects
         UserDAO userDAO = new UserDAO();
         CustomerDAO customerDAO = new CustomerDAO();
-
-        // Inject DAOs into AuthService
         authService = new AuthService(userDAO, customerDAO);
     }
 
@@ -54,11 +51,18 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/adminSchedule");
                     break;
                 default:
-                    response.sendRedirect(request.getContextPath() + "/login.jsp?error=invalidRole");
+                    // If role is invalid, go to error page
+                    request.setAttribute("errorMessage", "Invalid role assigned. Please contact admin.");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginError.jsp");
+                    dispatcher.forward(request, response);
+                    break;
             }
 
         } catch (Exception e) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp?error=authFailed");
+            // Forward to LoginError.jsp on failed login
+            request.setAttribute("errorMessage", "Login failed. Please check your email and password.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginError.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }
