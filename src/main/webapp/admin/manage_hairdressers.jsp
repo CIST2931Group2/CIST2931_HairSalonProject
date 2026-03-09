@@ -3,7 +3,7 @@
 
 <head>
     <%@ include file="/includes/logo.jsp" %>
-    <span class="site-title">Salon Appointment System</span>
+    <span class="site-title">Admin Manage Hairdresser System</span>
     <title>Manage Hairdressers</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
@@ -41,5 +41,6 @@
 
 
 </form>
+
 
 </html>
