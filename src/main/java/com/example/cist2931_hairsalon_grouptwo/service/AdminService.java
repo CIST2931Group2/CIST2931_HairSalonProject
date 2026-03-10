@@ -15,7 +15,9 @@ package com.example.cist2931_hairsalon_grouptwo.service;
  * Author: Maria Ravid
 * * Version 2 ****
  * createWeeklySchedule(), addScheduleBlock(), and listScheduleBlocks() updated as exist in ScheduleService
- */
+ * * Version 3 ***
+ * added new method getAllHairdressers()
+ * */
 
 import com.example.cist2931_hairsalon_grouptwo.dao.HairdresserDAO;
 import com.example.cist2931_hairsalon_grouptwo.dao.ScheduleBlockDAO;
@@ -72,6 +74,14 @@ public class AdminService {
         this.scheduleDAO = Objects.requireNonNull(scheduleDAO);
         this.scheduleBlockDAO = Objects.requireNonNull(scheduleBlockDAO);
         this.scheduleService = Objects.requireNonNull(scheduleService);
+    }
+
+    /* V3 - added new method
+     * Returns a list of all hairdressers in the system.
+     * Used by the Admin interface to display and manage hairdresser accounts.
+     */
+    public List<Hairdresser> getAllHairdressers() {
+        return hairdresserDAO.listAllHairdressers();
     }
 
     /* ADD HAIRDRESSER ACCOUNT (Admin Use Case)
