@@ -15,12 +15,14 @@ package com.example.cist2931_hairsalon_grouptwo.service;
  *
  * Author: Maria Ravid
  * Version 2 - updated method getDailyAppointments()
+ * Version 3 - added new method getAssignedCustomers()
  */
 
 import com.example.cist2931_hairsalon_grouptwo.dao.AppointmentDAO;
 import com.example.cist2931_hairsalon_grouptwo.dao.CustomerDAO;
 import com.example.cist2931_hairsalon_grouptwo.dao.HairdresserDAO;
 import com.example.cist2931_hairsalon_grouptwo.dao.UserDAO;
+import com.example.cist2931_hairsalon_grouptwo.dto.AssignedCustomerView;
 import com.example.cist2931_hairsalon_grouptwo.dto.DailyAppointmentView;
 import com.example.cist2931_hairsalon_grouptwo.model.Appointment;
 import com.example.cist2931_hairsalon_grouptwo.model.Customer;
@@ -176,6 +178,18 @@ public class HairdresserService {
     public Customer getCustomerProfile(int customerId) {
         if (customerId <= 0) throw new ServiceException("Invalid customerId.");
         return customerDAO.getCustomerById(customerId); // DAO method expected
+    }
+
+    /* GET ASSIGNED CUSTOMERS
+     * - FR-H-05 View a list of assigned Customers
+     * **V3 - added new method getAssignedCustomers()
+     */
+    public List<AssignedCustomerView> getAssignedCustomers(int hairdresserId) {
+
+        if (hairdresserId <= 0)
+            throw new ServiceException("Invalid hairdresserId.");
+
+        return appointmentDAO.listAssignedCustomers(hairdresserId);
     }
 
     /* AUTHORIZATION GUARD: ACTIVE HAIRDRESSER CHECK

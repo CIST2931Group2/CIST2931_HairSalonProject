@@ -1,5 +1,6 @@
 package com.example.cist2931_hairsalon_grouptwo.dao;
 
+import com.example.cist2931_hairsalon_grouptwo.dto.AssignedCustomerView;
 import com.example.cist2931_hairsalon_grouptwo.model.Appointment;
 
 import java.sql.*;
@@ -93,6 +94,50 @@ public class AppointmentDAO {
             throw new RuntimeException(e);
         }
     }
+
+    /* V2 - method added for FR-H-05 - View a list of assigned Customers
+     * Used for HairdresserCustomersServlet
+     *
+     */
+    public List<AssignedCustomerView> listAssignedCustomers(int hairdresserId) {
+
+        List<AssignedCustomerView> list = new ArrayList<>();
+
+        String sql =
+                "SELECT DISTINCT c.customerId, c.firstName, c.lastName, c.phone, u.email " +
+                        "FROM Customer c " +
+                        "JOIN Appointment a ON c.customerId = a.customerId " +
+                        "JOIN User u ON c.userId = u.userId " +
+                        "WHERE a.hairdresserId = ? " +
+                        "ORDER BY c.lastName, c.firstName";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, hairdresserId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    AssignedCustomerView v = new AssignedCustomerView(
+                            rs.getInt("customerId"),
+                            rs.getString("firstName"),
+                            rs.getString("lastName"),
+                            rs.getString("phone"),
+                            rs.getString("email")
+                    );
+
+                    list.add(v);
+                }
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error listing assigned customers", e);
+        }
+
+        return list;
+    } // end
 
     private Appointment mapRow(ResultSet rs) throws SQLException {
         Appointment a = new Appointment();

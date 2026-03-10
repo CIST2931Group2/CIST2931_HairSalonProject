@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/hairdresserDashboard");
                     break;
                 case "ADMIN":
-                    response.sendRedirect(request.getContextPath() + "/adminSchedule");
+                    response.sendRedirect(request.getContextPath() + "/adminManageHairdressers");
                     break;
                 default:
                     // If role is invalid, go to error page
