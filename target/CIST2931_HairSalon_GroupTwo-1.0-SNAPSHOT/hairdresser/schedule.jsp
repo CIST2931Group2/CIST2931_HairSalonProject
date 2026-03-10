@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <%@ include file="/includes/logo.jsp" %>
+    <span class="site-title">Salon Appointment System</span>
     <title>My Schedule</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -18,6 +20,7 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/hairdresser-nav.jsp" />
 
+<div class="dashboard-container">
 <h2>My Schedule</h2>
 
 <table>
@@ -34,6 +37,7 @@
         <td>SCHEDULED</td>
     </tr>
 </table>
+</div>
 
 </body>
 </html>

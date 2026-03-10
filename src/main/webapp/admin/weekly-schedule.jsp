@@ -13,7 +13,7 @@
     <%@ include file="/includes/logo.jsp" %>
     <span class="site-title">Salon Appointment System</span>
     <title>Weekly Schedule</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 

@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <%@ include file="/includes/logo.jsp" %>
+    <span class="site-title">Salon Appointment System</span>
     <title>Book Appointment</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -18,26 +20,28 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/customer-nav.jsp" />
 
-<h2>Book an Appointment</h2>
+<div class="dashboard-container">
+    <h2>Book an Appointment</h2>
 
-<form>
-    <label>Hairdresser</label>
-    <select name="hairDresserID">
-        <option>Stylist A</option>
-        <option>Stylist B</option>
-    </select>
+    <form method="post" action="BookAppointmentServlet">
+        <label for="hairDresserID">Hairdresser</label>
+        <select id="hairDresserID" name="hairDresserID">
+            <option>Stylist A</option>
+            <option>Stylist B</option>
+        </select>
 
-    <label>Date</label>
-    <input type="date" name="date">
+        <label for="date">Date</label>
+        <input type="date" name="date">
 
-    <label>Start Time</label>
-    <input type="time" name="startTime">
+        <label>Start Time</label>
+        <input type="time" name="startTime">
 
-    <label>End Time</label>
-    <input type="time" name="endTime">
+        <label>End Time</label>
+        <input type="time" name="endTime">
 
-    <button type="submit">Schedule Appointment</button>
-</form>
+        <button type="submit">Schedule Appointment</button>
+    </form>
+</div>
 
 </body>
 </html>

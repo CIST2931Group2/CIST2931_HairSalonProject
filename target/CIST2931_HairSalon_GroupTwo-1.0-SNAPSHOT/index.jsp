@@ -17,15 +17,20 @@
 <body>
 
 <header class="site-header">
-    Salon Appointment System
+    <%@ include file="/includes/logo.jsp" %>
+    <span class="site-title">Salon Appointment System</span>
 </header>
 
 <main>
-    <div class="login-container landing-container">
-        <h2>Welcome to Our Salon</h2>
-        <p>Book appointments, manage schedules, and connect with your stylist easily.</p>
-        <a class="btn-login" href="login.jsp">Login</a>
-    </div>
+    <section class="hero">
+        <div class="hero-overlay">
+            <div class="login-container landing-container">
+                <h2>Welcome to Our Salon</h2>
+                <p>Book appointments, manage schedules, and connect with your stylist easily.</p>
+                <a class="btn btn-full" href="login.jsp">Login</a>
+            </div>
+        </div>
+    </section>
 </main>
 
 </body>
