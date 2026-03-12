@@ -27,6 +27,19 @@
             <div class="login-container">
                 <h2>Login</h2>
 
+                <%
+                    String error = request.getParameter("error");
+                    if ("authFailed".equals(error)) {
+                %>
+                <p style="color:red;">Invalid email or password.</p>
+                <%
+                } else if ("invalidRole".equals(error)) {
+                %>
+                <p style="color:red;">Invalid role assigned. Please contact admin.</p>
+                <%
+                    }
+                %>
+
                 <!-- Login form posts to LoginServlet -->
                 <form id="loginForm" method="post" action="login">
                     <div class="form-group">

@@ -31,8 +31,13 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        System.out.println("\n=== Login Attempt ===");
+        System.out.println("- Email provided: " + email);
+        System.out.println("- Password provided: " + password);
+
         try {
             User user = authService.login(email, password);
+            System.out.println("- Login Success! User ID: " + user.getUserId() + ", Role: " + user.getRole());
 
             HttpSession session = request.getSession(true);
             session.setAttribute("userId", user.getUserId());
@@ -51,18 +56,13 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/adminManageHairdressers");
                     break;
                 default:
-                    // If role is invalid, go to error page
-                    request.setAttribute("errorMessage", "Invalid role assigned. Please contact admin.");
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginError.jsp");
-                    dispatcher.forward(request, response);
-                    break;
+                    response.sendRedirect("login.jsp?error=invalidRole");
             }
 
         } catch (Exception e) {
-            // Forward to LoginError.jsp on failed login
-            request.setAttribute("errorMessage", "Login failed. Please check your email and password.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/LoginError.jsp");
-            dispatcher.forward(request, response);
+            System.err.println("- Login Failed with Exception:");
+            e.printStackTrace();
+            response.sendRedirect("login.jsp?error=authFailed");
         }
     }
 }
