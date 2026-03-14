@@ -24,9 +24,18 @@
   <span class="site-title">Salon Appointment System</span>
 </header>
 
-<jsp:include page="/includes/hairdresser-nav.jsp" />
+<!-- Navigation -->
+<nav class="nav">
+  <a href="<%= request.getContextPath() %>/hairdresserDashboard">My Dashboard</a>
+  |
+  <a href="<%= request.getContextPath() %>/hairdresserCustomers">My Customers</a>
+  |
+  <a href="<%= request.getContextPath() %>/hairdresserProfile">My Profile</a>
+  |
+  <a href="<%= request.getContextPath() %>/logout">Logout</a>
+</nav>
 
-<h2>Hairdresser Profile</h2>
+<h2>My Profile</h2>
 
 <!-- Error message -->
 <%
@@ -114,10 +123,6 @@
 </form>
 
 <br>
-
-<a href="<%= request.getContextPath() %>/hairdresser/dashboard.jsp">
-  Back to Dashboard
-</a>
 
 </body>
 </html>

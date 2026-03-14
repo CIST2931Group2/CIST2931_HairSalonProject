@@ -22,7 +22,16 @@
   <span class="site-title">Salon Appointment System</span>
 </header>
 
-<jsp:include page="/includes/hairdresser-nav.jsp" />
+<!-- Navigation -->
+<nav class="nav">
+  <a href="<%= request.getContextPath() %>/hairdresserDashboard">My Dashboard</a>
+  |
+  <a href="<%= request.getContextPath() %>/hairdresserCustomers">My Customers</a>
+  |
+  <a href="<%= request.getContextPath() %>/hairdresserProfile">My Profile</a>
+  |
+  <a href="<%= request.getContextPath() %>/logout">Logout</a>
+</nav>
 
 <h1>My Customers</h1>
 
@@ -36,10 +45,6 @@
   }
 %>
 
-<!-- Navigation -->
-<p>
-  <a href="<%= request.getContextPath() %>/hairdresserDashboard">Back to Dashboard</a>
-</p>
 
 <%
   List<AssignedCustomerView> customers =

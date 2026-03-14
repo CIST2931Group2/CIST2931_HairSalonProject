@@ -104,12 +104,12 @@ public class AppointmentDAO {
         List<AssignedCustomerView> list = new ArrayList<>();
 
         String sql =
-                "SELECT DISTINCT c.customerId, c.firstName, c.lastName, c.phone, u.email " +
-                        "FROM Customer c " +
-                        "JOIN Appointment a ON c.customerId = a.customerId " +
-                        "JOIN User u ON c.userId = u.userId " +
-                        "WHERE a.hairdresserId = ? " +
-                        "ORDER BY c.lastName, c.firstName";
+                "SELECT DISTINCT c.customer_id, c.first_name, c.last_name, c.phone, u.email " +
+                        "FROM [Customer] c, [Appointment] a, [User] u " +
+                        "WHERE a.hairdresser_id = ? " +
+                        "AND c.customer_id = a.customer_id " +
+                        "AND c.user_id = u.user_id " +
+                        "ORDER BY c.last_name, c.first_name";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -121,9 +121,9 @@ public class AppointmentDAO {
                 while (rs.next()) {
 
                     AssignedCustomerView v = new AssignedCustomerView(
-                            rs.getInt("customerId"),
-                            rs.getString("firstName"),
-                            rs.getString("lastName"),
+                            rs.getInt("customer_id"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
                             rs.getString("phone"),
                             rs.getString("email")
                     );

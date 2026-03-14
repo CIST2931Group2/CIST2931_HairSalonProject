@@ -31,6 +31,10 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        // added to avoid login errors
+        if (email != null) email = email.trim();
+        if (password != null) password = password.trim();
+
         System.out.println("\n=== Login Attempt ===");
         System.out.println("- Email provided: " + email);
         System.out.println("- Password provided: " + password);

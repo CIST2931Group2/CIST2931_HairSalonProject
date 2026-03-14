@@ -24,15 +24,24 @@ public class UserDAO {
     }
 
     public User findByEmail(String email) {
-        String sql = "SELECT * FROM [User] WHERE email = ?";
+        if (email == null) return null;
+
+        System.out.println("Searching for email = [" + email + "]");
+
+        String sql = "SELECT * FROM [User] WHERE LCase(Trim(email)) = ?";
+
+        System.out.println("SQL Query = " + sql);
+        System.out.println("Parameter value = [" + email.trim().toLowerCase() + "]");
+
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
+            ps.setString(1, email.trim().toLowerCase());
 
-            if (rs.next()) return mapRow(rs);
-            return null;
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return mapRow(rs);
+                return null;
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
