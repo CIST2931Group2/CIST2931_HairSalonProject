@@ -16,7 +16,7 @@
     String error = (String) request.getAttribute("error");
     String success = (String) request.getAttribute("success");
 
-// Optional support if servlet redirects with ?error=...
+// optional support if servlet redirects with ?error=...
     if (error == null) {
         error = request.getParameter("error");
     }
@@ -40,7 +40,13 @@
     <span class="site-title">Salon Appointment System</span>
 </header>
 
-<jsp:include page="/includes/admin-nav.jsp" />
+<nav class="nav">
+    <a href="<%= request.getContextPath() %>/adminManageHairdressers">My Dashboard</a>
+    |
+    <a href="<%= request.getContextPath() %>/adminSchedule">Manage Weekly Schedules</a>
+    |
+    <a href="<%= request.getContextPath() %>/logout">Logout</a>
+</nav>
 
 
 <h1>Admin - Manage Hairdressers</h1>
@@ -52,12 +58,6 @@
 <% if (success != null) { %>
 <p style="color:green;"><%= success %></p>
 <% } %>
-
-<p>
-    <a href="<%= request.getContextPath() %>/adminSchedule">Manage Weekly Schedules</a>
-    |
-    <a href="<%= request.getContextPath() %>/logout">Logout</a>
-</p>
 
 <hr>
 
