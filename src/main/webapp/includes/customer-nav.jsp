@@ -7,9 +7,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <nav class="nav">
-  <a href="/customer/dashboard.jsp">Dashboard</a>
-  <a href="/customer/book-appointment.jsp">Book Appointment</a>
-  <a href="/customer/my-appointments.jsp">My Appointments</a>
-  <a href="/index.jsp">Logout</a>
+  <!-- Dashboard -->
+  <a href="<%= request.getContextPath() %>/customer/dashboard.jsp">Dashboard</a>
+
+  <!-- Book Appointment -->
+  <a href="<%= request.getContextPath() %>/customer/book-appointments.jsp">Book Appointment</a>
+
+  <!-- Profile -->
+  <a href="<%= request.getContextPath() %>/customer/customer-profile.jsp">Profile</a>
+
+  <!-- Logout -->
+  <a href="<%= request.getContextPath() %>/logout">Logout</a>
 </nav>
