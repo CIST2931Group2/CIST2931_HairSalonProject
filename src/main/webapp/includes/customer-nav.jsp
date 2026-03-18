@@ -7,18 +7,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <nav class="nav">
   <!-- Dashboard -->
-  <a href="<%= request.getContextPath() %>/customer/dashboard.jsp">Dashboard</a>
+  <a href="<%= request.getContextPath() %>/customerDashboard">Dashboard</a>
 
-  <!-- Book Appointment -->
+  <!-- Book Appointment (link to JSP page that will submit to servlet) -->
   <a href="<%= request.getContextPath() %>/customer/book-appointments.jsp">Book Appointment</a>
 
   <!-- Profile -->
-  <a href="<%= request.getContextPath() %>/customer/customer-profile.jsp">Profile</a>
+  <a href="<%= request.getContextPath() %>/customerProfile">Profile</a>
 
   <!-- Logout -->
-  <a href="<%= request.getContextPath() %>/logout">Logout</a>
+  <form action="<%= request.getContextPath() %>/logout" method="post" style="display:inline;">
+    <button type="submit" class="btn-small">Logout</button>
+  </form>
 </nav>

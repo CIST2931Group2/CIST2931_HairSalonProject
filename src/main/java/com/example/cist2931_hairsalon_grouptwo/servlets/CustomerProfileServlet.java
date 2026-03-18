@@ -42,7 +42,7 @@ public class CustomerProfileServlet extends HttpServlet {
 
         request.setAttribute("customer", customer);
 
-        request.getRequestDispatcher("/customer/profile.jsp")
+        request.getRequestDispatcher("/customer/customer-profile.jsp")
                 .forward(request, response);
     }
 
