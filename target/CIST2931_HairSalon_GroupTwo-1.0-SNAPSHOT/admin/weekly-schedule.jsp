@@ -6,44 +6,233 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="com.example.cist2931_hairsalon_grouptwo.model.Hairdresser" %>
+<%@ page import="com.example.cist2931_hairsalon_grouptwo.model.Schedule" %>
+<%@ page import="com.example.cist2931_hairsalon_grouptwo.model.ScheduleBlock" %>
+
+<%
+    List<Hairdresser> hairdressers =
+            (List<Hairdresser>) request.getAttribute("hairdressers");
+
+    Schedule schedule = (Schedule) request.getAttribute("schedule");
+
+    List<ScheduleBlock> blocks =
+            (List<ScheduleBlock>) request.getAttribute("blocks");
+
+    Integer selectedHairdresserId =
+            (Integer) request.getAttribute("selectedHairdresserId");
+
+    LocalDate selectedWeekStartDate =
+            (LocalDate) request.getAttribute("selectedWeekStartDate");
+
+    String error = (String) request.getAttribute("error");
+    String success = (String) request.getAttribute("success");
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <%@ include file="/includes/logo.jsp" %>
-    <span class="site-title">Salon Appointment System</span>
-    <title>Weekly Schedule</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="UTF-8">
+    <title>Manage Hairdressers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<jsp:include page="/includes/header.jsp" />
-<jsp:include page="/includes/admin-nav.jsp" />
+<header class="site-header">
+    <%@ include file="/includes/logo.jsp" %>
+    <span class="site-title">Salon Appointment System</span>
+</header>
 
-<h2>Create Weekly Schedule</h2>
+<nav class="nav">
+    <a href="<%= request.getContextPath() %>/adminManageHairdressers">My Dashboard</a>
+    |
+    <a href="<%= request.getContextPath() %>/adminSchedule">Manage Weekly Schedules</a>
+    |
+    <a href="<%= request.getContextPath() %>/logout">Logout</a>
+</nav>
 
-<form>
-    <label>Week Start Date</label>
-    <input type="date" name="weekStartDate">
+<main class = "flex-container">
 
-    <label>Day of Week</label>
-    <select name="dayOfWeek">
-        <option>MON</option>
-        <option>TUE</option>
-        <option>WED</option>
-        <option>THU</option>
-        <option>FRI</option>
-    </select>
+    <h1 style="text-align:center;">Admin - Manage Weekly Schedule and Blocks</h1>
 
-    <label>Start Time</label>
-    <input type="time">
 
-    <label>End Time</label>
-    <input type="time">
+    <% if (error != null) { %>
+    <p style="color:red;"><%= error %></p>
+    <% } %>
 
-    <button>Add Schedule Block</button>
-</form>
+    <% if (success != null) { %>
+    <p style="color:green;"><%= success %></p>
+    <% } %>
 
+    <br>
+
+    <!-- Load existing schedule -->
+    <h2 style="text-align:center;">Load Weekly Schedule with Blocks</h2>
+
+    <form class="form-date" method="get" action="<%= request.getContextPath() %>/adminSchedule">
+
+        <label for="hairdresserId">Hairdresser:</label>
+        <select name="hairdresserId" id="hairdresserId" required>
+            <option value="">-- Select Hairdresser --</option>
+
+            <%
+                if (hairdressers != null) {
+                    for (Hairdresser h : hairdressers) {
+                        boolean isSelected =
+                                selectedHairdresserId != null &&
+                                        selectedHairdresserId == h.getHairdresserId();
+            %>
+            <option value="<%= h.getHairdresserId() %>"
+                    <%= isSelected ? "selected" : "" %>>
+                <%= h.getFirstName() %> <%= h.getLastName() %>
+            </option>
+            <%
+                    }
+                }
+            %>
+        </select>
+
+        <label for="weekStartDate">Week Start Date:</label>
+        <input type="date"
+               name="weekStartDate"
+               id="weekStartDate"
+               value="<%= selectedWeekStartDate != null ? selectedWeekStartDate.toString() : "" %>"
+               required>
+
+        <button type="submit">Load Schedule</button>
+
+    </form>
+
+    <br>
+    <br>
+
+    <!-- Create new weekly schedule. Week Start Date should be Monday -->
+    <h2 style="text-align:center;">Create New Weekly Schedule</h2>
+
+    <form class="form-date" method="post" action="<%= request.getContextPath() %>/adminSchedule">
+        <input type="hidden" name="action" value="createSchedule">
+
+        <label for="createHairdresserId">Hairdresser:</label>
+        <select name="hairdresserId" id="createHairdresserId" required>
+            <option value="">-- Select Hairdresser --</option>
+
+            <%
+                if (hairdressers != null) {
+                    for (Hairdresser h : hairdressers) {
+                        boolean isSelected =
+                                selectedHairdresserId != null &&
+                                        selectedHairdresserId == h.getHairdresserId();
+            %>
+            <option value="<%= h.getHairdresserId() %>"
+                    <%= isSelected ? "selected" : "" %>>
+                <%= h.getFirstName() %> <%= h.getLastName() %>
+            </option>
+            <%
+                    }
+                }
+            %>
+        </select>
+
+        <label for="createWeekStartDate">Week Start Date:</label>
+        <input type="date"
+               name="weekStartDate"
+               id="createWeekStartDate"
+               value="<%= selectedWeekStartDate != null ? selectedWeekStartDate.toString() : "" %>"
+               required>
+
+        <button type="submit">Create Weekly Schedule</button>
+
+    </form>
+
+    <hr>
+    <br>
+    <br>
+
+    <% if (schedule != null) { %>
+
+    <!-- Existing schedule details: Schedule ID, Hairdresser ID, Week Start -->
+    <h2 style="text-align:center;">Schedule Details</h2>
+
+    <p>
+        <strong>Schedule ID:</strong> <%= schedule.getScheduleId() %><br>
+        <strong>Hairdresser ID:</strong> <%= schedule.getHairdresserId() %><br>
+        <strong>Week Start:</strong> <%= schedule.getWeekStartDate() %>
+    </p>
+
+    <br>
+    <!-- Add new schedule block inside existing schedule week. Choose: Day, Start time, End time -->
+    <h3 style="text-align:center;">Add New Schedule Block</h3>
+
+    <form class="form-date" method="post" action="<%= request.getContextPath() %>/adminSchedule">
+        <input type="hidden" name="action" value="addBlock">
+        <input type="hidden" name="scheduleId" value="<%= schedule.getScheduleId() %>">
+        <input type="hidden" name="hairdresserId" value="<%= schedule.getHairdresserId() %>">
+        <input type="hidden" name="weekStartDate" value="<%= schedule.getWeekStartDate() %>">
+
+        <label for="dayOfWeek">Day:</label>
+        <select name="dayOfWeek" id="dayOfWeek" required>
+            <option value="">-- Select Day --</option>
+            <option value="MON">MON</option>
+            <option value="TUE">TUE</option>
+            <option value="WED">WED</option>
+            <option value="THU">THU</option>
+            <option value="FRI">FRI</option>
+            <option value="SAT">SAT</option>
+            <option value="SUN">SUN</option>
+        </select>
+
+        <label for="startTime">Start Time:</label>
+        <input type="time" name="startTime" id="startTime" required>
+
+        <label for="endTime">End Time:</label>
+        <input type="time" name="endTime" id="endTime" required>
+
+        <button type="submit">Add Block</button>
+
+    </form>
+
+    <br>
+    <br>
+    <!-- Schedule Blocks inside existing schedule -->
+    <h3 style="text-align:center;">Existing Schedule Blocks</h3>
+
+    <%
+        if (blocks != null && !blocks.isEmpty()) {
+    %>
+    <table class="schedule-blocks-table">
+        <tr>
+            <th>Block ID</th>
+            <th>Day</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+
+        <%
+            for (ScheduleBlock block : blocks) {
+        %>
+        <tr>
+            <td><%= block.getScheduleBlockId() %></td>
+            <td><%= block.getDayOfWeek() %></td>
+            <td><%= block.getStartTime() %></td>
+            <td><%= block.getEndTime() %></td>
+        </tr>
+        <%
+            }
+        %>
+    </table>
+    <%
+    } else {
+    %>
+    <p>No schedule blocks added yet.</p>
+    <%
+        }
+    %>
+
+    <% } %>
+</main>
 </body>
 </html>
 

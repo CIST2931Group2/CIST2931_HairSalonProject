@@ -18,16 +18,20 @@
 
 <header class="site-header">
     <%@ include file="/includes/logo.jsp" %>
-    <span class="site-title">Salon Appointment System</span>
+    <span class="site-title">ChattTech HAIR SALON</span>
 </header>
 
 <main>
-    <section class="hero">
+    <section class="hero" style="background-image: url('images/BW_hair style.png');">
         <div class="hero-overlay">
             <div class="login-container landing-container">
                 <h2>Welcome to Our Salon</h2>
-                <p>Book appointments, manage schedules, and connect with your stylist easily.</p>
-                <a class="btn btn-full" href="login.jsp">Login</a>
+                <p>
+                    Book appointments, <br>
+                    manage schedules, <br>
+                    and connect with your stylist easily.
+                </p>
+                <a class="btn btn-full" href="login.jsp">LOGIN <br> BOOKING ONLINE</a>
             </div>
         </div>
     </section>
