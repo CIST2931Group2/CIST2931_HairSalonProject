@@ -48,108 +48,94 @@
     <a href="<%= request.getContextPath() %>/logout">Logout</a>
 </nav>
 
+<main class = "flex-container">
 
-<h1>Admin - Manage Hairdressers</h1>
+    <h1 style="text-align:center;">Admin - Manage Hairdressers</h1>
 
-<% if (error != null) { %>
-<p style="color:red;"><%= error %></p>
-<% } %>
+    <br>
 
-<% if (success != null) { %>
-<p style="color:green;"><%= success %></p>
-<% } %>
+    <% if (error != null) { %>
+    <p style="color:red;"><%= error %></p>
+    <% } %>
 
-<hr>
+    <% if (success != null) { %>
+    <p style="color:green;"><%= success %></p>
+    <% } %>
 
-<h2>Add New Hairdresser</h2>
+    <hr>
+    <br>
 
-<form method="post" action="<%= request.getContextPath() %>/adminAddHairdresser">
+    <!-- Add new hairdresser form -->
+    <h2 style="text-align:center;">Add New Hairdresser</h2>
 
-    <table>
+    <form class="form-container" method="post" action="<%= request.getContextPath() %>/adminAddHairdresser">
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required>
+
+        <label for="email">Email:</label></td>
+        <input type="email" id="email" name="email" placeholder="example@domain.com" required>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" placeholder="555-555-5555">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+        <label for="specialties">Specialties:</label>
+        <input type="text" id="specialties" name="specialties" placeholder="Enter the List divided by comma">
+
+        <label for="bio">Bio:</label>
+        <textarea id="bio" name="bio" rows="4" cols="40"></textarea>
+
+        <button type="submit">Add Hairdresser</button>
+
+    </form>
+
+    <hr>
+    <br>
+
+    <!-- List of all current hairdressers with deactivate button -->
+    <h2 style="text-align:center;">Current Hairdressers</h2>
+
+    <% if (hairdressers == null || hairdressers.isEmpty()) { %>
+
+    <p>No hairdressers found.</p>
+
+    <% } else { %>
+
+    <table class="hairdressers-table">
         <tr>
-            <td><label for="firstName">First Name:</label></td>
-            <td><input type="text" id="firstName" name="firstName" required></td>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone</th>
+            <th>Specialties</th>
+            <th>Action</th>
         </tr>
 
+        <% for (Hairdresser h : hairdressers) { %>
         <tr>
-            <td><label for="lastName">Last Name:</label></td>
-            <td><input type="text" id="lastName" name="lastName" required></td>
-        </tr>
-
-        <tr>
-            <td><label for="email">Email:</label></td>
-            <td><input type="email" id="email" name="email" required></td>
-        </tr>
-
-        <tr>
-            <td><label for="phone">Phone:</label></td>
-            <td><input type="text" id="phone" name="phone"></td>
-        </tr>
-
-        <tr>
-            <td><label for="password">Password:</label></td>
-            <td><input type="password" id="password" name="password" required></td>
-        </tr>
-
-        <tr>
-            <td><label for="specialties">Specialties:</label></td>
-            <td><input type="text" id="specialties" name="specialties"></td>
-        </tr>
-
-        <tr>
-            <td><label for="bio">Bio:</label></td>
+            <td><%= h.getHairdresserId() %></td>
+            <td><%= h.getFirstName() %></td>
+            <td><%= h.getLastName() %></td>
+            <td><%= h.getPhone() != null ? h.getPhone() : "" %></td>
+            <td><%= h.getSpecialties() != null ? h.getSpecialties() : "" %></td>
             <td>
-                <textarea id="bio" name="bio" rows="4" cols="40"></textarea>
+                <form method="post" action="<%= request.getContextPath() %>/adminDeactivateHairdresser" style="margin:0;">
+                    <input type="hidden" name="hairdresserId" value="<%= h.getHairdresserId() %>">
+                    <button type="submit">Deactivate</button>
+                </form>
             </td>
         </tr>
-
-        <tr>
-            <td></td>
-            <td><button type="submit">Add Hairdresser</button></td>
-        </tr>
+        <% } %>
     </table>
 
-</form>
-
-<hr>
-
-<h2>Current Hairdressers</h2>
-
-<% if (hairdressers == null || hairdressers.isEmpty()) { %>
-
-<p>No hairdressers found.</p>
-
-<% } else { %>
-
-<table class="hairdressers-table">
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Phone</th>
-        <th>Specialties</th>
-        <th>Action</th>
-    </tr>
-
-    <% for (Hairdresser h : hairdressers) { %>
-    <tr>
-        <td><%= h.getHairdresserId() %></td>
-        <td><%= h.getFirstName() %></td>
-        <td><%= h.getLastName() %></td>
-        <td><%= h.getPhone() != null ? h.getPhone() : "" %></td>
-        <td><%= h.getSpecialties() != null ? h.getSpecialties() : "" %></td>
-        <td>
-            <form method="post" action="<%= request.getContextPath() %>/adminDeactivateHairdresser" style="margin:0;">
-                <input type="hidden" name="hairdresserId" value="<%= h.getHairdresserId() %>">
-                <button type="submit">Deactivate</button>
-            </form>
-        </td>
-    </tr>
     <% } %>
-</table>
 
-<% } %>
-
-
+</main>
 </body>
 </html>

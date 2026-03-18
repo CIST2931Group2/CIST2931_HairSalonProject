@@ -8,9 +8,23 @@ import java.io.IOException;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 
+    // added doGet to fix the error
+    @Override
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws IOException {
+        logout(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
+            throws IOException {
+        logout(request, response);
+    }
+
+    private void logout(HttpServletRequest request,
+                        HttpServletResponse response)
             throws IOException {
 
         HttpSession session = request.getSession(false);

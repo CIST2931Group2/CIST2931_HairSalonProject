@@ -20,7 +20,7 @@
   String error = (String) request.getAttribute("error");
 
   DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-  DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm");
+  DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("hh:mm a");
 %>
 
 <!DOCTYPE html>
@@ -47,72 +47,76 @@
   <a href="<%= request.getContextPath() %>/logout">Logout</a>
 </nav>
 
-<h2>Customer Profile</h2>
+<main class = "flex-container">
 
-<% if (error != null) { %>
-<p style="color:red;"><%= error %></p>
-<% } %>
+  <h2 style="text-align:center;">Customer Profile</h2>
 
-<% if (customer != null) { %>
+  <% if (error != null) { %>
+  <p style="color:red;"><%= error %></p>
+  <% } %>
 
-<table>
-  <tr>
-    <td><strong>First Name:</strong></td>
-    <td><%= customer.getFirstName() %></td>
-  </tr>
-  <tr>
-    <td><strong>Last Name:</strong></td>
-    <td><%= customer.getLastName() %></td>
-  </tr>
-  <tr>
-    <td><strong>Phone:</strong></td>
-    <td><%= customer.getPhone() %></td>
-  </tr>
-  <tr>
-    <td><strong>Email:</strong></td>
-    <td><%= customerEmail != null ? customerEmail : "" %></td>
-  </tr>
-</table>
+  <% if (customer != null) { %>
 
-<br>
+  <table>
+    <tr>
+      <td><strong>First Name:</strong></td>
+      <td><%= customer.getFirstName() %></td>
+    </tr>
+    <tr>
+      <td><strong>Last Name:</strong></td>
+      <td><%= customer.getLastName() %></td>
+    </tr>
+    <tr>
+      <td><strong>Phone:</strong></td>
+      <td><%= customer.getPhone() %></td>
+    </tr>
+    <tr>
+      <td><strong>Email:</strong></td>
+      <td><%= customerEmail != null ? customerEmail : "" %></td>
+    </tr>
+  </table>
 
-<h3>Appointment History</h3>
+  <br>
+  <br>
 
-<%
-  if (appointments != null && !appointments.isEmpty()) {
-%>
-<table class="appointments-table">
-  <tr>
-    <th>Date</th>
-    <th>Time</th>
-    <th>Service</th>
-    <th>Status</th>
-  </tr>
+  <h2 style="text-align:center;">Appointment History</h2>
 
   <%
-    for (Appointment appt : appointments) {
+    if (appointments != null && !appointments.isEmpty()) {
   %>
-  <tr>
-    <td><%= appt.getStartDateTime().format(dateFmt) %></td>
-    <td><%= appt.getStartDateTime().format(timeFmt) %></td>
-    <td><%= appt.getServiceType() %></td>
-    <td><%= appt.getStatus() %></td>
-  </tr>
+  <table class="appointments-table">
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Service</th>
+      <th>Status</th>
+    </tr>
+
+    <%
+      for (Appointment appt : appointments) {
+    %>
+    <tr>
+      <td><%= appt.getStartDateTime().format(dateFmt) %></td>
+      <td><%= appt.getStartDateTime().format(timeFmt) %></td>
+      <td><%= appt.getServiceType() %></td>
+      <td><%= appt.getStatus() %></td>
+    </tr>
+    <%
+      }
+    %>
+  </table>
+  <%
+  } else {
+  %>
+  <p>No appointments found for this customer.</p>
   <%
     }
   %>
-</table>
-<%
-} else {
-%>
-<p>No appointments found for this customer.</p>
-<%
-  }
-%>
 
-<% } %>
+  <% } %>
 
-<br>
+  <br>
 
+</main>
 </body>
 </html>

@@ -19,7 +19,7 @@
 
     String error = (String) request.getAttribute("error");
 
-    DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm");
+    DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("hh:mm a");
 %>
 
 <!DOCTYPE html>
@@ -37,19 +37,6 @@
     <span class="site-title">Salon Appointment System</span>
 </header>
 
-
-<h1>Hairdresser Dashboard</h1>
-
-<% if (error != null) { %>
-<p style="color:red;"><%= error %></p>
-<% } %>
-
-<% if (hairdresser != null) { %>
-<h3>
-    Welcome, <%= hairdresser.getFirstName() %> <%= hairdresser.getLastName() %>
-</h3>
-<% } %>
-
 <!-- Navigation -->
 <nav class="nav">
     <a href="<%= request.getContextPath() %>/hairdresserDashboard">My Dashboard</a>
@@ -61,60 +48,76 @@
     <a href="<%= request.getContextPath() %>/logout">Logout</a>
 </nav>
 
-<hr>
+<main class = "flex-container">
+    <h1 style="text-align: center;">HAIRDRESSER DASHBOARD</h1>
 
-<h2>Daily Appointments</h2>
+    <% if (error != null) { %>
+    <p style="color:red;"><%= error %></p>
+    <% } %>
 
-<form method="get" action="<%= request.getContextPath() %>/hairdresserDashboard">
-    <label for="date">Select Date:</label>
-    <input type="date"
-           id="date"
-           name="date"
-           value="<%= selectedDate != null ? selectedDate.toString() : "" %>">
-    <button type="submit">View</button>
-</form>
+    <% if (hairdresser != null) { %>
+    <h3 style="text-align: center;">
+        Welcome, <%= hairdresser.getFirstName() %> <%= hairdresser.getLastName() %>
+    </h3>
+    <% } %>
 
-<br>
+    <hr>
+    <br>
 
-<table class="appointments-table">
-    <thead>
-    <tr>
-        <th>Time</th>
-        <th>Customer</th>
-        <th>Service</th>
-        <th>Status</th>
-    </tr>
-    </thead>
+    <h1 style="text-align: center;">Daily Appointments</h1>
 
-    <tbody>
-    <%
-        if (appointments != null && !appointments.isEmpty()) {
-            for (DailyAppointmentView a : appointments) {
-    %>
-    <tr>
-        <td><%= a.getStartDateTime().toLocalTime().format(timeFmt) %></td>
+    <br>
 
-        <td>
-            <a href="<%= request.getContextPath() %>/hairdresserCustomerProfile?customerId=<%= a.getCustomerId() %>">
-                <%= a.getCustomerFirstName() %> <%= a.getCustomerLastName() %>
-            </a>
-        </td>
+    <form class="form-date" method="get" action="<%= request.getContextPath() %>/hairdresserDashboard">
+        <label for="date">Select Date:</label>
+        <input type="date"
+               id="date"
+               name="date"
+               value="<%= selectedDate != null ? selectedDate.toString() : "" %>">
+        <button type="submit">View</button>
+    </form>
 
-        <td><%= a.getServiceType() %></td>
-        <td><%= a.getStatus() %></td>
-    </tr>
-    <%
-        }
-    } else {
-    %>
-    <tr>
-        <td colspan="4">No appointments scheduled for this date.</td>
-    </tr>
-    <%
-        }
-    %>
-    </tbody>
-</table>
+    <br>
 
+    <table class="appointments-table">
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <%
+            if (appointments != null && !appointments.isEmpty()) {
+                for (DailyAppointmentView a : appointments) {
+        %>
+        <tr>
+            <td><%= a.getStartDateTime().toLocalTime().format(timeFmt) %></td>
+
+            <td>
+                <a href="<%= request.getContextPath() %>/hairdresserCustomerProfile?customerId=<%= a.getCustomerId() %>">
+                    <%= a.getCustomerFirstName() %> <%= a.getCustomerLastName() %>
+                </a>
+            </td>
+
+            <td><%= a.getServiceType() %></td>
+            <td><%= a.getStatus() %></td>
+        </tr>
+        <%
+            }
+        } else {
+        %>
+        <tr>
+            <td colspan="4">No appointments scheduled for this date.</td>
+        </tr>
+        <%
+            }
+        %>
+        </tbody>
+    </table>
+</main>
 </body>
 </html>

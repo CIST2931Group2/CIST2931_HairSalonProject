@@ -33,61 +33,62 @@
   <a href="<%= request.getContextPath() %>/logout">Logout</a>
 </nav>
 
-<h1>My Customers</h1>
+<main class = "flex-container">
+  <h1 style="text-align:center;">My Customers</h1>
 
-<!-- Error message -->
-<%
-  String error = (String) request.getAttribute("error");
-  if (error != null) {
-%>
-<p style="color:red;"><%= error %></p>
-<%
-  }
-%>
+  <!-- Error message -->
+  <%
+    String error = (String) request.getAttribute("error");
+    if (error != null) {
+  %>
+  <p style="color:red;"><%= error %></p>
+  <%
+    }
+  %>
 
 
-<%
-  List<AssignedCustomerView> customers =
-          (List<AssignedCustomerView>) request.getAttribute("customers");
-%>
+  <%
+    List<AssignedCustomerView> customers =
+            (List<AssignedCustomerView>) request.getAttribute("customers");
+  %>
 
-<% if (customers == null || customers.isEmpty()) { %>
+  <% if (customers == null || customers.isEmpty()) { %>
 
-<p>No customers assigned yet.</p>
+  <p>No customers assigned yet.</p>
 
-<% } else { %>
+  <% } else { %>
 
-<table class="customers-table">
+  <table class="customers-table">
 
-  <tr>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Phone</th>
-    <th>Email</th>
-    <th>Action</th>
-  </tr>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Action</th>
+    </tr>
 
-  <% for (AssignedCustomerView c : customers) { %>
+    <% for (AssignedCustomerView c : customers) { %>
 
-  <tr>
-    <td><%= c.getFirstName() %></td>
-    <td><%= c.getLastName() %></td>
-    <td><%= c.getPhone() %></td>
-    <td><%= c.getEmail() %></td>
+    <tr>
+      <td><%= c.getFirstName() %></td>
+      <td><%= c.getLastName() %></td>
+      <td><%= c.getPhone() %></td>
+      <td><%= c.getEmail() %></td>
 
-    <td>
-      <a href="<%= request.getContextPath() %>/hairdresserCustomerProfile?customerId=<%= c.getCustomerId() %>">
-        View Profile
-      </a>
-    </td>
-  </tr>
+      <td>
+        <a href="<%= request.getContextPath() %>/hairdresserCustomerProfile?customerId=<%= c.getCustomerId() %>">
+          View Profile
+        </a>
+      </td>
+    </tr>
+
+    <% } %>
+
+  </table>
 
   <% } %>
 
-</table>
-
-<% } %>
-
-
+</main>
 </body>
 </html>

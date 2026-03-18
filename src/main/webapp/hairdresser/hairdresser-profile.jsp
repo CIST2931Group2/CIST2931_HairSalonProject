@@ -35,94 +35,63 @@
   <a href="<%= request.getContextPath() %>/logout">Logout</a>
 </nav>
 
-<h2>My Profile</h2>
+<main class = "flex-container">
+  <h1 style="text-align: center;">My Profile</h1>
 
-<!-- Error message -->
-<%
-  String error = (String) request.getAttribute("error");
-  if (error != null) {
-%>
-<p style="color:red;"><%= error %></p>
-<%
-  }
-%>
+  <!-- Error message -->
+  <%
+    String error = (String) request.getAttribute("error");
+    if (error != null) {
+  %>
+  <p style="color:red;"><%= error %></p>
+  <%
+    }
+  %>
 
-<!-- Success message -->
-<%
-  String success = (String) request.getAttribute("success");
-  if (success != null) {
-%>
-<p style="color:green;"><%= success %></p>
-<%
-  }
-%>
+  <!-- Success message -->
+  <%
+    String success = (String) request.getAttribute("success");
+    if (success != null) {
+  %>
+  <p style="color:green;"><%= success %></p>
+  <%
+    }
+  %>
 
-<form method="post" action="<%= request.getContextPath() %>/hairdresserProfile">
+  <form class="form-container" method="post" action="<%= request.getContextPath() %>/hairdresserProfile">
 
-  <table>
+    <label>Email:</label>
+    <input type="email"
+           value="<%= session.getAttribute("email") != null ? session.getAttribute("email") : "" %>"
+           readonly>
 
-    <tr>
-      <td>Email:</td>
-      <td>
-        <input type="email"
-               value="<%= session.getAttribute("email") != null ? session.getAttribute("email") : "" %>"
-               readonly>
-      </td>
-    </tr>
+    <label>First Name:</label>
+    <input type="text" name="firstName"
+           value="<%= hairdresser != null ? hairdresser.getFirstName() : "" %>"
+           required>
 
-    <tr>
-      <td>First Name:</td>
-      <td>
-        <input type="text" name="firstName"
-               value="<%= hairdresser != null ? hairdresser.getFirstName() : "" %>"
-               required>
-      </td>
-    </tr>
+    <label>Last Name:</label>
+    <input type="text" name="lastName"
+           value="<%= hairdresser != null ? hairdresser.getLastName() : "" %>"
+           required>
 
-    <tr>
-      <td>Last Name:</td>
-      <td>
-        <input type="text" name="lastName"
-               value="<%= hairdresser != null ? hairdresser.getLastName() : "" %>"
-               required>
-      </td>
-    </tr>
+    <label>Phone:</label>
+    <input type="text" name="phone"
+           value="<%= hairdresser != null ? hairdresser.getPhone() : "" %>">
 
-    <tr>
-      <td>Phone:</td>
-      <td>
-        <input type="text" name="phone"
-               value="<%= hairdresser != null ? hairdresser.getPhone() : "" %>">
-      </td>
-    </tr>
+    <label>Specialties:</label>
+    <input type="text" name="specialties"
+           value="<%= hairdresser != null ? hairdresser.getSpecialties() : "" %>">
 
-    <tr>
-      <td>Specialties:</td>
-      <td>
-        <input type="text" name="specialties"
-               value="<%= hairdresser != null ? hairdresser.getSpecialties() : "" %>">
-      </td>
-    </tr>
+    <label>Bio:</label>
+    <textarea name="bio" rows="4" cols="40"><%= hairdresser != null ? hairdresser.getBio() : "" %></textarea>
 
-    <tr>
-      <td>Bio:</td>
-      <td>
-        <textarea name="bio" rows="4" cols="40"><%= hairdresser != null ? hairdresser.getBio() : "" %></textarea>
-      </td>
-    </tr>
+    <button type="submit">Save Profile</button>
 
-    <tr>
-      <td></td>
-      <td>
-        <button type="submit">Save Profile</button>
-      </td>
-    </tr>
+  </form>
 
-  </table>
-
-</form>
-
-<br>
+  <br>
+</main>
 
 </body>
 </html>

@@ -33,16 +33,14 @@ header.site-header .header-container {
     gap: 20px;
     flex-wrap: wrap; /* allows wrapping on small screens */
     padding: 20px 50px;
-    background-color: #00328C;
+    background-color: #4a90e2;
     color: #fff;
 }
 
 /* Logo styling */
 header.site-header .header-logo {
-    max-height: 150px; /* increase size */
+    max-height: 80px;
     width: auto;
-    display: block;
-    margin: 0;
 }
 
 /* Header text */
@@ -84,24 +82,21 @@ header .header-container {
 }
 
 header.site-header {
-    background-color: #00328C; /* #4a90e2 */
-    /* color: white; */
+    background-color: #4a90e2;
+    color: white;
     padding: 1.5rem 1rem;
     display: flex;
     align-items: center;
-    justify-content: center; /* flex-start */
-    position: sticky; /* relative */
-    /* font-size: 1.8rem; */
-    /* font-weight: bold; */
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    gap: 50px;
-    font-family: Georgia, "Times New Roman", serif;
-    flex-wrap: wrap; /* responsive wrap on small screens */
+    gap: 25px;
 }
 
 /* Styles for logo inside header */
 header.site-header img {
-    max-height: 150px; /* enlarged to 150 */
+    max-height: 100px;
     width: auto;
     display: inline-block;
     vertical-align: middle;
@@ -138,15 +133,13 @@ header .header-text .tagline {
 }
 
 /* Hero Section */
-.hero { /* updated MR */
+.hero {
     /* background-image: url('../images/salon-hero.jpg'); */
     background-size: cover;
     background-position: center;
-    width: 100%; /* MR added*/
-    background-repeat: no-repeat; /* MR when added image */
     height: 80vh; /* Tall hero section */
     display: flex;
-    justify-content: flex-end; /* was center */
+    justify-content: center;
     align-items: center;
     position: relative;
     color: #fff;
@@ -170,23 +163,6 @@ header .header-text .tagline {
     font-size: 1.2rem;
     margin-bottom: 30px;
     line-height: 1.5;
-}
-
-/* added MR for index.jsp header */
-.logo-container img {
-    height: 150px;     /* increase size */
-    width: auto;
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0;
-}
-
-.site-title {
-    /* margin-left: 300px; */
-    font-size: 56px;
-    font-weight: bold;
-    color: white;
-    letter-spacing: 12px;
 }
 
 /* ===== Unified Button Styles ===== */
@@ -348,38 +324,21 @@ header .header-text .tagline {
 }
 
 .login-container h2,
-.dashboard-container h2,
-.business-hours-container h2{
+.dashboard-container h2 {
     text-align: center;
     margin-bottom: 1rem;
     color: #333;
 }
 
 /***** Form elements *****/
-.form-container { /*added MR */
-    width: 60%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.form-date { /*added MR */
-    width: 15%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    /*gap: 12px;*/
-}
-
 label {
     font-weight: bold;
-    /* margin-bottom: 0.5rem; */
+    margin-bottom: 0.5rem;
     display: block;
     padding: 0.3rem 0;
 }
 
-input, select, textarea {
+input {
     padding: 0.7rem;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -429,10 +388,9 @@ button:hover {
 
 /** STYLES FOR TABLE ELEMENTS **/
 table {
-    width: 60%;            /* MR updated */
+    width: 100%;
     border-collapse: collapse;
-    margin: 20px auto;  /*  MR centers it */
-    /* margin-bottom: 1.5rem; */
+    margin-bottom: 1.5rem;
 }
 
 th, td {
@@ -444,83 +402,6 @@ th, td {
 th {
     background-color: #4a90e2;
     color: white;
-}
-
-/*----- HAIRDRESSER TABLES CLASSES-- added by MR */
-
-/* dashboard.jsp*/
-.flex-container {
-    display: flex;
-    flex-direction: column;
-    flex: 0;
-}
-
-.appointments-table {
-    border-collapse: collapse;
-    width: 60%;
-}
-
-.appointments-table th,
-.appointments-table td {
-    border: 1px solid #ccc;
-    padding: 6px;
-    text-align: left;
-}
-
-.appointments-table th {
-    background-color: #4a90e2;
-}
-
-/* customers.jsp */
-.customers-table {
-    border-collapse: collapse;
-    width: 60%;
-}
-
-.customers-table th,
-.customers-table td {
-    border: 1px solid #ccc;
-    padding: 6px;
-    text-align: left;
-}
-
-.customers-table th {
-    background-color: #4a90e2;
-    color: white;
-}
-
-/*----- ADMIN TABLES CLASSES-------- added by MR*/
-/*manage-hairdressers.jsp*/
-.hairdressers-table {
-    border-collapse: collapse;
-    width: 60%;
-    margin: 20px auto;  /* centers it */
-}
-
-.hairdressers-table th,
-.hairdressers-table td {
-    border: 1px solid #ccc;
-    padding: 6px;
-    text-align: left;
-}
-
-.hairdressers-table th {
-    background-color: #4a90e2;
-    color: white;
-}
-
-/* weekly-schedule */
-.schedule-blocks-table {
-    border-collapse: collapse;
-    width: 60%;         /* narrower table */
-    margin: 20px auto;  /* centers it */
-}
-
-.schedule-blocks-table th,
-.schedule-blocks-table td {
-    border: 1px solid #ccc;
-    padding: 8px 12px;
-    text-align: left;
 }
 
 /***** Responsive adjustments *****/
@@ -561,95 +442,5 @@ th {
 
     button {
         font-size: 1rem;
-    }
-}
-
-/* ===== LOGIN PAGE LAYOUT FIXES ===== added by MR */
-
-.login-page {
-    display: block;
-    padding: 0;
-}
-
-.login-page label {
-    display: block;
-    text-align: left;
-    margin-bottom: 6px;
-    color: #333;
-    font-weight: bold;
-}
-
-.login-page .hero {
-    min-height: calc(100vh - 120px);
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 20px;
-    background: #e9ecef;
-}
-
-.login-page p {
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.login-page .hero-overlay {
-    background-color: rgba(0, 0, 0, 0.08);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    border-radius: 16px;
-    padding: 35px;
-    width: 100%;
-    max-width: 1100px;
-}
-
-.login-page .login-page-layout {
-    display: grid;
-    grid-template-columns: 420px 380px;
-    gap: 40px;
-    justify-content: center;
-    align-items: stretch;
-}
-
-.login-page .login-container {
-    width: 100%;
-    height: 100%;
-    max-width: none;
-}
-
-.login-page .business-hours-container {
-    width: 100%;
-    height: 100%;
-    background: #f3f3f3;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.login-page .hours-table {
-    width: 100% !important;
-    margin: 100px 0 0 0 !important;
-    border-collapse: collapse;
-}
-
-.login-page .hours-table td {
-    border: none !important;
-    padding: 8px 0 !important;
-    text-align: left !important;
-    color: #555;
-}
-
-.login-page .hours-table td:first-child {
-    width: 45%;
-    padding-right: 20px !important;
-    font-weight: bold;
-}
-
-/* mobile */
-@media (max-width: 900px) {
-    .login-page .login-page-layout {
-        grid-template-columns: 1fr;
-        max-width: 420px;
-        margin: 0 auto;
     }
 }
