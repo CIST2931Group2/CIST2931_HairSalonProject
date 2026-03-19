@@ -37,7 +37,8 @@
 <html>
 <head>
     <title>Book Appointment</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/styles.css">
+    <!-- <link rel="stylesheet" href="/css/styles.css"> -->
 </head>
 <body>
 

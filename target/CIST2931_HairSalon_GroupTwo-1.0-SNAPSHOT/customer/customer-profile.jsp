@@ -21,7 +21,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <%@ include file="/includes/logo.jsp" %>
     <title>Customer Profile</title>
@@ -32,27 +32,37 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/customer-nav.jsp" />
 
-<div class="form-container">
-    <h2>Edit Your Profile</h2>
+<main>
+    <div class="dashboard-container">
+        <div class="dashboard-card">
+            <h2>Edit Your Profile</h2>
 
-    <form action="<%= request.getContextPath() %>/customerProfile" method="post">
-        <label for="firstName">First Name:</label>
-        <input type="text" name="firstName" id="firstName"
-               value="<%= customer != null ? customer.getFirstName() : "" %>"
-               required>
+            <form action="<%= request.getContextPath() %>/customerProfile" method="post">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" name="firstName" id="firstName"
+                           value="<%= customer != null ? customer.getFirstName() : "" %>"
+                           required>
+                </div>
 
-        <label for="lastName">Last Name:</label>
-        <input type="text" name="lastName" id="lastName"
-               value="<%= customer != null ? customer.getLastName() : "" %>"
-               required>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" name="lastName" id="lastName"
+                           value="<%= customer != null ? customer.getLastName() : "" %>"
+                           required>
+                </div>
 
-        <label for="phone">Phone Number:</label>
-        <input type="text" name="phone" id="phone"
-               value="<%= customer != null ? customer.getPhone() : "" %>">
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" name="phone" id="phone"
+                           value="<%= customer != null ? customer.getPhone() : "" %>">
+                </div>
 
-        <button type="submit">Update Profile</button>
-    </form>
-</div>
+                <button type="submit" class="btn-dashboard">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</main>
 
 </body>
 </html>

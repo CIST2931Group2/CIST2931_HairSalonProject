@@ -9,5 +9,7 @@
 
     <!-- Logo for the Hair Salon, will include in the header of each page -->
     <div class="logo-container">
-        <img src="images/CIST2931_HairSalonLogo.png" alt="HairSalon Logo" class="logo">
+        <img src="<%= request.getContextPath() %>/images/logo.png"
+             alt="Salon Logo"
+             class="header-logo">
     </div>

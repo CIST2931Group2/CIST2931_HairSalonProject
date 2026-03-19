@@ -5,6 +5,9 @@
   Time: 9:57 PM
   To change this template use File | Settings | File Templates.
 --%>
+
+<!-- THIS FILE HAS BEEN INTEGRATED INTO DASHBOARD.JSP AND IS NOT NEEDED. -->
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
