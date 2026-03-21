@@ -45,7 +45,7 @@
             <div class="dashboard-card">
                 <h3>Book Appointments</h3>
                 <p>Schedule a new salon appointment with your preferred stylist.</p>
-                <a href="<%= request.getContextPath() %>/customer/book-appointments.jsp" class="btn-dashboard">Book Now</a>
+                <a href="<%= request.getContextPath() %>/searchAvailability" class="btn-dashboard">Book Now</a>
             </div>
 
             <!-- My Appointments Card -->

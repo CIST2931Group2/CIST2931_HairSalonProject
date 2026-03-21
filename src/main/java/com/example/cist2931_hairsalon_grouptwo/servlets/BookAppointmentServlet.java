@@ -82,6 +82,7 @@ public class BookAppointmentServlet extends HttpServlet {
             int hairdresserId = Integer.parseInt(request.getParameter("hairdresserId"));
             String serviceType = request.getParameter("serviceType");
             String slotStartParam = request.getParameter("slotStart");
+            String date = request.getParameter("date"); //added
 
             // logic added for V2
             if (serviceType == null || serviceType.isBlank()) {
@@ -109,7 +110,18 @@ public class BookAppointmentServlet extends HttpServlet {
             );
 
             // ----- Redirect to dashboard (Post/Redirect/Get) -----
-            response.sendRedirect(request.getContextPath() + "/customerDashboard");
+            // old version - redirected to Dashboard
+            // response.sendRedirect(request.getContextPath() + "/customerDashboard");
+            // updated to keep the user on the Booking Page and not redirect to the Dashboard
+
+            response.sendRedirect(
+                    request.getContextPath()
+                            + "/searchAvailability?success=bookingConfirmed"
+                            + "&hairdresserId=" + hairdresserId
+                            + "&date=" + date
+                            + "&serviceType=" + java.net.URLEncoder.encode(serviceType, "UTF-8")
+            );
+
 
         } catch (RuntimeException ex) {
             // ----- Forward to error page -----

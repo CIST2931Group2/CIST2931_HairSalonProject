@@ -12,7 +12,7 @@
   <a href="<%= request.getContextPath() %>/customerDashboard" class = "btn btn-small">Dashboard</a>
 
   <!-- Book Appointment (link to JSP page that will submit to servlet) -->
-  <a href="<%= request.getContextPath() %>/customer/book-appointments.jsp" class = " btn btn-small">Book Appointment</a>
+  <a href="<%= request.getContextPath() %>/searchAvailability" class = " btn btn-small">Book Appointment</a>
 
   <!-- Profile -->
   <a href="<%= request.getContextPath() %>/customerProfile" class = " btn btn-small">Profile</a>
