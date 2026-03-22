@@ -5,26 +5,32 @@
   Time: 9:57 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <header class="site-header">
   <div class="header-container">
-    <img src="<%= request.getContextPath() %>/images/logo.png"
-         alt="Salon Logo"
-         class="header-logo">
 
-    <div class="header-text">
-      <h1>Salon Appointment System</h1>
-      <p class="tagline">Book appointments, manage schedules, and connect with your stylist</p>
+    <!-- Left side: Logo -->
+    <div class="header-left">
+      <img src="<%= request.getContextPath() %>/images/CIST2931_HairSalonLogo.png"
+           alt="Salon Logo"
+           class="header-logo">
     </div>
 
-    <nav class="main-nav">
-      <a href="<%= request.getContextPath() %>/index.jsp">Home</a>
+    <div class="header-center">
+      <div class="header-text">
+        <h1 class = "header-text">Salon Appointment System</h1>
+        <p class="tagline">Book appointments, manage schedules, and edit your profile</p>
+      </div>
+    </div>
+
+    <!-- Right side: Buttons -->
+    <div class="header-right">
+      <a href="<%= request.getContextPath() %>/index.jsp" class="btn-header">Home</a>
       <% if (session.getAttribute("userId") == null) { %>
-      <a href="<%= request.getContextPath() %>/login.jsp">Login</a>
+      <a href="<%= request.getContextPath() %>/login" class="btn-header">Login</a>
       <% } else { %>
-      <a href="<%= request.getContextPath() %>/logout">Logout</a>
+      <a href="<%= request.getContextPath() %>/logout" class="btn-header logout-btn">Logout</a>
       <% } %>
-    </nav>
+    </div>
+
   </div>
 </header>

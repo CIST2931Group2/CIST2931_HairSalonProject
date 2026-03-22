@@ -30,7 +30,7 @@
     String selectedServiceType =
             (String) request.getAttribute("selectedServiceType");
 
-    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
+    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("hh:mm a");
 %>
 
 <!DOCTYPE html>
@@ -48,7 +48,7 @@
 </header>
 <jsp:include page="/includes/customer-nav.jsp" />
 
-<h2>Book an Appointment</h2>
+<h2 style="text-align: center;">Book an Appointment</h2>
 
 <% if (error != null) { %>
 <p style="color:red;"><%= error %></p>
@@ -57,7 +57,7 @@
 <!-- =========================
      SEARCH AVAILABILITY FORM
      ========================= -->
-<form method="post" action="<%= request.getContextPath() %>/searchAvailability">
+<form class="form-container" method="post" action="<%= request.getContextPath() %>/searchAvailability">
 
     <div>
         <label for="hairdresserId">Hairdresser</label>
@@ -127,7 +127,20 @@
     <button type="submit">Search Availability</button>
 </form>
 
+<br>
 <hr>
+
+<!-- SUCCESS MESSAGE added-->
+<%
+    String success = request.getParameter("success");
+    if ("bookingConfirmed".equals(success)) {
+%>
+<p style="color:green; background:#e6ffe6; padding:10px; border-radius:5px;">
+    Appointment booked successfully! Check your Dashboard for upcoming appointments.
+</p>
+<%
+    }
+%>
 
 <!-- =========================
      AVAILABLE SLOTS / BOOKING
@@ -145,11 +158,12 @@
     if (availableSlots != null && !availableSlots.isEmpty()) {
 %>
 
-<form method="post" action="<%= request.getContextPath() %>/bookAppointment">
+<form class="form-container" method="post" action="<%= request.getContextPath() %>/bookAppointment">
 
     <!-- Keep selected search values for booking -->
     <input type="hidden" name="hairdresserId" value="<%= selectedHairdresserId %>">
     <input type="hidden" name="serviceType" value="<%= selectedServiceType %>">
+    <input type="hidden" name="date" value="<%= selectedDate %>">
 
     <h3>Available Slots</h3>
 
@@ -175,9 +189,7 @@
 %>
 
 <br>
-<p>
-    <a href="<%= request.getContextPath() %>/customerDashboard">Back to Dashboard</a>
-</p>
+
 
 </body>
 </html>

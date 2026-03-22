@@ -12,13 +12,13 @@
   <a href="<%= request.getContextPath() %>/customerDashboard" class = "btn btn-small">Dashboard</a>
 
   <!-- Book Appointment (link to JSP page that will submit to servlet) -->
-  <a href="<%= request.getContextPath() %>/searchAvailability" class = " btn btn-small">Book Appointment</a>
+  <a href="<%= request.getContextPath() %>/searchAvailability" class = "btn btn-small">Book Appointment</a>
 
   <!-- Profile -->
-  <a href="<%= request.getContextPath() %>/customerProfile" class = " btn btn-small">Profile</a>
+  <a href="<%= request.getContextPath() %>/customerProfile" class = "btn btn-small">Profile</a>
 
   <!-- Logout -->
-  <form action="<%= request.getContextPath() %>/logout" method="post" style="display:inline;">
+  <form action="<%= request.getContextPath() %>/logout" method="post">
     <button type="submit" class="btn btn-small">Logout</button>
   </form>
 </nav>
