@@ -38,6 +38,9 @@ header.site-header {
 
 /* Container layout */
 .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     max-width: none;
     margin: 0 auto;
     padding: 1rem 2rem;
@@ -47,9 +50,11 @@ header.site-header {
 
 /* Left: logo + title */
 .header-left {
-    display: inline-block;
+    /* display: inline-block; */
+    display: flex;
+    align-items: flex-start;
     vertical-align: middle;
-    white-space: normal; /* allow title under logo if needed */
+    white-space: none; /* allow title under logo if needed */
 }
 
 .header-logo {
@@ -118,7 +123,7 @@ header.site-header {
 /* Buttons styling */
 .btn-header {
     display: inline-block;
-    padding: 0.6rem 1.2rem;
+    padding: 1.0rem 1.8rem;
     border-radius: 6px;
     font-weight: 600;
     text-decoration: none;
@@ -126,7 +131,7 @@ header.site-header {
     color: #00328C;
     border: 1px solid #ccc;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
+    transition:  background 0.2s ease, transform 0.1s ease;
     margin-left: 0.5rem;
 }
 
@@ -245,7 +250,10 @@ header.site-header {
 
 /* ===== Unified Button Styles ===== */
 .btn {
-    display: inline-block;
+    /*display: inline-block;*/
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: #357ABD;       /* Default color (blue) */
     color: white;
     font-weight: bold;
@@ -280,7 +288,7 @@ header.site-header {
 .dashboard-container {
     /* changed max-width from 1000px to make the size adaptable */
     width: 100%;
-    max-width: none;
+    max-width: 1400px;
     margin: 2rem auto;
     padding: 2rem 3rem;
     background: #ffffff;
@@ -295,24 +303,54 @@ header.site-header {
 /* Cards container */
 .dashboard-cards {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: nowrap;
+    margin: 2rem auto;
+    max-width: 1200px;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 /* Individual cards */
 .dashboard-card {
-    .dashboard-card {
-        background-color: #f4f6f8;
-        border-radius: 10px;
-        padding: 1.5rem;
-        flex: 1 1 300px;       /* grow/shrink, min width 300px */
-        min-width: 250px;       /* don't shrink too small */
-        max-width: 400px;       /* optional upper limit */
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+    background-color: #f4f6f8;
+    border-radius: 10px;
+    padding: 1.8rem 1.5rem;
+    /* flex: 1 1 300px;       /* grow/shrink, min width 300px */
+    min-width: 250px;       /* don't shrink too small */
+    max-width: 400px;       /* optional upper limit */
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.dashboard-buttons-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 0 0 320px;
+}
+
+.dashboard-appointments-column {
+    display: flex;
+    flex-direction: column;
+    flex: 2 1 800px;
+    max-width: 1100px;
+}
+
+.dashboard-card.appointments-card {
+    width: 100%;
+    max-width: none;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-x: auto;
 }
 
 .dashboard-card:hover {
@@ -334,6 +372,20 @@ header.site-header {
     margin-bottom: 1rem;
 }
 
+.dashboard-card table {
+    width: 100%;
+}
+
+.dashboard-card.appointments-card {
+    padding: 2rem;
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.appointments-table tr:nth-child(even) {
+    background-color: #f7f9fc;
+}
+
 /* Dashboard buttons */
 .btn-dashboard {
     display: inline-block;
@@ -342,8 +394,10 @@ header.site-header {
     padding: 0.9rem 1rem;
     border-radius: 6px;
     font-weight: bold;
+    text-align: center;
     text-decoration: none;
     transition: all 0.3s ease;
+    width: auto;
 }
 
 .btn-dashboard:hover {
@@ -353,11 +407,6 @@ header.site-header {
 }
 
 /* Styles for Customer Dashboard Appointment Table*/
-.appointments-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
 
 .appointments-table th,
 .appointments-table td {
@@ -426,7 +475,7 @@ header.site-header {
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     width: 100%;
-    max-width: 80%; /* dashboards can override if needed */
+    /* max-width: 80%; /* dashboards can override if needed */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -484,6 +533,13 @@ button {
     transition: background 0.3s ease;
 }
 
+button.btn {
+    padding: 0.6rem 0.8rem;   /* match .btn-small */
+    font-size: 0.95rem;
+    line-height: 1.2;
+    font-family: inherit;
+}
+
 button:hover {
     background-color: #357ABD;
 }
@@ -497,6 +553,8 @@ button:hover {
 /** STYLES FOR NAVBAR **/
 .nav {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
     background-color: #4a90e2;
     padding: 1rem;
@@ -510,6 +568,11 @@ button:hover {
 
 .nav a:hover {
     text-decoration: underline;
+}
+
+.nav form {
+    display: flex;
+    margin-left: auto;
 }
 
 /** STYLES FOR TABLE ELEMENTS **/
@@ -736,5 +799,29 @@ th {
         grid-template-columns: 1fr;
         max-width: 420px;
         margin: 0 auto;
+    }
+}
+
+/* media query for customer dashboard cards */
+@media (max-width: 900px) {
+
+    .dashboard-cards {
+        flex-direction: column;   /* stack vertically */
+        flex-wrap: wrap;          /* allow wrapping again */
+        align-items: center;
+    }
+
+    .dashboard-buttons-column {
+        align-items: center;   /* ✅ center the cards horizontally */
+        width: 100%;
+    }
+
+    .dashboard-appointments-column {
+        width: 100%;
+    }
+
+    .dashboard-card {
+        width: 100%;
+        max-width: 500px; /* keeps them from getting too wide */
     }
 }

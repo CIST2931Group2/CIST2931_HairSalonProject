@@ -17,12 +17,18 @@
 <body>
 
 <header class="site-header">
+    <div class="header-container">
     <%--<%@ include file="/includes/logo.jsp" %> --%>
+    <div class="header-left">
     <a href="<%= request.getContextPath() %>/index.jsp">
         <img src="<%= request.getContextPath() %>/images/CIST2931_HairSalonLogo.png"
-            alt="Hair Salon Logo">
+            alt="Hair Salon Logo" class="header-logo">
     </a>
-    <span class="site-title">Salon Appointment System</span>
+    </div> <!-- .header-left -->
+    <div class="header-center">
+        <span class="site-title">Salon Appointment System</span>
+    </div> <!-- .header-center -->
+    </div> <!-- .header-container -->
 </header>
 
 <main class="login-page">

@@ -40,7 +40,8 @@
         <p>Welcome! Please log in or register to access your dashboard.</p>
         <% } %>
 
-        <div class="dashboard-cards">
+      <div class="dashboard-cards">
+        <div class="dashboard-buttons-column">
 
             <!-- Book Appointments Card -->
             <div class="dashboard-card">
@@ -49,6 +50,23 @@
                 <a href="<%= request.getContextPath() %>/searchAvailability" class="btn-dashboard">Book Now</a>
             </div>
 
+
+            <!-- Profile Settings Card -->
+            <div class="dashboard-card">
+                <h3>Profile Settings</h3>
+                <p>Update your personal info, password, and preferences.</p>
+                <a href="<%= request.getContextPath() %>/customerProfile" class="btn-dashboard">Edit Profile</a>
+            </div>
+
+            <!-- Register Another Account Card -->
+            <div class="dashboard-card">
+                <h3>Register Another Account</h3>
+                <p>Create a new customer account if needed.</p>
+                <a href="<%= request.getContextPath() %>/registerCustomer" class="btn-dashboard">Register</a>
+            </div>
+          </div> <!-- end left column  -->
+
+          <div class="dashboard-appointments-column">
             <!-- My Appointments Card -->
             <div class="dashboard-card appointments-card">
                 <h3>My Appointments</h3>
@@ -108,21 +126,7 @@
                 <p>You have no appointments scheduled.</p>
                 <% } %>
             </div>
-
-            <!-- Profile Settings Card -->
-            <div class="dashboard-card">
-                <h3>Profile Settings</h3>
-                <p>Update your personal info, password, and preferences.</p>
-                <a href="<%= request.getContextPath() %>/customerProfile" class="btn-dashboard">Edit Profile</a>
-            </div>
-
-            <!-- Register Another Account Card -->
-            <div class="dashboard-card">
-                <h3>Register Another Account</h3>
-                <p>Create a new customer account if needed.</p>
-                <a href="<%= request.getContextPath() %>/registerCustomer" class="btn-dashboard">Register</a>
-            </div>
-
+          </div> <!-- end right column -->
         </div> <!-- .dashboard-cards -->
     </div> <!-- .dashboard-container -->
 </main>

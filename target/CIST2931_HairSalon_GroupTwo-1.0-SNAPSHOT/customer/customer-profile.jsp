@@ -23,7 +23,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ include file="/includes/logo.jsp" %>
     <title>Customer Profile</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/styles.css">
 </head>

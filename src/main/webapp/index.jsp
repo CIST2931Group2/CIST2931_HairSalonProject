@@ -17,8 +17,10 @@
 <body>
 
 <header class="site-header">
-    <%@ include file="/includes/logo.jsp" %>
-    <span class="site-title">ChattTech HAIR SALON</span>
+    <div class="header-left">
+        <%@ include file="/includes/logo.jsp" %>
+    </div>
+        <span class="site-title">ChattTech HAIR SALON</span>
 </header>
 
 <main>
