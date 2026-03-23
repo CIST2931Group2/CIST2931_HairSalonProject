@@ -14,14 +14,17 @@ package com.example.cist2931_hairsalon_grouptwo.service;
  * Author: Maria Ravid
  *
  * Version 2: added method - getAvailableSlots(...) for FR-C-04
+ *
  */
 
 import com.example.cist2931_hairsalon_grouptwo.dao.*;
+import com.example.cist2931_hairsalon_grouptwo.dto.CustomerAppointmentView;
 import com.example.cist2931_hairsalon_grouptwo.model.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentService {
@@ -260,13 +263,56 @@ public class AppointmentService {
     }
     // END BOOK APPOINTMENT
 
+    /* HAIRDRESSER VIEW CUSTOMER APPOINTMENTS
+     * FR-H-04 View customer profile + appt. history
+     * supports: HairdresserCustomerProfileServlet
+     */
+    public List<Appointment> getCustomerAppointments(int customerId) {
+        return appointmentDAO.listByCustomer(customerId);
+    }
+    // HAIRDRESSER VIEW CUSTOMER APPOINTMENTS
+
     /* CUSTOMER VIEWS APPOINTMENTS
      * FR-C-06 View past appointments  (date, time, Hair-Dresser, status)
      * FR-C-07 View future appointments (date, time, Hair-Dresser, status)
      * WF-C5 Customer Views Appointments
+     *
+     * ***V3 - new method for Customer dashboard
      */
-    public List<Appointment> getCustomerAppointments(int customerId) {
-        return appointmentDAO.listByCustomer(customerId);
+    public List<CustomerAppointmentView> getCustomerAppointmentsDashboard(int customerId) {
+        if (customerId <= 0)
+            throw new RuntimeException("Invalid customerId.");
+
+        List<Appointment> appointments = appointmentDAO.listByCustomer(customerId);
+        List<CustomerAppointmentView> result = new ArrayList<>();
+
+        for (Appointment appt : appointments) {
+
+            // Get hairdresser details
+            Hairdresser hairdresser =
+                    hairdresserDAO.getHairdresserById(appt.getHairdresserId());
+
+            CustomerAppointmentView view = new CustomerAppointmentView();
+
+            // ----- Appointment data -----
+            view.setAppointmentId(appt.getAppointmentId());
+            view.setStartDateTime(appt.getStartDateTime());
+            view.setEndDateTime(appt.getEndDateTime());
+            view.setServiceType(appt.getServiceType());   // IMPORTANT (new field)
+            view.setStatus(appt.getStatus());
+
+            // ----- Hairdresser data -----
+            view.setHairdresserId(appt.getHairdresserId());
+
+            if (hairdresser != null) {
+                view.setHairdresserFirstName(hairdresser.getFirstName());
+                view.setHairdresserLastName(hairdresser.getLastName());
+            }
+
+            result.add(view);
+        }
+
+        return result;
     }
     // END CUSTOMER VIEWS APPOINTMENTS
 

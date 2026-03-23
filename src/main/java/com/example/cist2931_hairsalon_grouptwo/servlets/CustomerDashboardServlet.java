@@ -1,7 +1,7 @@
 package com.example.cist2931_hairsalon_grouptwo.servlets;
 
 import com.example.cist2931_hairsalon_grouptwo.dao.*;
-import com.example.cist2931_hairsalon_grouptwo.model.Appointment;
+import com.example.cist2931_hairsalon_grouptwo.dto.CustomerAppointmentView;
 import com.example.cist2931_hairsalon_grouptwo.model.Customer;
 import com.example.cist2931_hairsalon_grouptwo.service.AppointmentService;
 import com.example.cist2931_hairsalon_grouptwo.service.CustomerService;
@@ -68,8 +68,9 @@ public class CustomerDashboardServlet extends HttpServlet {
         Customer customer = customerService.getCustomerByUserId(userId);
 
         // ----- Retrieve customer appointments -----
-        List<Appointment> appointments =
-                appointmentService.getCustomerAppointments(customer.getCustomerId());
+        // V2 - updated to include DTO CustomerAppointmentView
+        List<CustomerAppointmentView> appointments =
+                appointmentService.getCustomerAppointmentsDashboard(customer.getCustomerId());
 
         request.setAttribute("appointments", appointments);
 

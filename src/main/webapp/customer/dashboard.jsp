@@ -11,10 +11,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="com.example.cist2931_hairsalon_grouptwo.dto.CustomerAppointmentView" %>
 
 <%
     Customer customer = (Customer) session.getAttribute("customer");
-    List<Appointment> appointments = (List<Appointment>) request.getAttribute("appointments");
+    List<CustomerAppointmentView> appointments = (List<CustomerAppointmentView>) request.getAttribute("appointments");
 %>
 
 <!DOCTYPE html>
@@ -29,83 +30,101 @@
 <jsp:include page="/includes/header.jsp" />
 <jsp:include page="/includes/customer-nav.jsp" />
 
-<main class="dashboard-main">
-    <div class="dashboard-wrapper">
+<main>
+    <div class="dashboard-container">
+        <h2>Customer Dashboard</h2>
 
-        <!-- Left Column: Cards / Buttons -->
-        <div class="dashboard-left">
-            <div class="dashboard-container">
-                <h2>Customer Dashboard</h2>
-                <% if (customer != null) { %>
-                <p>Welcome, <%= customer.getFirstName() %> <%= customer.getLastName() %>! Manage your appointments and profile below.</p>
-                <% } else { %>
-                <p>Welcome! Please log in or register to access your dashboard.</p>
-                <% } %>
+        <% if (customer != null) { %>
+        <p>Welcome, <%= customer.getFirstName() %> <%= customer.getLastName() %>! Manage your appointments and profile below.</p>
+        <% } else { %>
+        <p>Welcome! Please log in or register to access your dashboard.</p>
+        <% } %>
 
-                <div class="dashboard-cards">
-                    <!-- Book Appointments Card -->
-                    <div class="dashboard-card">
-                        <h3>Book Appointments</h3>
-                        <p>Schedule a new salon appointment with your preferred stylist.</p>
-                        <a href="<%= request.getContextPath() %>/searchAvailability" class="btn-dashboard">Book Now</a>
-                    </div>
+        <div class="dashboard-cards">
 
-                    <!-- Profile Settings Card -->
-                    <div class="dashboard-card">
-                        <h3>Profile Settings</h3>
-                        <p>Update your personal info, password, and preferences.</p>
-                        <a href="<%= request.getContextPath() %>/customerProfile" class="btn-dashboard">Edit Profile</a>
-                    </div>
-
-                    <!-- Register Another Account Card -->
-                    <div class="dashboard-card">
-                        <h3>Register Another Account</h3>
-                        <p>Create a new customer account if needed.</p>
-                        <a href="<%= request.getContextPath() %>/registerCustomer" class="btn-dashboard">Register</a>
-                    </div>
-                </div>
+            <!-- Book Appointments Card -->
+            <div class="dashboard-card">
+                <h3>Book Appointments</h3>
+                <p>Schedule a new salon appointment with your preferred stylist.</p>
+                <a href="<%= request.getContextPath() %>/searchAvailability" class="btn-dashboard">Book Now</a>
             </div>
-        </div>
 
-        <!-- Right Column: Appointments Table -->
-        <div class="dashboard-right">
-            <div class="dashboard-container appointments-scroll">
-                <h2>Appointments</h2>
+            <!-- My Appointments Card -->
+            <div class="dashboard-card appointments-card">
+                <h3>My Appointments</h3>
 
                 <% if (appointments != null && !appointments.isEmpty()) {
                     DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("MM-dd-yyyy");
                     DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("hh:mm a");
                 %>
 
+                <h4>Upcoming Appointments</h4>
                 <table class="appointments-table">
-                    <thead>
                     <tr>
+                        <th>Appointment ID</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Hairdresser Name</th>
+                        <th>Service Type</th>
                         <th>Status</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <% for (Appointment a : appointments) {
-                        String rowClass = a.getStartDateTime().isAfter(LocalDateTime.now()) ? "upcoming" : "past"; %>
-                    <tr class="<%= rowClass %>">
+                    <% for (CustomerAppointmentView a : appointments) {
+                        if (a.getStartDateTime().isAfter(LocalDateTime.now())) { %>
+                    <tr>
+                        <td><%= a.getAppointmentId() %></td>
                         <td><%= a.getStartDateTime().format(dateFmt) %></td>
                         <td><%= a.getStartDateTime().format(timeFmt) %> - <%= a.getEndDateTime().format(timeFmt) %></td>
-                        <td><%= a.getHairdresserId() %></td>
+                        <td><%= a.getHairdresserFirstName() %> <%= a.getHairdresserLastName() %></td>
+                        <td><%= a.getServiceType() %></td>
                         <td><%= a.getStatus() %></td>
                     </tr>
-                    <% } %>
-                    </tbody>
+                    <% } } %>
+                </table>
+
+                <h4>Past Appointments</h4>
+                <table class="appointments-table">
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Hairdresser Name</th>
+                        <th>Service Type</th>
+                        <th>Status</th>
+                    </tr>
+                    <% for (CustomerAppointmentView a : appointments) {
+                        if (a.getStartDateTime().isBefore(LocalDateTime.now())) { %>
+                    <tr>
+                        <td><%= a.getAppointmentId() %></td>
+                        <td><%= a.getStartDateTime().format(dateFmt) %></td>
+                        <td><%= a.getStartDateTime().format(timeFmt) %> - <%= a.getEndDateTime().format(timeFmt) %></td>
+                        <td><%= a.getHairdresserFirstName() %> <%= a.getHairdresserLastName() %></td>
+                        <td><%= a.getServiceType() %></td>
+                        <td><%= a.getStatus() %></td>
+                    </tr>
+                    <% } } %>
                 </table>
 
                 <% } else { %>
-                <p>No appointments scheduled.</p>
+                <p>You have no appointments scheduled.</p>
                 <% } %>
             </div>
-        </div>
 
-    </div> <!-- dashboard-wrapper -->
+            <!-- Profile Settings Card -->
+            <div class="dashboard-card">
+                <h3>Profile Settings</h3>
+                <p>Update your personal info, password, and preferences.</p>
+                <a href="<%= request.getContextPath() %>/customerProfile" class="btn-dashboard">Edit Profile</a>
+            </div>
+
+            <!-- Register Another Account Card -->
+            <div class="dashboard-card">
+                <h3>Register Another Account</h3>
+                <p>Create a new customer account if needed.</p>
+                <a href="<%= request.getContextPath() %>/registerCustomer" class="btn-dashboard">Register</a>
+            </div>
+
+        </div> <!-- .dashboard-cards -->
+    </div> <!-- .dashboard-container -->
 </main>
 
 </body>
