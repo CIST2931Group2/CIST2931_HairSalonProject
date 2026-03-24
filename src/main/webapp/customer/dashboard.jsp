@@ -37,7 +37,7 @@
         <% if (customer != null) { %>
         <p>Welcome, <%= customer.getFirstName() %> <%= customer.getLastName() %>! Manage your appointments and profile below.</p>
         <% } else { %>
-        <p>Welcome! Please log in or register to access your dashboard.</p>
+        <p>Welcome! Book an Appointment, manage your Profile, view Upcoming and Past Appointments.</p>
         <% } %>
 
       <div class="dashboard-cards">
