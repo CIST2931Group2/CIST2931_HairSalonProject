@@ -38,6 +38,9 @@
     <title>Manage Hairdressers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Add icons for footer -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -46,13 +49,7 @@
     <span class="site-title">Salon Appointment System</span>
 </header>
 
-<nav class="nav">
-    <a href="<%= request.getContextPath() %>/adminManageHairdressers">My Dashboard</a>
-    |
-    <a href="<%= request.getContextPath() %>/adminSchedule">Manage Weekly Schedules</a>
-    |
-    <a href="<%= request.getContextPath() %>/logout">Logout</a>
-</nav>
+<jsp:include page="/includes/admin-nav.jsp" />
 
 <main class = "flex-container">
 
@@ -233,6 +230,9 @@
 
     <% } %>
 </main>
+
+<jsp:include page="/includes/footer.jsp" />
+
 </body>
 </html>
 

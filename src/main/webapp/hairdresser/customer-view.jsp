@@ -26,8 +26,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Customer View</title>
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Add icons for footer -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -37,15 +41,7 @@
 </header>
 
 <!-- Navigation -->
-<nav class="nav">
-  <a href="<%= request.getContextPath() %>/hairdresserDashboard">My Dashboard</a>
-  |
-  <a href="<%= request.getContextPath() %>/hairdresserCustomers">My Customers</a>
-  |
-  <a href="<%= request.getContextPath() %>/hairdresserProfile">My Profile</a>
-  |
-  <a href="<%= request.getContextPath() %>/logout">Logout</a>
-</nav>
+<jsp:include page="/includes/hairdresser-nav.jsp" />
 
 <main class = "flex-container">
 
@@ -118,5 +114,8 @@
   <br>
 
 </main>
+
+<jsp:include page="/includes/footer.jsp" />
+
 </body>
 </html>

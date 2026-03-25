@@ -23,6 +23,10 @@
     if (success == null) {
         success = request.getParameter("success");
     }
+
+    // added for deactivation
+    String firstName = request.getParameter("firstName");
+    String lastName = request.getParameter("lastName");
 %>
 
 <!DOCTYPE html>
@@ -32,6 +36,9 @@
     <title>Manage Hairdressers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Add icons for footer -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -40,13 +47,7 @@
     <span class="site-title">Salon Appointment System</span>
 </header>
 
-<nav class="nav">
-    <a href="<%= request.getContextPath() %>/adminManageHairdressers">My Dashboard</a>
-    |
-    <a href="<%= request.getContextPath() %>/adminSchedule">Manage Weekly Schedules</a>
-    |
-    <a href="<%= request.getContextPath() %>/logout">Logout</a>
-</nav>
+<jsp:include page="/includes/admin-nav.jsp" />
 
 <main class = "flex-container">
 
@@ -58,8 +59,14 @@
     <p style="color:red;"><%= error %></p>
     <% } %>
 
-    <% if (success != null) { %>
-    <p style="color:green;"><%= success %></p>
+    <% if ("hairdresserAdded".equals(success)) { %>
+    <p style="color:green; font-weight:bold;">
+        Hairdresser added successfully.
+    </p>
+    <% } else if ("deactivated".equals(success)) { %>
+    <p style="color:green; font-weight:bold;">
+        Hairdresser <%= firstName %> <%= lastName %> was deactivated.
+
     <% } %>
 
     <hr>
@@ -127,6 +134,8 @@
             <td>
                 <form method="post" action="<%= request.getContextPath() %>/adminDeactivateHairdresser" style="margin:0;">
                     <input type="hidden" name="hairdresserId" value="<%= h.getHairdresserId() %>">
+                    <input type="hidden" name="firstName" value="<%= h.getFirstName() %>">
+                    <input type="hidden" name="lastName" value="<%= h.getLastName() %>">
                     <button type="submit">Deactivate</button>
                 </form>
             </td>
@@ -137,5 +146,8 @@
     <% } %>
 
 </main>
+
+<jsp:include page="/includes/footer.jsp" />
+
 </body>
 </html>

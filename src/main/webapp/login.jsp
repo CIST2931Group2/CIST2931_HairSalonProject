@@ -18,7 +18,6 @@
 
 <header class="site-header">
     <div class="header-container">
-    <%--<%@ include file="/includes/logo.jsp" %> --%>
     <div class="header-left">
     <a href="<%= request.getContextPath() %>/index.jsp">
         <img src="<%= request.getContextPath() %>/images/CIST2931_HairSalonLogo.png"

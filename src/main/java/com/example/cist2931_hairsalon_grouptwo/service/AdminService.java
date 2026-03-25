@@ -84,6 +84,10 @@ public class AdminService {
         return hairdresserDAO.listAllHairdressers();
     }
 
+    public List<Hairdresser> getActiveHairdressers() {
+        return hairdresserDAO.listActiveHairdressers();
+    }
+
     /* ADD HAIRDRESSER ACCOUNT (Admin Use Case)
      * - FR-A-03 Add Hair-Dressers
      * - WF-A2 Admin Adds Employees

@@ -217,6 +217,11 @@ header.site-header {
     padding: 50px 30px;
     border-radius: 15px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    /* MR when added Welcome and icons */
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .hero h2 {
@@ -229,6 +234,38 @@ header.site-header {
     font-size: 1.2rem;
     margin-bottom: 30px;
     line-height: 1.5;
+}
+
+/* added MR ICON CONTAINER */
+.hero-icons {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    gap: 40px;
+}
+
+/* EACH ICON */
+.hero-icon {
+    text-align: center;
+    text-decoration: none;
+    color: #AA8C00; /* gold tone */
+    font-weight: bold;
+    font-size: 22px;
+    font-family: Georgia, "Times New Roman", serif;
+    transition: transform 0.3s ease;
+}
+
+.hero-icon img {
+    width: 120px;
+    height: auto;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* HOVER EFFECT */
+.hero-icon:hover {
+    transform: scale(1.1);
 }
 
 /* added MR for index.jsp header */
@@ -247,6 +284,29 @@ header.site-header {
     color: white;
     letter-spacing: 12px;
 }
+
+/* added MR Welcome Section */
+.welcome-section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f4f6f8;
+}
+
+.welcome-section h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #AA8C00;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.welcome-text {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+}
+
 
 /* ===== Unified Button Styles ===== */
 .btn {
@@ -433,6 +493,7 @@ header.site-header {
     display: flex;
     flex-direction: column;
     gap: 1.8rem;             /* slightly larger gap between inputs and buttons */
+    top: 50%; /* MR added for icons and Welcome */
 }
 
 /* Centering form headings */
@@ -575,6 +636,15 @@ button:hover {
     margin-left: auto;
 }
 
+.nav-left {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-right {
+    margin-left: auto;
+}
+
 /** STYLES FOR TABLE ELEMENTS **/
 table {
     width: 60%;            /* MR updated */
@@ -596,11 +666,13 @@ th {
 
 /*----- HAIRDRESSER TABLES CLASSES-- added by MR */
 
-/* dashboard.jsp*/
+/* index.jsp, dashboard.jsp*/
 .flex-container {
     display: flex;
     flex-direction: column;
     flex: 0;
+    justify-content: center; /* index.jsp place Welcome in the center*/
+    align-items: center; /* index.jsp place Welcome in the center*/
 }
 
 .appointments-table {
@@ -824,4 +896,270 @@ th {
         width: 100%;
         max-width: 500px; /* keeps them from getting too wide */
     }
+}
+
+
+/* ===== ARTISTS page ===== added by MR */
+.artists-page {
+    padding: 40px 20px 60px 20px;
+    background: #f4f6f8;
+    display: flex;
+    flex-direction: column;
+    flex: 0;
+    justify-content: center; /* artists.jsp place back button in the center*/
+    align-items: center; /* artists.jsp place back button  in the center*/
+}
+
+.artists-hero {
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("../images/BW_hair style.png") center/cover no-repeat;
+    min-height: 260px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 40px auto;
+}
+
+.artists-hero-overlay {
+    text-align: center;
+    color: white;
+    padding: 30px;
+}
+
+.artists-hero-overlay h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.artists-hero-overlay p {
+    font-size: 1.1rem;
+    max-width: 700px;
+}
+
+.artists-section {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.container-width {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.artist-card {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.artist-card img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.artist-info h2 {
+    margin-bottom: 10px;
+    color: #123e8f;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.artist-info p {
+    line-height: 1.6;
+    color: #333;
+}
+
+.artists-back-link {
+    text-align: center;
+    margin-top: 35px;
+}
+
+@media (max-width: 768px) {
+    .artist-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .artist-card img {
+        width: 220px;
+        height: 220px;
+    }
+}
+
+/* ===== SERVICES page ===== added by MR */
+.services-page {
+    padding: 40px 20px 60px 20px;
+    background: #f4f6f8;
+    display: flex;
+    flex-direction: column;
+    flex: 0;
+}
+
+.services-hero {
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("../images/BW_hair style.png") center/cover no-repeat;
+    min-height: 220px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.services-hero-overlay {
+    text-align: center;
+    color: white;
+    padding: 30px;
+}
+
+.services-hero-overlay h1 {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.services-section {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.services-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.services-card h2 {
+    margin-bottom: 18px;
+    color: #123e8f;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.services-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.services-table th,
+.services-table td {
+    border: 1px solid #d9d9d9;
+    padding: 12px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.services-table th {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.services-table td:last-child,
+.services-table th:last-child {
+    text-align: center;
+}
+
+.services-table-simple td:first-child {
+    width: 70%;
+}
+
+.services-table-simple td:last-child {
+    width: 30%;
+    text-align: right;
+}
+
+.services-note {
+    margin-top: 16px;
+    font-style: italic;
+}
+
+.small-text {
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.services-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+.services-policy p {
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+    .services-two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .services-table th,
+    .services-table td {
+        font-size: 0.95rem;
+        padding: 10px 8px;
+    }
+}
+
+/* ===== Footer ===== added by MR */
+.site-footer {
+    background-color: #123e8f;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+    margin-top: 40px;
+}
+
+.footer-content h2 {
+    margin-bottom: 10px;
+    font-family: Georgia, "Times New Roman", serif;
+    letter-spacing: 3px;
+}
+
+.footer-content p {
+    margin: 6px 0;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+.footer-social {
+    margin: 15px 0;
+}
+
+.footer-social a {
+    color: white;
+    margin: 0 8px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    opacity: 0.8;
+}
+
+.footer-copy {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    opacity: 0.9;
 }

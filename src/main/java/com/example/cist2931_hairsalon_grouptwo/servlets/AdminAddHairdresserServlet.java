@@ -101,7 +101,7 @@ public class AdminAddHairdresserServlet extends HttpServlet {
 
             adminService.addHairdresserAccount(userAccount, hairdresserProfile);
 
-            response.sendRedirect(request.getContextPath() + "/adminManageHairdressers");
+            response.sendRedirect(request.getContextPath() + "/adminManageHairdressers?success=hairdresserAdded");
 
         } catch (Exception e) {
             // return to manage page with error in query string

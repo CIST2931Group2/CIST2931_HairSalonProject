@@ -69,7 +69,7 @@ public class AdminManageHairdressersServlet extends HttpServlet {
         }
 
         try {
-            List<Hairdresser> hairdressers = adminService.getAllHairdressers();
+            List<Hairdresser> hairdressers = adminService.getActiveHairdressers();
 
             request.setAttribute("hairdressers", hairdressers);
 

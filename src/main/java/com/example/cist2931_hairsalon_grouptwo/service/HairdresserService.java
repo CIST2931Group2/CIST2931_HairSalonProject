@@ -81,6 +81,14 @@ public class HairdresserService {
     }
     // END LIST ALL HAIRDRESSERS
 
+    /* LIST ACTIVE HAIRDRESSERS
+     * Used by Admin weekly schedule page and booking flows.
+     * Returns only hairdressers whose linked User account is active.
+     */
+    public List<Hairdresser> listActiveHairdressers() {
+        return hairdresserDAO.listActiveHairdressers();
+    }
+
     /* GET HAIRDRESSER BY HAIRDRESSER_ID
      * - FR-H-02 View/Edit Hairdresser profile (view part)
      * - WF-H1 Hairdresser Dashboard (load profile info)

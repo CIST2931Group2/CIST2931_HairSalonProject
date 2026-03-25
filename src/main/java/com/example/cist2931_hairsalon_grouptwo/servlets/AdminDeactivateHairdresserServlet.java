@@ -45,6 +45,8 @@ public class AdminDeactivateHairdresserServlet extends HttpServlet {
          * Validate that hairdresserId parameter exists
          */
         String idStr = request.getParameter("hairdresserId");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
 
         if (idStr == null || idStr.isBlank()) {
             response.sendRedirect(request.getContextPath()
@@ -58,7 +60,10 @@ public class AdminDeactivateHairdresserServlet extends HttpServlet {
         // Delegate business logic to service layer
         adminService.deactivateHairdresser(hairdresserId);
 
-        // Redirect to refresh schedule page
-        response.sendRedirect(request.getContextPath() + "/adminSchedule");
+        // Redirect to refresh admin manage-hairdresser page (stay)
+        response.sendRedirect(request.getContextPath()
+                + "/adminManageHairdressers?success=deactivated"
+                + "&firstName=" + java.net.URLEncoder.encode(firstName, "UTF-8")
+                + "&lastName=" + java.net.URLEncoder.encode(lastName, "UTF-8"));
     }
 }

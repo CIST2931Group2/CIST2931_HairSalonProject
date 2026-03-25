@@ -29,24 +29,15 @@
     <title>Salon Appointment System - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Add icons for footer -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<header class="site-header">
-    <%@ include file="/includes/logo.jsp" %>
-    <span class="site-title">Salon Appointment System</span>
-</header>
-
+<jsp:include page="/includes/header.jsp" />
 <!-- Navigation -->
-<nav class="nav">
-    <a href="<%= request.getContextPath() %>/hairdresserDashboard">My Dashboard</a>
-    |
-    <a href="<%= request.getContextPath() %>/hairdresserCustomers">My Customers</a>
-    |
-    <a href="<%= request.getContextPath() %>/hairdresserProfile">My Profile</a>
-    |
-    <a href="<%= request.getContextPath() %>/logout">Logout</a>
-</nav>
+<jsp:include page="/includes/hairdresser-nav.jsp" />
 
 <main class = "flex-container">
     <h1 style="text-align: center;">HAIRDRESSER DASHBOARD</h1>
@@ -119,5 +110,8 @@
         </tbody>
     </table>
 </main>
+
+<jsp:include page="/includes/footer.jsp" />
+
 </body>
 </html>

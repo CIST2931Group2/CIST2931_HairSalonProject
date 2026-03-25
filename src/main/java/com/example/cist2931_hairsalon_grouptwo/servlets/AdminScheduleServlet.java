@@ -54,7 +54,7 @@ public class AdminScheduleServlet extends HttpServlet {
 
         
         // Always load hairdresser list for dropdown selection.
-        List<Hairdresser> hairdressers = hairdresserService.listAllHairdressers();
+        List<Hairdresser> hairdressers = hairdresserService.listActiveHairdressers();
 
         request.setAttribute("hairdressers", hairdressers);
 

@@ -55,6 +55,30 @@ public class HairdresserDAO {
         }
     }
 
+    public List<Hairdresser> listActiveHairdressers() {
+        List<Hairdresser> list = new ArrayList<>();
+
+        String sql =
+                "SELECT h.* " +
+                        "FROM [Hairdresser] h, [User] u " +
+                        "WHERE h.user_id = u.user_id " +
+                        "AND u.is_active = true";
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) {
+                list.add(mapRow(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
+    }
+
     public int createHairdresser(Hairdresser h) {
         String sql = "INSERT INTO [Hairdresser] (user_id, first_name, last_name, phone, specialties, bio) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
