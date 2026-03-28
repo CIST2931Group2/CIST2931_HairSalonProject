@@ -49,33 +49,29 @@
 
 <jsp:include page="/includes/admin-nav.jsp" />
 
-<main class = "flex-container">
-
-    <h1 style="text-align:center;">Admin - Manage Hairdressers</h1>
-
-    <br>
+<main>
+    <div class="dashboard-container" style="align-content: flex-start;">
+    <h2 style="text-align:center;">Admin - Manage Hairdressers</h2>
 
     <% if (error != null) { %>
     <p style="color:red;"><%= error %></p>
     <% } %>
 
     <% if ("hairdresserAdded".equals(success)) { %>
-    <p style="color:green; font-weight:bold;">
+    <p style="text-align: center; color:green; background:#e6ffe6; padding:10px; border-radius:5px;">
         Hairdresser added successfully.
     </p>
     <% } else if ("deactivated".equals(success)) { %>
-    <p style="color:green; font-weight:bold;">
+    <p style="text-align: center; color:green; background:#e6ffe6; padding:10px; border-radius:5px;">
         Hairdresser <%= firstName %> <%= lastName %> was deactivated.
 
     <% } %>
 
-    <hr>
-    <br>
-
+    <div class="dashboard-card appointments-card">
     <!-- Add new hairdresser form -->
-    <h2 style="text-align:center;">Add New Hairdresser</h2>
-
-    <form class="form-container" method="post" action="<%= request.getContextPath() %>/adminAddHairdresser">
+    <h3 style="text-align:center;">Add New Hairdresser</h3>
+        <!-- removed class="form-container" -->
+    <form method="post" action="<%= request.getContextPath() %>/adminAddHairdresser">
 
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required>
@@ -102,11 +98,11 @@
 
     </form>
 
-    <hr>
-    <br>
+    </div>
 
+    <div class="dashboard-card appointments-card">
     <!-- List of all current hairdressers with deactivate button -->
-    <h2 style="text-align:center;">Current Hairdressers</h2>
+    <h3 style="text-align:center;">Current Hairdressers</h3>
 
     <% if (hairdressers == null || hairdressers.isEmpty()) { %>
 
@@ -144,7 +140,8 @@
     </table>
 
     <% } %>
-
+    </div>
+</div>
 </main>
 
 <jsp:include page="/includes/footer.jsp" />

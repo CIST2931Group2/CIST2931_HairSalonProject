@@ -13,22 +13,13 @@
     <title>Salon Appointment System - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Add icons for footer -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<header class="site-header">
-    <div class="header-container">
-    <div class="header-left">
-    <a href="<%= request.getContextPath() %>/index.jsp">
-        <img src="<%= request.getContextPath() %>/images/CIST2931_HairSalonLogo.png"
-            alt="Hair Salon Logo" class="header-logo">
-    </a>
-    </div> <!-- .header-left -->
-    <div class="header-center">
-        <span class="site-title">Salon Appointment System</span>
-    </div> <!-- .header-center -->
-    </div> <!-- .header-container -->
-</header>
+<jsp:include page="/includes/home-header.jsp" />
 
 <main class="login-page">
     <section class="hero">
@@ -104,6 +95,8 @@
         </div>
     </section>
 </main>
+
+<jsp:include page="/includes/footer.jsp" />
 
 </body>
 </html>

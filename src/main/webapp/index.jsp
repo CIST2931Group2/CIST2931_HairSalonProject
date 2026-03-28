@@ -19,12 +19,7 @@
 </head>
 <body>
 
-<header class="site-header">
-    <div class="header-left">
-        <%@ include file="/includes/logo.jsp" %>
-    </div>
-        <span class="site-title">ChattTech HAIR SALON</span>
-</header>
+<jsp:include page="/includes/home-header.jsp" />
 
 <main class = "flex-container">
     <section class="hero" style="background-image: url('images/BW_hair style.png');">

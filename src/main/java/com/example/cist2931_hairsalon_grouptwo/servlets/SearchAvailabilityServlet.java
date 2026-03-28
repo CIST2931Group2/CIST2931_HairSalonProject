@@ -75,7 +75,7 @@ public class SearchAvailabilityServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            List<Hairdresser> hairdressers = hairdresserService.listAllHairdressers();
+            List<Hairdresser> hairdressers = hairdresserService.listActiveHairdressers();
             request.setAttribute("hairdressers", hairdressers);
 
             request.getRequestDispatcher("/customer/book-appointments.jsp")
@@ -101,7 +101,7 @@ public class SearchAvailabilityServlet extends HttpServlet {
 
         try {
             // Load dropdown data again so page can be re-rendered after search
-            List<Hairdresser> hairdressers = hairdresserService.listAllHairdressers();
+            List<Hairdresser> hairdressers = hairdresserService.listActiveHairdressers();
             request.setAttribute("hairdressers", hairdressers);
 
             // Read form inputs

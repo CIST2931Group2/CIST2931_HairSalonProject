@@ -14,7 +14,7 @@
         <a href="<%= request.getContextPath() %>/adminManageHairdressers" class = "btn btn-small">Dashboard</a>
 
         <!-- Create Weekly schedules and blocks (link to JSP page that will submit to servlet) -->
-        <a href="<%= request.getContextPath() %>/adminSchedule" class = "btn btn-small">Manage Weekly Schedules</a>
+        <a href="<%= request.getContextPath() %>/adminSchedule" class = "btn btn-small">Weekly Schedules</a>
 
         <!-- Help -->
         <a href="<%= request.getContextPath() %>/admin-help.jsp" class = "btn btn-small">HELP</a>

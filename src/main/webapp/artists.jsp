@@ -18,10 +18,7 @@
 </head>
 <body>
 
-<header class="site-header">
-  <%@ include file="/includes/logo.jsp" %>
-  <span class="site-title">ChattTech HAIR SALON</span>
-</header>
+<jsp:include page="/includes/home-header.jsp" />
 
 <main class="artists-page">
 

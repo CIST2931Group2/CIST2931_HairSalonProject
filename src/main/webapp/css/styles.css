@@ -31,9 +31,14 @@ header.site-header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    font-family: 'Segoe UI', sans-serif;
-    border-bottom: 2px solid #002060;
+    font-family: 'Segoe UI', sans-serif; /* Georgia, "Times New Roman", serif;*/
+    /* border-bottom: 2px solid #002060;*/
     transition: background 0.3s ease, transform 0.3s ease;
+    display: flex; /*added MR*/
+    align-items: center; /*added MR*/
+    justify-content: flex-start; /*added MR*/
+    gap: 50px; /*added MR*/
+    flex-wrap: wrap; /* responsive wrap on small screens */ /*added MR*/
 }
 
 /* Container layout */
@@ -58,12 +63,14 @@ header.site-header {
 }
 
 .header-logo {
-    max-height: 80px;
+    max-height: 150px; /* increase size was 80px*/
     width: auto;
-    border-radius: 8px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
-    vertical-align: middle;
+    /* border-radius: 8px; */
+    /* box-shadow: 0 3px 8px rgba(0,0,0,0.2); */
+    /* transition: transform 0.3s ease; */
+    /* vertical-align: middle; */
+    display: block; /*added MR*/
+    margin: 0; /*added MR*/
 }
 
 .header-logo:hover {
@@ -143,9 +150,9 @@ header.site-header {
 }
 
 .logout-btn:hover {
-    background-color: #FF4C4C;
+    background-color: #AA8C00;
     color: #ffffff;
-    border-color: #FF4C4C;
+    border-color: #AA8C00;
 }
 
 /* Responsive adjustments */
@@ -239,10 +246,11 @@ header.site-header {
 /* added MR ICON CONTAINER */
 .hero-icons {
     position: absolute;
-    top: 30px;
+    /* top: 30px; */
+    bottom: 80px;
     left: 30px;
     display: flex;
-    gap: 40px;
+    gap: 20px;
 }
 
 /* EACH ICON */
@@ -252,7 +260,7 @@ header.site-header {
     color: #AA8C00; /* gold tone */
     font-weight: bold;
     font-size: 22px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Segoe UI', sans-serif; /* Georgia, "Times New Roman", serif; */
     transition: transform 0.3s ease;
 }
 
@@ -270,16 +278,16 @@ header.site-header {
 
 /* added MR for index.jsp header */
 .logo-container img {
-    height: 150px;     /* increase size */
+    height: 120px;     /* increase size */
     width: auto;
-    display: inline-block;
+    display: flex; /*inline-block*/
     vertical-align: middle;
     margin: 0;
 }
 
 .site-title {
     /* margin-left: 300px; */
-    font-size: 56px;
+    font-size: 36px;
     font-weight: bold;
     color: white;
     letter-spacing: 12px;
@@ -296,7 +304,7 @@ header.site-header {
     font-size: 3rem;
     margin-bottom: 15px;
     color: #AA8C00;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Segoe UI', sans-serif; /* Georgia, "Times New Roman", serif; */
 }
 
 .welcome-text {
@@ -314,7 +322,7 @@ header.site-header {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #357ABD;       /* Default color (blue) */
+    background-color: #3D95CE;       /* Default color (blue) 357ABD */
     color: white;
     font-weight: bold;
     text-decoration: none;
@@ -328,7 +336,7 @@ header.site-header {
 
 /* Hover / active states */
 .btn:hover {
-    background-color: #ff6f61;       /* Hover accent color */
+    background-color: #AA8C00;       /* Hover accent color */
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
@@ -377,7 +385,7 @@ header.site-header {
     border-radius: 10px;
     padding: 1.8rem 1.5rem;
     /* flex: 1 1 300px;       /* grow/shrink, min width 300px */
-    min-width: 250px;       /* don't shrink too small */
+    min-width: 270px;       /* don't shrink too small */
     max-width: 400px;       /* optional upper limit */
 
     text-align: center;
@@ -500,7 +508,7 @@ header.site-header {
 .login-container h2 {
     text-align: center;
     margin-bottom: 2rem;      /* more space above inputs for balance */
-    color: #333;
+    color: #AA8C00; /* color: #333; */
 }
 
 /* Form elements spacing */
@@ -547,7 +555,7 @@ header.site-header {
 .business-hours-container h2{
     text-align: center;
     margin-bottom: 1rem;
-    color: #333;
+    color: #AA8C00; /* #333 */
 }
 
 /***** Form elements *****/
@@ -572,6 +580,7 @@ label {
     /* margin-bottom: 0.5rem; */
     display: block;
     padding: 0.3rem 0;
+    text-align: left;
 }
 
 input, select, textarea {
@@ -639,10 +648,12 @@ button:hover {
 .nav-left {
     display: flex;
     gap: 1rem;
+    padding: 1rem;
 }
 
 .nav-right {
     margin-left: auto;
+    padding: 1rem;
 }
 
 /** STYLES FOR TABLE ELEMENTS **/
@@ -930,7 +941,7 @@ th {
 .artists-hero-overlay h1 {
     font-size: 2.5rem;
     margin-bottom: 15px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Segoe UI', sans-serif; /*Georgia, "Times New Roman", serif; */
 }
 
 .artists-hero-overlay p {
@@ -972,7 +983,7 @@ th {
 .artist-info h2 {
     margin-bottom: 10px;
     color: #123e8f;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Segoe UI', sans-serif; /* Georgia, "Times New Roman", serif; */
 }
 
 .artist-info p {
@@ -1026,7 +1037,7 @@ th {
 .services-hero-overlay h1 {
     font-size: 2.4rem;
     margin-bottom: 12px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Segoe UI', sans-serif; /*Georgia, "Times New Roman", serif;*/
 }
 
 .services-section {
@@ -1045,7 +1056,7 @@ th {
 .services-card h2 {
     margin-bottom: 18px;
     color: #123e8f;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Segoe UI', sans-serif; /* Georgia, "Times New Roman", serif; */
 }
 
 .services-table {
@@ -1125,7 +1136,7 @@ th {
 
 .footer-content h2 {
     margin-bottom: 10px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Segoe UI', sans-serif; /*Georgia, "Times New Roman", serif; */
     letter-spacing: 3px;
 }
 
@@ -1194,7 +1205,7 @@ th {
 .help-hero-overlay h1 {
     font-size: 2.4rem;
     margin-bottom: 12px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Segoe UI', sans-serif; /*Georgia, "Times New Roman", serif;*/
 }
 
 .help-hero-overlay p {
@@ -1219,7 +1230,7 @@ th {
 .help-card h2 {
     margin-bottom: 14px;
     color: #123e8f;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Segoe UI', sans-serif;  /* Georgia, "Times New Roman", serif; */
 }
 
 .help-card h3 {
