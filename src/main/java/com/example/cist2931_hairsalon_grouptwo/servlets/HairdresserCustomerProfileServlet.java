@@ -17,7 +17,7 @@ package com.example.cist2931_hairsalon_grouptwo.servlets;
  */
 
 import com.example.cist2931_hairsalon_grouptwo.dao.*;
-import com.example.cist2931_hairsalon_grouptwo.model.Appointment;
+import com.example.cist2931_hairsalon_grouptwo.dto.CustomerAppointmentView;
 import com.example.cist2931_hairsalon_grouptwo.model.Customer;
 import com.example.cist2931_hairsalon_grouptwo.model.User;
 import com.example.cist2931_hairsalon_grouptwo.service.AppointmentService;
@@ -102,8 +102,8 @@ public class HairdresserCustomerProfileServlet extends HttpServlet {
             String customerEmail = (customerUser != null) ? customerUser.getEmail() : "";
 
             // Load appointment history
-            List<Appointment> appointments =
-                    appointmentService.getCustomerAppointments(customerId);
+            List<CustomerAppointmentView> appointments =
+                    appointmentService.getCustomerAppointmentsDashboard(customer.getCustomerId());
 
             // Send data to JSP
             request.setAttribute("customer", customer);

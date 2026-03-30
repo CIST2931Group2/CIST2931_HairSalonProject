@@ -54,7 +54,7 @@
     <h2 style="text-align:center;">Admin - Manage Hairdressers</h2>
 
     <% if (error != null) { %>
-    <p style="color:red;"><%= error %></p>
+    <p style="text-align: center; color:red;background:#FFE6E6; padding:10px; border-radius:5px;"><%= error %></p>
     <% } %>
 
     <% if ("hairdresserAdded".equals(success)) { %>

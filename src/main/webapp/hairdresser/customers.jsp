@@ -30,15 +30,16 @@
 <!-- Navigation -->
 <jsp:include page="/includes/hairdresser-nav.jsp" />
 
-<main class = "flex-container">
-  <h1 style="text-align:center;">My Customers</h1>
+<main>
+  <div class="dashboard-container" style="align-content: flex-start;">
+  <h2 style="text-align:center;">My Customers</h2>
 
   <!-- Error message -->
   <%
     String error = (String) request.getAttribute("error");
     if (error != null) {
   %>
-  <p style="color:red;"><%= error %></p>
+  <p style="text-align: center; color:red;background:#FFE6E6; padding:10px; border-radius:5px;"><%= error %></p>
   <%
     }
   %>
@@ -86,6 +87,7 @@
 
   <% } %>
 
+  </div>
 </main>
 
 <jsp:include page="/includes/footer.jsp" />

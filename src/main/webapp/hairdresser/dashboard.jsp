@@ -35,15 +35,19 @@
 </head>
 <body>
 
-<jsp:include page="/includes/header.jsp" />
+<header class="site-header">
+    <%@ include file="/includes/logo.jsp" %>
+    <span class="site-title">Salon Appointment System</span>
+</header>
 <!-- Navigation -->
 <jsp:include page="/includes/hairdresser-nav.jsp" />
 
-<main class = "flex-container">
-    <h1 style="text-align: center;">HAIRDRESSER DASHBOARD</h1>
+<main>
+    <div class="dashboard-container" style="align-content: flex-start;">
+    <h2 style="text-align: center;">HAIRDRESSER DASHBOARD</h2>
 
     <% if (error != null) { %>
-    <p style="color:red;"><%= error %></p>
+    <p style="text-align: center; color:red;background:#FFE6E6; padding:10px; border-radius:5px;"><%= error %></p>
     <% } %>
 
     <% if (hairdresser != null) { %>
@@ -52,12 +56,8 @@
     </h3>
     <% } %>
 
-    <hr>
-    <br>
-
-    <h1 style="text-align: center;">Daily Appointments</h1>
-
-    <br>
+    <div class="dashboard-card appointments-card">
+    <h3 style="text-align: center;">Daily Appointments</h3>
 
     <form class="form-date" method="get" action="<%= request.getContextPath() %>/hairdresserDashboard">
         <label for="date">Select Date:</label>
@@ -67,8 +67,6 @@
                value="<%= selectedDate != null ? selectedDate.toString() : "" %>">
         <button type="submit">View</button>
     </form>
-
-    <br>
 
     <table class="appointments-table">
         <thead>
@@ -109,6 +107,8 @@
         %>
         </tbody>
     </table>
+    </div>
+    </div>
 </main>
 
 <jsp:include page="/includes/footer.jsp" />

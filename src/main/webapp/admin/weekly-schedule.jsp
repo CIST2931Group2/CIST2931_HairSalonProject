@@ -56,11 +56,11 @@
     <h2 style="text-align:center;">Admin - Manage Weekly Schedule and Blocks</h2>
 
     <% if (error != null) { %>
-    <p style="color:red;"><%= error %></p>
+    <p style="text-align: center; color:red;background:#FFE6E6; padding:10px; border-radius:5px;"><%= error %></p>
     <% } %>
 
     <% if (success != null) { %>
-    <p style="color:green;"><%= success %></p>
+    <p style="text-align: center; color:green; background:#e6ffe6; padding:10px; border-radius:5px;"><%= success %></p>
     <% } %>
 
         <div class="dashboard-cards">
