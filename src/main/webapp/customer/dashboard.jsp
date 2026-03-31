@@ -14,7 +14,7 @@
 <%@ page import="com.example.cist2931_hairsalon_grouptwo.dto.CustomerAppointmentView" %>
 
 <%
-    Customer customer = (Customer) session.getAttribute("customer");
+    Customer customer = (Customer) request.getAttribute("customer");
     List<CustomerAppointmentView> appointments = (List<CustomerAppointmentView>) request.getAttribute("appointments");
 %>
 

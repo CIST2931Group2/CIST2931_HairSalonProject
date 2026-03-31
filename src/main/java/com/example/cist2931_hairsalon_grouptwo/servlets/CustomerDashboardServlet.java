@@ -67,6 +67,8 @@ public class CustomerDashboardServlet extends HttpServlet {
         // ----- Convert userId → Customer -----
         Customer customer = customerService.getCustomerByUserId(userId);
 
+        request.setAttribute("customer", customer);
+
         // ----- Retrieve customer appointments -----
         // V2 - updated to include DTO CustomerAppointmentView
         List<CustomerAppointmentView> appointments =
