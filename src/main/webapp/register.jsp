@@ -15,8 +15,10 @@
 </head>
 <body>
 
-<jsp:include page="/includes/header.jsp" />
-<!-- removed customer nav -->
+<header class="site-header">
+  <%@ include file="/includes/logo.jsp" %>
+  <span class="site-title">Salon Appointment System</span>
+</header>
 
 <%
   String success = request.getParameter("success");
