@@ -34,6 +34,18 @@ header.site-header {
     font-family: 'Segoe UI', sans-serif;
     border-bottom: 2px solid #002060;
     transition: background 0.3s ease, transform 0.3s ease;
+
+    display: flex;               /* horizontal layout */
+    align-items: center;         /* vertically center logo and text */
+    justify-content: flex-start; /* left-align content */
+    gap: 20px;                   /* space between logo and title */
+    padding: 1rem 2rem;
+}
+
+.site-header img {
+    max-height: 100px;            /* keep logo size reasonable */
+    width: auto;
+    display: block;
 }
 
 /* Container layout */
@@ -160,38 +172,6 @@ header.site-header {
     background-color: #FF4C4C;
     color: #ffffff;
     border-color: #FF4C4C;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .header-container {
-        text-align: center;
-    }
-    .header-left,
-    .header-right {
-        display: block;
-        float: none;
-        margin: 0.5rem auto;
-    }
-    .header-right {
-        width: auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .header-logo {
-        max-height: 60px;
-    }
-    .header-text h1 {
-        font-size: 1.5rem;
-    }
-    .header-text .tagline {
-        font-size: 0.85rem;
-    }
-    .btn-header {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-    }
 }
 
 /***** STYLES FOR INDEX.JSP *****/
@@ -369,8 +349,10 @@ header.site-header {
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     text-align: center;
+
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2rem;
 }
 
@@ -388,12 +370,13 @@ header.site-header {
 
 /* Individual cards */
 .dashboard-card {
+    width: 100%;
+    max-width: 500px;
     background-color: #f4f6f8;
     border-radius: 10px;
     padding: 1.8rem 1.5rem;
     /* flex: 1 1 300px;       /* grow/shrink, min width 300px */
     min-width: 250px;       /* don't shrink too small */
-    max-width: 400px;       /* optional upper limit */
 
     text-align: center;
     display: flex;
@@ -1177,4 +1160,155 @@ th {
     margin-top: 12px;
     font-size: 0.85rem;
     opacity: 0.9;
+}
+
+/* *************MEDIA QUERIES***************** */
+
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+    /* Header adjustments */
+    .header-container {
+        text-align: center;
+    }
+    .header-left,
+    .header-right {
+        display: block;
+        float: none;
+        margin: 0.5rem auto;
+    }
+    .header-right {
+        width: auto;
+    }
+    header.site-header {
+        padding: 0.8rem 1.5rem;
+        gap: 15px;
+    }
+    .site-title {
+        font-size: 48px;
+        letter-spacing: 8px;
+    }
+    .site-header img {
+        max-height: 70px;
+    }
+
+    /* Dashboard adjustments */
+    .dashboard-container {
+        padding: 2rem;
+    }
+
+    .dashboard-cards {
+        flex-direction: column;      /* stack columns vertically */
+        gap: 25px;
+        align-items: center;
+    }
+
+    .dashboard-buttons-column,
+    .dashboard-appointments-column {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
+/* Medium tablets / small desktops */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1.5rem;
+    }
+
+    .dashboard-cards {
+        flex-direction: column;  /* stack all cards vertically */
+        gap: 20px;
+        align-items: center;
+    }
+
+    .dashboard-buttons-column,
+    .dashboard-appointments-column {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .dashboard-card {
+        width: 100%;
+        padding: 1.2rem 1rem;
+    }
+
+    .btn-dashboard {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+    header.site-header {
+        flex-direction: column;   /* stack logo above title */
+        align-items: center;      /* center content */
+        text-align: center;
+        gap: 10px;
+        padding: 0.8rem 1rem;
+    }
+    .site-title {
+        font-size: 36px;
+        letter-spacing: 6px;
+    }
+    .site-header img {
+        max-height: 60px;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+    .header-logo {
+        max-height: 60px;
+    }
+    .header-text h1 {
+        font-size: 1.5rem;
+    }
+    .header-text .tagline {
+        font-size: 0.85rem;
+    }
+    .btn-header {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .dashboard-cards {
+        gap: 15px;
+    }
+
+    .dashboard-card {
+        padding: 1rem;
+    }
+
+    .dashboard-card h2,
+    .dashboard-card h3 {
+        font-size: 1.4rem;
+    }
+
+    .dashboard-card label {
+        font-size: 0.95rem;
+    }
+
+    .dashboard-card input {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .btn-dashboard {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    .appointments-table th,
+    .appointments-table td {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.5rem;
+    }
+    header.site-header {
+        padding: 0.5rem 1rem;
+        gap: 8px;
+    }
+    .site-title {
+        font-size: 24px;
+        letter-spacing: 2px;
+    }
+    .site-header img {
+        max-height: 50px;
+    }
 }

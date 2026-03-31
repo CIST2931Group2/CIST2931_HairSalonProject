@@ -27,7 +27,11 @@
 </head>
 <body>
 
-<jsp:include page="/includes/header.jsp" />
+<header class="site-header">
+    <%@ include file="/includes/logo.jsp" %>
+    <span class="site-title">Salon Appointment System</span>
+</header>
+<!-- Navigation -->
 <jsp:include page="/includes/customer-nav.jsp" />
 
 <main>

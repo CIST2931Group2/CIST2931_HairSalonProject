@@ -14,7 +14,7 @@
 <%@ page import="com.example.cist2931_hairsalon_grouptwo.dto.CustomerAppointmentView" %>
 
 <%
-    Customer customer = (Customer) session.getAttribute("customer");
+    Customer customer = (Customer) request.getAttribute("customer");
     List<CustomerAppointmentView> appointments = (List<CustomerAppointmentView>) request.getAttribute("appointments");
 %>
 
@@ -27,7 +27,11 @@
 </head>
 <body>
 
-<jsp:include page="/includes/header.jsp" />
+<header class="site-header">
+    <%@ include file="/includes/logo.jsp" %>
+    <span class="site-title">Salon Appointment System</span>
+</header>
+<!-- Navigation -->
 <jsp:include page="/includes/customer-nav.jsp" />
 
 <main>
