@@ -8,8 +8,27 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <nav class="nav">
-  <a href="/hairdresser/dashboard.jsp">Dashboard</a>
-  <a href="/hairdresser/schedule.jsp">My Schedule</a>
-  <a href="/index.jsp">Logout</a>
+  <!-- LEFT SIDE -->
+  <div class="nav-left">
+    <!-- Dashboard -->
+    <a href="<%= request.getContextPath() %>/hairdresserDashboard" class = "btn btn-small">Dashboard</a>
+
+    <!-- Display all hairdresser's customers -->
+    <a href="<%= request.getContextPath() %>/hairdresserCustomers" class = "btn btn-small">Customers</a>
+
+    <!-- Update profile -->
+    <a href="<%= request.getContextPath() %>/hairdresserProfile" class = "btn btn-small">Profile</a>
+
+    <!-- Help -->
+    <a href="<%= request.getContextPath() %>/hairdresser-help.jsp" class = "btn btn-small">HELP</a>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="nav-right">
+    <!-- Logout -->
+    <form action="<%= request.getContextPath() %>/logout" method="post">
+      <button type="submit" class="btn btn-small">Logout</button>
+    </form>
+  </div>
 </nav>
 

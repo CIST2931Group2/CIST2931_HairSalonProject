@@ -105,8 +105,10 @@ public class RegisterCustomerServlet extends HttpServlet {
 
 
              // Redirect to the Customer Dashboard.
+             //updating for success message - previous code commented out would route directly to dashboard with no message
             response.sendRedirect(
-                    request.getContextPath() + "/customerDashboard"
+                    request.getContextPath() + "/register.jsp?success=accountCreated"
+                    //request.getContextPath() + "/customerDashboard"
             );
 
         } catch (Exception e) {

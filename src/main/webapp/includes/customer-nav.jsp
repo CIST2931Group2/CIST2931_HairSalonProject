@@ -17,6 +17,9 @@
   <!-- Profile -->
   <a href="<%= request.getContextPath() %>/customerProfile" class = "btn btn-small">Profile</a>
 
+  <!-- Help //we will want to update this with a servlet -->
+  <a href="<%= request.getContextPath() %>/customer-help.jsp" class="btn btn-small">Help</a>
+
   <!-- Logout -->
   <form action="<%= request.getContextPath() %>/logout" method="post">
     <button type="submit" class="btn btn-small">Logout</button>

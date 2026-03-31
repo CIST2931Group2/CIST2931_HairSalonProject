@@ -54,7 +54,7 @@
             <!-- Profile Settings Card -->
             <div class="dashboard-card">
                 <h3>Profile Settings</h3>
-                <p>Update your personal info, password, and preferences.</p>
+                <p>Update your personal info.</p>
                 <a href="<%= request.getContextPath() %>/customerProfile" class="btn-dashboard">Edit Profile</a>
             </div>
 
@@ -130,6 +130,8 @@
         </div> <!-- .dashboard-cards -->
     </div> <!-- .dashboard-container -->
 </main>
+
+<jsp:include page="/includes/footer.jsp" />
 
 </body>
 </html>

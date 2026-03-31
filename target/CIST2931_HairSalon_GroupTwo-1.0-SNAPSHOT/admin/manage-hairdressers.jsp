@@ -23,6 +23,10 @@
     if (success == null) {
         success = request.getParameter("success");
     }
+
+    // added for deactivation
+    String firstName = request.getParameter("firstName");
+    String lastName = request.getParameter("lastName");
 %>
 
 <!DOCTYPE html>
@@ -32,6 +36,9 @@
     <title>Manage Hairdressers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Add icons for footer -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -40,35 +47,31 @@
     <span class="site-title">Salon Appointment System</span>
 </header>
 
-<nav class="nav">
-    <a href="<%= request.getContextPath() %>/adminManageHairdressers">My Dashboard</a>
-    |
-    <a href="<%= request.getContextPath() %>/adminSchedule">Manage Weekly Schedules</a>
-    |
-    <a href="<%= request.getContextPath() %>/logout">Logout</a>
-</nav>
+<jsp:include page="/includes/admin-nav.jsp" />
 
-<main class = "flex-container">
-
-    <h1 style="text-align:center;">Admin - Manage Hairdressers</h1>
-
-    <br>
+<main>
+    <div class="dashboard-container" style="align-content: flex-start;">
+    <h2 style="text-align:center;">Admin - Manage Hairdressers</h2>
 
     <% if (error != null) { %>
-    <p style="color:red;"><%= error %></p>
+    <p style="text-align: center; color:red;background:#FFE6E6; padding:10px; border-radius:5px;"><%= error %></p>
     <% } %>
 
-    <% if (success != null) { %>
-    <p style="color:green;"><%= success %></p>
+    <% if ("hairdresserAdded".equals(success)) { %>
+    <p style="text-align: center; color:green; background:#e6ffe6; padding:10px; border-radius:5px;">
+        Hairdresser added successfully.
+    </p>
+    <% } else if ("deactivated".equals(success)) { %>
+    <p style="text-align: center; color:green; background:#e6ffe6; padding:10px; border-radius:5px;">
+        Hairdresser <%= firstName %> <%= lastName %> was deactivated.
+
     <% } %>
 
-    <hr>
-    <br>
-
+    <div class="dashboard-card appointments-card">
     <!-- Add new hairdresser form -->
-    <h2 style="text-align:center;">Add New Hairdresser</h2>
-
-    <form class="form-container" method="post" action="<%= request.getContextPath() %>/adminAddHairdresser">
+    <h3 style="text-align:center;">Add New Hairdresser</h3>
+        <!-- removed class="form-container" -->
+    <form method="post" action="<%= request.getContextPath() %>/adminAddHairdresser">
 
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required>
@@ -95,11 +98,11 @@
 
     </form>
 
-    <hr>
-    <br>
+    </div>
 
+    <div class="dashboard-card appointments-card">
     <!-- List of all current hairdressers with deactivate button -->
-    <h2 style="text-align:center;">Current Hairdressers</h2>
+    <h3 style="text-align:center;">Current Hairdressers</h3>
 
     <% if (hairdressers == null || hairdressers.isEmpty()) { %>
 
@@ -127,6 +130,8 @@
             <td>
                 <form method="post" action="<%= request.getContextPath() %>/adminDeactivateHairdresser" style="margin:0;">
                     <input type="hidden" name="hairdresserId" value="<%= h.getHairdresserId() %>">
+                    <input type="hidden" name="firstName" value="<%= h.getFirstName() %>">
+                    <input type="hidden" name="lastName" value="<%= h.getLastName() %>">
                     <button type="submit">Deactivate</button>
                 </form>
             </td>
@@ -135,7 +140,11 @@
     </table>
 
     <% } %>
-
+    </div>
+</div>
 </main>
+
+<jsp:include page="/includes/footer.jsp" />
+
 </body>
 </html>

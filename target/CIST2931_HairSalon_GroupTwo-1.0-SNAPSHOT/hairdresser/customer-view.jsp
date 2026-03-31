@@ -7,15 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.cist2931_hairsalon_grouptwo.model.Customer" %>
-<%@ page import="com.example.cist2931_hairsalon_grouptwo.model.Appointment" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="com.example.cist2931_hairsalon_grouptwo.dto.CustomerAppointmentView" %>
 
 <%
   Customer customer = (Customer) request.getAttribute("customer");
   String customerEmail = (String) request.getAttribute("customerEmail");
-  List<Appointment> appointments =
-          (List<Appointment>) request.getAttribute("appointments");
+  List<CustomerAppointmentView> appointments =
+          (List<CustomerAppointmentView>) request.getAttribute("appointments");
 
   String error = (String) request.getAttribute("error");
 
@@ -26,8 +26,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Customer View</title>
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Add icons for footer -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -37,86 +41,89 @@
 </header>
 
 <!-- Navigation -->
-<nav class="nav">
-  <a href="<%= request.getContextPath() %>/hairdresserDashboard">My Dashboard</a>
-  |
-  <a href="<%= request.getContextPath() %>/hairdresserCustomers">My Customers</a>
-  |
-  <a href="<%= request.getContextPath() %>/hairdresserProfile">My Profile</a>
-  |
-  <a href="<%= request.getContextPath() %>/logout">Logout</a>
-</nav>
+<jsp:include page="/includes/hairdresser-nav.jsp" />
 
-<main class = "flex-container">
+<main>
+  <div class="dashboard-container" style="align-content: flex-start;">
+    <h2 style="text-align:center;">Customer View</h2>
+    <!-- Customer Profile Table -->
+    <div class="dashboard-card appointments-card">
+    <h3 style="text-align:center;">Customer Profile</h3>
 
-  <h2 style="text-align:center;">Customer Profile</h2>
+      <% if (error != null) { %>
+      <p style="text-align: center; color:red;background:#FFE6E6; padding:10px; border-radius:5px;"><%= error %></p>
+      <% } %>
 
-  <% if (error != null) { %>
-  <p style="color:red;"><%= error %></p>
-  <% } %>
+      <% if (customer != null) { %>
 
-  <% if (customer != null) { %>
+        <table>
+          <tr>
+            <td><strong>First Name:</strong></td>
+            <td><%= customer.getFirstName() %></td>
+          </tr>
+          <tr>
+            <td><strong>Last Name:</strong></td>
+            <td><%= customer.getLastName() %></td>
+          </tr>
+          <tr>
+            <td><strong>Phone:</strong></td>
+            <td><%= customer.getPhone() %></td>
+          </tr>
+          <tr>
+            <td><strong>Email:</strong></td>
+            <td><%= customerEmail != null ? customerEmail : "" %></td>
+          </tr>
+        </table>
+    </div>
 
-  <table>
-    <tr>
-      <td><strong>First Name:</strong></td>
-      <td><%= customer.getFirstName() %></td>
-    </tr>
-    <tr>
-      <td><strong>Last Name:</strong></td>
-      <td><%= customer.getLastName() %></td>
-    </tr>
-    <tr>
-      <td><strong>Phone:</strong></td>
-      <td><%= customer.getPhone() %></td>
-    </tr>
-    <tr>
-      <td><strong>Email:</strong></td>
-      <td><%= customerEmail != null ? customerEmail : "" %></td>
-    </tr>
-  </table>
-
-  <br>
-  <br>
-
-  <h2 style="text-align:center;">Appointment History</h2>
-
-  <%
-    if (appointments != null && !appointments.isEmpty()) {
-  %>
-  <table class="appointments-table">
-    <tr>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Service</th>
-      <th>Status</th>
-    </tr>
+    <!-- All Customer Appointments Table (past + future) -->
+    <div class="dashboard-card appointments-card">
+    <h3 style="text-align:center;">Appointment History</h3>
 
     <%
-      for (Appointment appt : appointments) {
+      if (appointments != null && !appointments.isEmpty()) {
     %>
-    <tr>
-      <td><%= appt.getStartDateTime().format(dateFmt) %></td>
-      <td><%= appt.getStartDateTime().format(timeFmt) %></td>
-      <td><%= appt.getServiceType() %></td>
-      <td><%= appt.getStatus() %></td>
-    </tr>
-    <%
-      }
-    %>
-  </table>
-  <%
-  } else {
-  %>
-  <p>No appointments found for this customer.</p>
-  <%
-    }
-  %>
+      <table class="appointments-table">
+        <tr>
+          <th>Appointment ID</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Hairdresser Name</th>
+          <th>Service Type</th>
+          <th>Status</th>
+        </tr>
 
-  <% } %>
+        <%
+          for (CustomerAppointmentView a : appointments) {
+        %>
+        <tr>
+          <td><%= a.getAppointmentId() %></td>
+          <td><%= a.getStartDateTime().format(dateFmt) %></td>
+          <td><%= a.getStartDateTime().format(timeFmt) %> - <%= a.getEndDateTime().format(timeFmt) %></td>
+          <td><%= a.getHairdresserFirstName() %> <%= a.getHairdresserLastName() %></td>
+          <td><%= a.getServiceType() %></td>
+          <td><%= a.getStatus() %></td>
+        </tr>
+        <%
+          }
+        %>
+      </table>
+      <%
+        } else {
+      %>
+      <p>No appointments found for this customer.</p>
+      <%
+        }
+      %>
 
-  <br>
+      <% } %>
+    </div>
+
+  </div>
 
 </main>
+
+<jsp:include page="/includes/footer.jsp" />
+
 </body>
 </html>
