@@ -20,6 +20,9 @@
   <span class="site-title">Salon Appointment System</span>
 </header>
 
+<!-- ✅ Add navigation like dashboard -->
+<jsp:include page="/includes/customer-nav.jsp" />
+
 <%
   String success = request.getParameter("success");
   if ("accountCreated".equals(success)) {
@@ -40,51 +43,89 @@
   <p style="color: green; font-weight: bold;">
     Account created successfully! 🎉
   </p>
-  <button onclick="window.location.href='<%= request.getContextPath() %>/customerDashboard'"
-          style="padding: 10px 20px; font-size: 1rem; cursor: pointer;">
-    Go to Dashboard
-  </button>
+
+  <!-- ✅ improved: give choice instead of forcing redirect -->
+  <div style="margin-top: 10px;">
+    <button onclick="document.getElementById('successPopup').style.display='none'"
+            class="btn-dashboard">
+      Stay Here
+    </button>
+
+    <button onclick="window.location.href='<%= request.getContextPath() %>/customerDashboard'"
+            class="btn-dashboard">
+      Go to Dashboard
+    </button>
+  </div>
 </div>
 
 <script>
   setTimeout(() => {
     const popup = document.getElementById("successPopup");
     if (popup) popup.style.display = "none";
-  }, 5000); // auto-hide after 5 seconds
+  }, 5000);
+
+  // ✅ clean URL after showing message
+  if (window.location.search.includes("success=accountCreated")) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
 </script>
 <% } %>
 
-<div class="form-container">
-  <h2>Register New Account</h2>
+<main>
+  <div class="dashboard-container">
+    <div class="dashboard-card">
 
-  <% String error = (String) request.getAttribute("error"); %>
-  <% if (error != null) { %>
-  <p style="color:red;"><%= error %></p>
-  <% } %>
+      <h2>Register New Account</h2>
 
-  <form action="<%= request.getContextPath() %>/registerCustomer" method="post">
-    <label for="firstName">First Name:</label>
-    <input type="text" name="firstName" id="firstName" required>
+      <% String error = (String) request.getAttribute("error"); %>
+      <% if (error != null) { %>
+      <p style="color:red;"><%= error %></p>
+      <% } %>
 
-    <label for="lastName">Last Name:</label>
-    <input type="text" name="lastName" id="lastName" required>
+      <form action="<%= request.getContextPath() %>/registerCustomer" method="post">
 
-    <!-- added field for phone number -->
-    <label for="phone">Phone Number:</label>
-    <input type="text" name="phone" id="phone" required>
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" name="firstName" id="firstName" required>
+        </div>
 
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" required>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" name="lastName" id="lastName" required>
+        </div>
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="text" name="phone" id="phone" required>
+        </div>
 
-    <button type="submit">Register</button>
-    <!-- added return to dashboard button -->
-    <a href="<%= request.getContextPath()%>/customerDashboard" class="btn-secondary">Return to Dashboard</a>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email" required>
+        </div>
 
-  </form>
-</div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" name="password" id="password" required>
+        </div>
+
+        <!-- ✅ Buttons styled like dashboard -->
+        <div style="margin-top: 15px;">
+          <button type="submit" class="btn-dashboard">Register</button>
+
+          <a href="<%= request.getContextPath()%>/customerDashboard"
+             class="btn-dashboard"
+             style="margin-left: 10px; text-decoration: none;">
+            Return to Dashboard
+          </a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</main>
+
+<jsp:include page="/includes/footer.jsp" />
 
 </body>
 </html>

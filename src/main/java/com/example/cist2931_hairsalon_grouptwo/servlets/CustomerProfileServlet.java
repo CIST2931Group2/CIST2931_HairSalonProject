@@ -75,6 +75,8 @@ public class CustomerProfileServlet extends HttpServlet {
         customerService.updateCustomerProfile(customer);
 
         // Redirect to dashboard after update
-        response.sendRedirect(request.getContextPath() + "/customerDashboard");
+        //response.sendRedirect(request.getContextPath() + "/customerDashboard");
+        //updating for success message
+        response.sendRedirect(request.getContextPath() + "/customerProfile?success=profileUpdated");
     }
 }

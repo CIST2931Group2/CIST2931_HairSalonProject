@@ -35,6 +35,53 @@
 <!-- Navigation -->
 <jsp:include page="/includes/customer-nav.jsp" />
 
+<%
+    String success = request.getParameter("success");
+    if ("profileUpdated".equals(success)) {
+%>
+<div id="successPopup" style="
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e6ffe6;
+    border: 1px solid green;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+">
+    <p style="color: green; font-weight: bold;">
+        Profile Updated Successfully! 🎉
+    </p>
+    <div style="margin-top: 10px;">
+        <button onclick="document.getElementById('successPopup').style.display='none'"
+                style="padding: 10px 20px; margin-right: 10px; cursor: pointer;">
+            Stay Here
+        </button>
+
+        <button onclick="window.location.href='<%= request.getContextPath() %>/customerDashboard'"
+                style="padding: 10px 20px; cursor: pointer;">
+            Go to Dashboard
+        </button>
+    </div>
+</div>
+
+<script>
+    setTimeout(() => {
+        const popup = document.getElementById("successPopup");
+        if (popup) popup.style.display = "none";
+    }, 5000); // auto-hide after 5 seconds
+</script>
+
+<script>
+    if (window.location.search.includes("success=profileUpdated")) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
+<% } %>
+
 <main>
     <div class="dashboard-container">
         <div class="dashboard-card">
