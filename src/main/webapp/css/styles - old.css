@@ -19,101 +19,159 @@ main {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 2rem;
 }
 
-/***** HEADER *****/
+/* ===== SITE HEADER ===== */
+header.site-header {
+    width: 100%;
+    background: linear-gradient(90deg, #00328C, #0050D4);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Segoe UI', sans-serif;
+    border-bottom: 2px solid #002060;
+    transition: background 0.3s ease, transform 0.3s ease;
 
-/* Header container layout */
-header.site-header .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap; /* allows wrapping on small screens */
-    padding: 20px 50px;
-    background-color: #4a90e2;
-    color: #fff;
+    display: flex;               /* horizontal layout */
+    align-items: center;         /* vertically center logo and text */
+    justify-content: flex-start; /* left-align content */
+    gap: 20px;                   /* space between logo and title */
+    padding: 1rem 2rem;
 }
 
-/* Logo styling */
-header.site-header .header-logo {
+.site-header img {
+    max-height: 100px;            /* keep logo size reasonable */
+    width: auto;
+    display: block;
+}
+
+/* Container layout */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: none;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    /* use pseudo-flex with inline-block */
+    white-space: nowrap;
+}
+
+/* Left: logo + title */
+.header-left {
+    /* display: inline-block; */
+    display: flex;
+    align-items: flex-start;
+    vertical-align: middle;
+    white-space: none; /* allow title under logo if needed */
+}
+
+.header-logo {
     max-height: 80px;
     width: auto;
-}
-
-/* Header text */
-header.site-header .header-text h1 {
-    font-size: 1.8rem;
-    margin: 0;
-}
-
-header.site-header .header-text .tagline {
-    font-size: 1rem;
-    margin-top: 0.2rem;
-    color: #e0e0e0;
-}
-
-/* Navigation links */
-header.site-header .main-nav {
-    display: flex;
-    gap: 25px;
-}
-
-header.site-header .main-nav a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-header.site-header .main-nav a:hover {
-    color: #ff6f61;
-}
-
-/* Header container fallback */
-header .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px; /* space between logo and text */
-    flex-wrap: wrap; /* responsive wrap on small screens */
-}
-
-header.site-header {
-    background-color: #4a90e2;
-    color: white;
-    padding: 1.5rem 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    gap: 25px;
-}
-
-/* Styles for logo inside header */
-header.site-header img {
-    max-height: 100px;
-    width: auto;
-    display: inline-block;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
     vertical-align: middle;
 }
 
-header .header-text h1 {
-    font-size: 1.8rem;
-    margin: 0;
-    font-weight: bold;
-    letter-spacing: 1px;
+.header-logo:hover {
+    transform: scale(1.05);
 }
 
-header .header-text .tagline {
-    font-size: 1rem;
-    font-weight: 400;
+.header-text {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 1rem;
+}
+
+.header-text h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 20px;
+}
+
+.header-text .tagline {
+    font-size: 0.95rem;
     color: #e0e0e0;
     margin-top: 0.2rem;
+}
+
+.header-center {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+/* Right: buttons container */
+.header-right {
+    display: inline-block;
+    float: right;
+    vertical-align: middle;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.header-right:hover {
+    transform: translateY(-2px);
+}
+/* styles for Return Home button- a element */
+.btn-secondary {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #ccc;
+    color: black;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-left: 10px;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+/* Buttons styling */
+.btn-header {
+    display: inline-block;
+    padding: 1.0rem 1.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #00328C;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition:  background 0.2s ease, transform 0.1s ease;
+    margin-left: 0.5rem;
+}
+
+.btn-header:hover {
+    background-color: #e0e0e0;
+    color: #001F5B;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+}
+
+.logout-btn:hover {
+    background-color: #FF4C4C;
+    color: #ffffff;
+    border-color: #FF4C4C;
 }
 
 /***** STYLES FOR INDEX.JSP *****/
@@ -133,13 +191,15 @@ header .header-text .tagline {
 }
 
 /* Hero Section */
-.hero {
+.hero { /* updated MR */
     /* background-image: url('../images/salon-hero.jpg'); */
     background-size: cover;
     background-position: center;
+    width: 100%; /* MR added*/
+    background-repeat: no-repeat; /* MR when added image */
     height: 80vh; /* Tall hero section */
     display: flex;
-    justify-content: center;
+    justify-content: flex-end; /* was center */
     align-items: center;
     position: relative;
     color: #fff;
@@ -151,6 +211,11 @@ header .header-text .tagline {
     padding: 50px 30px;
     border-radius: 15px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    /* MR when added Welcome and icons */
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .hero h2 {
@@ -165,9 +230,84 @@ header .header-text .tagline {
     line-height: 1.5;
 }
 
+/* added MR ICON CONTAINER */
+.hero-icons {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    gap: 40px;
+}
+
+/* EACH ICON */
+.hero-icon {
+    text-align: center;
+    text-decoration: none;
+    color: #AA8C00; /* gold tone */
+    font-weight: bold;
+    font-size: 22px;
+    font-family: Georgia, "Times New Roman", serif;
+    transition: transform 0.3s ease;
+}
+
+.hero-icon img {
+    width: 120px;
+    height: auto;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* HOVER EFFECT */
+.hero-icon:hover {
+    transform: scale(1.1);
+}
+
+/* added MR for index.jsp header */
+.logo-container img {
+    height: 150px;     /* increase size */
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.site-title {
+    /* margin-left: 300px; */
+    font-size: 56px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 12px;
+}
+
+/* added MR Welcome Section */
+.welcome-section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f4f6f8;
+}
+
+.welcome-section h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #AA8C00;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.welcome-text {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+
 /* ===== Unified Button Styles ===== */
 .btn {
-    display: inline-block;
+    /*display: inline-block;*/
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: #357ABD;       /* Default color (blue) */
     color: white;
     font-weight: bold;
@@ -182,7 +322,7 @@ header .header-text .tagline {
 
 /* Hover / active states */
 .btn:hover {
-    background-color: #ff6f61;       /* Hover accent color */
+    background-color: #AA8C00;       /* Hover accent color- updated to gold */
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
@@ -200,32 +340,75 @@ header .header-text .tagline {
 
 /* Dashboard container */
 .dashboard-container {
-    max-width: 1000px;
+    /* changed max-width from 1000px to make the size adaptable */
+    width: 100%;
+    max-width: 1400px;
     margin: 2rem auto;
-    padding: 2rem;
+    padding: 2rem 3rem;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
 /* Cards container */
 .dashboard-cards {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 2rem;
+    gap: 40px;
+    flex-wrap: nowrap;
+    margin: 2rem auto;
+    max-width: 1200px;
+    /* align-items: flex-start; */
+    align-items: center;
     justify-content: center;
 }
 
 /* Individual cards */
 .dashboard-card {
+    width: 100%;
+    max-width: 500px;
     background-color: #f4f6f8;
     border-radius: 10px;
-    padding: 1.5rem;
-    width: 250px;
+    padding: 1.8rem 1.5rem;
+    /* flex: 1 1 300px;       /* grow/shrink, min width 300px */
+    min-width: 250px;       /* don't shrink too small */
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.dashboard-buttons-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 0 0 320px;
+}
+
+.dashboard-appointments-column {
+    display: flex;
+    flex-direction: column;
+    flex: 2 1 800px;
+    max-width: 1100px;
+}
+
+.dashboard-card.appointments-card {
+    width: 100%;
+    max-width: none;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-x: auto;
 }
 
 .dashboard-card:hover {
@@ -247,6 +430,20 @@ header .header-text .tagline {
     margin-bottom: 1rem;
 }
 
+.dashboard-card table {
+    width: 100%;
+}
+
+.dashboard-card.appointments-card {
+    padding: 2rem;
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.appointments-table tr:nth-child(even) {
+    background-color: #f7f9fc;
+}
+
 /* Dashboard buttons */
 .btn-dashboard {
     display: inline-block;
@@ -255,13 +452,32 @@ header .header-text .tagline {
     padding: 0.9rem 1rem;
     border-radius: 6px;
     font-weight: bold;
+    text-align: center;
     text-decoration: none;
     transition: all 0.3s ease;
+    width: auto;
 }
 
 .btn-dashboard:hover {
     background-color: #357ABD;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Styles for Customer Dashboard Appointment Table*/
+
+.appointments-table th,
+.appointments-table td {
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.appointments-table th {
+    background-color: #4a90e2;
+    color: white;
+    position: sticky;
+    top: 0;
 }
 
 /* ===== Adjusted Login Container ===== */
@@ -275,6 +491,7 @@ header .header-text .tagline {
     display: flex;
     flex-direction: column;
     gap: 1.8rem;             /* slightly larger gap between inputs and buttons */
+    top: 50%; /* MR added for icons and Welcome */
 }
 
 /* Centering form headings */
@@ -317,28 +534,45 @@ header .header-text .tagline {
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     width: 100%;
-    max-width: 400px; /* dashboards can override if needed */
+    /* max-width: 80%; /* dashboards can override if needed */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
 .login-container h2,
-.dashboard-container h2 {
+.dashboard-container h2,
+.business-hours-container h2{
     text-align: center;
     margin-bottom: 1rem;
     color: #333;
 }
 
 /***** Form elements *****/
+.form-container { /*added MR */
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-date { /*added MR */
+    width: 15%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    /*gap: 12px;*/
+}
+
 label {
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
     display: block;
     padding: 0.3rem 0;
 }
 
-input {
+input, select, textarea {
     padding: 0.7rem;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -358,6 +592,13 @@ button {
     transition: background 0.3s ease;
 }
 
+button.btn {
+    padding: 0.6rem 0.8rem;   /* match .btn-small */
+    font-size: 0.95rem;
+    line-height: 1.2;
+    font-family: inherit;
+}
+
 button:hover {
     background-color: #357ABD;
 }
@@ -371,6 +612,8 @@ button:hover {
 /** STYLES FOR NAVBAR **/
 .nav {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
     background-color: #4a90e2;
     padding: 1rem;
@@ -386,11 +629,26 @@ button:hover {
     text-decoration: underline;
 }
 
+.nav form {
+    display: flex;
+    margin-left: auto;
+}
+
+.nav-left {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-right {
+    margin-left: auto;
+}
+
 /** STYLES FOR TABLE ELEMENTS **/
 table {
-    width: 100%;
+    width: 60%;            /* MR updated */
     border-collapse: collapse;
-    margin-bottom: 1.5rem;
+    margin: 20px auto;  /*  MR centers it */
+    /* margin-bottom: 1.5rem; */
 }
 
 th, td {
@@ -402,6 +660,85 @@ th, td {
 th {
     background-color: #4a90e2;
     color: white;
+}
+
+/*----- HAIRDRESSER TABLES CLASSES-- added by MR */
+
+/* index.jsp, dashboard.jsp*/
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    flex: 0;
+    justify-content: center; /* index.jsp place Welcome in the center*/
+    align-items: center; /* index.jsp place Welcome in the center*/
+}
+
+.appointments-table {
+    border-collapse: collapse;
+    width: 60%;
+}
+
+.appointments-table th,
+.appointments-table td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    text-align: left;
+}
+
+.appointments-table th {
+    background-color: #4a90e2;
+}
+
+/* customers.jsp */
+.customers-table {
+    border-collapse: collapse;
+    width: 60%;
+}
+
+.customers-table th,
+.customers-table td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    text-align: left;
+}
+
+.customers-table th {
+    background-color: #4a90e2;
+    color: white;
+}
+
+/*----- ADMIN TABLES CLASSES-------- added by MR*/
+/*manage-hairdressers.jsp*/
+.hairdressers-table {
+    border-collapse: collapse;
+    width: 60%;
+    margin: 20px auto;  /* centers it */
+}
+
+.hairdressers-table th,
+.hairdressers-table td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    text-align: left;
+}
+
+.hairdressers-table th {
+    background-color: #4a90e2;
+    color: white;
+}
+
+/* weekly-schedule */
+.schedule-blocks-table {
+    border-collapse: collapse;
+    width: 60%;         /* narrower table */
+    margin: 20px auto;  /* centers it */
+}
+
+.schedule-blocks-table th,
+.schedule-blocks-table td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
 }
 
 /***** Responsive adjustments *****/
@@ -442,5 +779,536 @@ th {
 
     button {
         font-size: 1rem;
+    }
+}
+
+/* ===== LOGIN PAGE LAYOUT FIXES ===== added by MR */
+
+.login-page {
+    display: block;
+    padding: 0;
+}
+
+.login-page label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: bold;
+}
+
+.login-page .hero {
+    min-height: calc(100vh - 120px);
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    background: #e9ecef;
+}
+
+.login-page p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.login-page .hero-overlay {
+    background-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    border-radius: 16px;
+    padding: 35px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.login-page .login-page-layout {
+    display: grid;
+    grid-template-columns: 420px 380px;
+    gap: 40px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.login-page .login-container {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+}
+
+.login-page .business-hours-container {
+    width: 100%;
+    height: 100%;
+    background: #f3f3f3;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.login-page .hours-table {
+    width: 100% !important;
+    margin: 100px 0 0 0 !important;
+    border-collapse: collapse;
+}
+
+.login-page .hours-table td {
+    border: none !important;
+    padding: 8px 0 !important;
+    text-align: left !important;
+    color: #555;
+}
+
+.login-page .hours-table td:first-child {
+    width: 45%;
+    padding-right: 20px !important;
+    font-weight: bold;
+}
+
+/* mobile */
+@media (max-width: 900px) {
+    .login-page .login-page-layout {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+}
+
+/* media query for customer dashboard cards */
+@media (max-width: 900px) {
+
+    .dashboard-cards {
+        flex-direction: column;   /* stack vertically */
+        flex-wrap: wrap;          /* allow wrapping again */
+        align-items: center;
+    }
+
+    .dashboard-buttons-column {
+        align-items: center;   /* ✅ center the cards horizontally */
+        width: 100%;
+    }
+
+    .dashboard-appointments-column {
+        width: 100%;
+    }
+
+    .dashboard-card {
+        width: 100%;
+        max-width: 500px; /* keeps them from getting too wide */
+    }
+}
+
+
+/* ===== ARTISTS page ===== added by MR */
+.artists-page {
+    padding: 40px 20px 60px 20px;
+    background: #f4f6f8;
+    display: flex;
+    flex-direction: column;
+    flex: 0;
+    justify-content: center; /* artists.jsp place back button in the center*/
+    align-items: center; /* artists.jsp place back button  in the center*/
+}
+
+.artists-hero {
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("../images/BW_hair style.png") center/cover no-repeat;
+    min-height: 260px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 40px auto;
+}
+
+.artists-hero-overlay {
+    text-align: center;
+    color: white;
+    padding: 30px;
+}
+
+.artists-hero-overlay h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.artists-hero-overlay p {
+    font-size: 1.1rem;
+    max-width: 700px;
+}
+
+.artists-section {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.container-width {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.artist-card {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.artist-card img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.artist-info h2 {
+    margin-bottom: 10px;
+    color: #123e8f;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.artist-info p {
+    line-height: 1.6;
+    color: #333;
+}
+
+.artists-back-link {
+    text-align: center;
+    margin-top: 35px;
+}
+
+@media (max-width: 768px) {
+    .artist-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .artist-card img {
+        width: 220px;
+        height: 220px;
+    }
+}
+
+/* ===== SERVICES page ===== added by MR */
+.services-page {
+    padding: 40px 20px 60px 20px;
+    background: #f4f6f8;
+    display: flex;
+    flex-direction: column;
+    flex: 0;
+}
+
+.services-hero {
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("../images/BW_hair style.png") center/cover no-repeat;
+    min-height: 220px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.services-hero-overlay {
+    text-align: center;
+    color: white;
+    padding: 30px;
+}
+
+.services-hero-overlay h1 {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.services-section {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.services-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.services-card h2 {
+    margin-bottom: 18px;
+    color: #123e8f;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.services-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.services-table th,
+.services-table td {
+    border: 1px solid #d9d9d9;
+    padding: 12px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.services-table th {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.services-table td:last-child,
+.services-table th:last-child {
+    text-align: center;
+}
+
+.services-table-simple td:first-child {
+    width: 70%;
+}
+
+.services-table-simple td:last-child {
+    width: 30%;
+    text-align: right;
+}
+
+.services-note {
+    margin-top: 16px;
+    font-style: italic;
+}
+
+.small-text {
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.services-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+.services-policy p {
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+    .services-two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .services-table th,
+    .services-table td {
+        font-size: 0.95rem;
+        padding: 10px 8px;
+    }
+}
+
+/* ===== Footer ===== added by MR */
+.site-footer {
+    background-color: #123e8f;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+    margin-top: 40px;
+}
+
+.footer-content h2 {
+    margin-bottom: 10px;
+    font-family: Georgia, "Times New Roman", serif;
+    letter-spacing: 3px;
+}
+
+.footer-content p {
+    margin: 6px 0;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+.footer-social {
+    margin: 15px 0;
+}
+
+.footer-social a {
+    color: white;
+    margin: 0 8px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    opacity: 0.8;
+}
+
+.footer-copy {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+/* *************MEDIA QUERIES***************** */
+
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+    /* Header adjustments */
+    .header-container {
+        text-align: center;
+    }
+    .header-left,
+    .header-right {
+        display: block;
+        float: none;
+        margin: 0.5rem auto;
+    }
+    .header-right {
+        width: auto;
+    }
+    header.site-header {
+        padding: 0.8rem 1.5rem;
+        gap: 15px;
+    }
+    .site-title {
+        font-size: 48px;
+        letter-spacing: 8px;
+    }
+    .site-header img {
+        max-height: 70px;
+    }
+
+    /* Dashboard adjustments */
+    .dashboard-container {
+        padding: 2rem;
+    }
+
+    .dashboard-cards {
+        flex-direction: column;      /* stack columns vertically */
+        gap: 25px;
+        align-items: center;
+    }
+
+    .dashboard-buttons-column,
+    .dashboard-appointments-column {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
+/* Medium tablets / small desktops */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1.5rem;
+    }
+
+    .dashboard-cards {
+        flex-direction: column;  /* stack all cards vertically */
+        gap: 20px;
+        align-items: center;
+    }
+
+    .dashboard-buttons-column,
+    .dashboard-appointments-column {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .dashboard-card {
+        width: 100%;
+        padding: 1.2rem 1rem;
+    }
+
+    .btn-dashboard {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+    header.site-header {
+        flex-direction: column;   /* stack logo above title */
+        align-items: center;      /* center content */
+        text-align: center;
+        gap: 10px;
+        padding: 0.8rem 1rem;
+    }
+    .site-title {
+        font-size: 36px;
+        letter-spacing: 6px;
+    }
+    .site-header img {
+        max-height: 60px;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+    .header-logo {
+        max-height: 60px;
+    }
+    .header-text h1 {
+        font-size: 1.5rem;
+    }
+    .header-text .tagline {
+        font-size: 0.85rem;
+    }
+    .btn-header {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .dashboard-cards {
+        gap: 15px;
+    }
+
+    .dashboard-card {
+        padding: 1rem;
+    }
+
+    .dashboard-card h2,
+    .dashboard-card h3 {
+        font-size: 1.4rem;
+    }
+
+    .dashboard-card label {
+        font-size: 0.95rem;
+    }
+
+    .dashboard-card input {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .btn-dashboard {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    .appointments-table th,
+    .appointments-table td {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.5rem;
+    }
+    header.site-header {
+        padding: 0.5rem 1rem;
+        gap: 8px;
+    }
+    .site-title {
+        font-size: 24px;
+        letter-spacing: 2px;
+    }
+    .site-header img {
+        max-height: 50px;
     }
 }
