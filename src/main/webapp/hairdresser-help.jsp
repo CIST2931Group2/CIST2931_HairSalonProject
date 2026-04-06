@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <title>Hairdresser Help</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- Add icons for footer -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -21,68 +19,86 @@
 
 <main class="help-page">
 
-    <section class="help-hero container-width">
-        <div class="help-hero-overlay">
-            <h1>Hairdresser Help</h1>
-            <p>
-                This page explains how hairdressers can view their schedules
-                and manage daily appointments.
-            </p>
-        </div>
-    </section>
+<section class="help-hero container-width">
+    <div class="help-hero-overlay">
+        <h1>Hairdresser Help</h1>
+        <p>Learn how to manage your appointments and view customer details.</p>
+    </div>
+</section>
 
-    <section class="help-section container-width">
+<section class="help-section container-width">
 
-        <div class="help-card">
-            <h2>Hairdresser Responsibilities</h2>
-            <ul>
-                <li>View daily appointment schedules</li>
-                <li>Check assigned customers</li>
-                <li>Track working hours based on schedule blocks</li>
-            </ul>
-        </div>
+    <div class="help-card">
+        <h2>Hairdresser Features</h2>
+        <ul>
+            <li>View daily appointments</li>
+            <li>View assigned customers</li>
+            <li>View customer profiles and appointment history</li>
+            <li>Update your profile information</li>
+        </ul>
+    </div>
 
-        <div class="help-card">
-            <h2>View Daily Schedule</h2>
-            <ol>
-                <li>Go to the <strong>Dashboard</strong>.</li>
-                <li>Your appointments for the selected day will display.</li>
-                <li>If available, select a different date to view appointments.</li>
-            </ol>
-        </div>
+    <div class="help-card">
+        <h2>View Daily Appointments</h2>
+        <ol>
+            <li>Open the <strong>Dashboard</strong>.</li>
+            <li>Select a date using the date picker.</li>
+            <li>Click <strong>View</strong>.</li>
+            <li>Your appointments for that day will display in the table.</li>
+        </ol>
+    </div>
 
-        <div class="help-card">
-            <h2>Understanding Your Schedule</h2>
-            <ul>
-                <li><strong>Date:</strong> The day of the appointment.</li>
-                <li><strong>Time:</strong> Start and end time of each appointment.</li>
-                <li><strong>Customer:</strong> The client assigned to the appointment.</li>
-            </ul>
-        </div>
+    <div class="help-card">
+        <h2>View Customer Details</h2>
+        <ol>
+            <li>From the Dashboard, locate an appointment.</li>
+            <li>Click on the <strong>customer name</strong>.</li>
+            <li>You will be taken to the <strong>Customer View</strong> page.</li>
+            <li>View the customer’s profile and full appointment history.</li>
+        </ol>
+    </div>
 
-        <div class="help-card">
-            <h2>Common Errors</h2>
-            <ul>
-                <li><strong>No appointments showing:</strong> There may be no bookings for that day.</li>
-                <li><strong>Invalid date:</strong> Ensure correct date format when filtering.</li>
-                <li><strong>Inactive account:</strong> Contact admin if you cannot access schedule.</li>
-            </ul>
-        </div>
+    <div class="help-card">
+        <h2>View My Customers</h2>
+        <ol>
+            <li>Navigate to <strong>My Customers</strong>.</li>
+            <li>View all customers assigned to you.</li>
+            <li>Click <strong>View Profile</strong> to see detailed information.</li>
+        </ol>
+    </div>
 
-        <div class="help-card">
-            <h2>Navigation Tips</h2>
-            <ul>
-                <li>Use <strong>Dashboard</strong> to view appointments.</li>
-                <li>Check different dates to plan your schedule.</li>
-                <li>Logout after completing your session.</li>
-            </ul>
-        </div>
+    <div class="help-card">
+        <h2>Update Your Profile</h2>
+        <ol>
+            <li>Go to <strong>My Profile</strong>.</li>
+            <li>Edit your information (name, phone, specialties, bio).</li>
+            <li>Click <strong>Save Profile</strong>.</li>
+        </ol>
+    </div>
 
-        <div class="help-back-link">
-            <a href="<%= request.getContextPath() %>/hairdresserDashboard" class="btn">Back to Dashboard</a>
-        </div>
+    <div class="help-card">
+        <h2>Common Issues</h2>
+        <ul>
+            <li><strong>No appointments showing:</strong> There may be no bookings for the selected date.</li>
+            <li><strong>Incorrect date:</strong> Make sure a valid date is selected.</li>
+        </ul>
+    </div>
 
-    </section>
+    <div class="help-card">
+        <h2>Navigation Tips</h2>
+        <ul>
+            <li><strong>Dashboard:</strong> View daily appointments</li>
+            <li><strong>My Customers:</strong> View assigned customers</li>
+            <li><strong>My Profile:</strong> Update your information</li>
+            <li><strong>Logout:</strong> End your session</li>
+        </ul>
+    </div>
+
+    <div class="help-back-link">
+        <a href="<%= request.getContextPath() %>/hairdresserDashboard" class="btn">Back to Dashboard</a>
+    </div>
+
+</section>
 </main>
 
 <jsp:include page="/includes/footer.jsp" />
